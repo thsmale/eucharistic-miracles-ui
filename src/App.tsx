@@ -67,9 +67,9 @@ function App() {
               aria-describedby='eucharistic-miracles-list'
               columns={[
                 {
-                    property: 'country',
-                    header: <Text>Country</Text>,
-                    primary: true,
+                  property: 'country',
+                  header: <Text>Country</Text>,
+                  primary: true,
                 }
               ]}
               verticalAlign={{ body : 'top' }}
