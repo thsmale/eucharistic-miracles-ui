@@ -1,8 +1,10 @@
+import { Box, Text } from 'grommet';
+
 function App() {
   return (
-    <>
-      <p>hello world</p>
-    </>
+    <Box>
+      <Text>Hello world!</Text>
+    </Box>
   )
 }
 
