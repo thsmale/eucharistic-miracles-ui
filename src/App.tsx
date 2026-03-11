@@ -14,7 +14,7 @@ import {
 } from 'grommet';
 import {
   AppsRounded,
-  List as ListIcon,
+  Map,
   Table,
 } from 'grommet-icons';
 import { CardView } from './CardView';
@@ -27,9 +27,9 @@ const toggleOptions = [
     tip: 'Table',
   },
   {
-    icon: <ListIcon a11yTitle='List view' />,
-    value: 'list',
-    tip: 'List',
+    icon: <Map a11yTitle='Map view' />,
+    value: 'map',
+    tip: 'Map',
   },
   {
     icon: <AppsRounded a11yTitle='Card view' />,
@@ -69,10 +69,18 @@ function App() {
                 {
                   property: 'country',
                   header: <Text>Country</Text>,
-                  primary: true,
+                },
+                {
+                  property: 'city',
+                  header: <Text>City</Text>,
+                },
+                {
+                  property: 'year',
+                  header: <Text>Year</Text>,
                 }
               ]}
               verticalAlign={{ body : 'top' }}
+              primaryKey={false}
             />
           )}
           { value === 'card' && <CardView /> }
