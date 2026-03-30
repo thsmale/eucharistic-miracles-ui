@@ -11,8 +11,9 @@ export const AppHeader = () => {
       fill='horizontal'
       pad={{ horizontal: 'medium', vertical: 'medium' }}
       border={{ side: 'bottom' }}
+      background='background-back'
     >
-      <Button>
+      <Button href='/'>
         <Box
           direction='row'
           align='start'
