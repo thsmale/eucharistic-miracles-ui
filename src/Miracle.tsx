@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 import {
   Box,
   Heading,
@@ -8,16 +8,18 @@ import {
   PageHeader,
   Paragraph,
 } from 'grommet';
+import parse from 'html-react-parser';
 
 export const Miracle = () => {
   const { country, city } = useParams();
+  const location = useLocation();
   const [miracle, setMiracle] = useState(null);
 
   useEffect(() => {
-    console.log(`fetch content for country: ${country} and city ${city}`)
+    console.log(`fetch content for country: ${country} and city ${city} at ${location?.state?.path}`)
     const fetchData = async () => {
       try {
-        const response = await fetch('/austria/Fiecht.json');
+        const response = await fetch(`/${location.state.path}`);
         const result = await response.json();
         console.log(result);
         setMiracle(result);
@@ -26,7 +28,7 @@ export const Miracle = () => {
       }
     }
     fetchData();
-  }, [country, city])
+  }, [country, city, location])
 
 
   if (miracle === null) {
@@ -48,7 +50,9 @@ export const Miracle = () => {
         </Box>
         <Box>
           <Heading margin='none' level={3}>Overview</Heading>
-          <Paragraph margin='none' fill={true}>{miracle?.overview}</Paragraph>
+          <Paragraph margin='none' fill={true}>
+            {parse(miracle?.overview)}
+          </Paragraph>
         </Box>
         <Box>
           <Heading margin='none' level={3}>Images</Heading>

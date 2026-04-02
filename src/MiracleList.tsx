@@ -100,9 +100,9 @@ export const MiracleList = () => {
                   onClickRow={({ datum }) => {
                     console.log(datum);
                     console.log('click')
-                    navigate(`${datum.country}/${datum.city}`)
+                    navigate(`${datum.country}/${datum.city}`, { state: { path: datum.path }})
                   }}
-                  primaryKey={false}
+                  primaryKey={'path'}
                   sortable={true}
                   verticalAlign={{ body : 'top' }}
                 />
