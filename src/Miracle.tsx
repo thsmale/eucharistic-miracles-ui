@@ -3,10 +3,12 @@ import { useParams, useLocation } from 'react-router';
 import {
   Box,
   Heading,
+  Image,
   Page,
   PageContent,
   PageHeader,
   Paragraph,
+  Text,
 } from 'grommet';
 import parse from 'html-react-parser';
 
@@ -54,10 +56,19 @@ export const Miracle = () => {
             {parse(miracle?.overview)}
           </Paragraph>
         </Box>
-        <Box>
-          <Heading margin='none' level={3}>Images</Heading>
-          <Paragraph margin='none'>{miracle?.images.map(img => img.caption).join(', ')}</Paragraph>
-        </Box>
+        {miracle?.images.length > 0 && (
+          <Box>
+            <Heading margin='none' level={3}>Images</Heading>
+            <Box gap='small'>
+              {miracle.images.map(img => (
+                <Box>
+                  <Image fit="contain" src={`/images/${img.path}`} />
+                  <Text size="small">{img.caption}</Text>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </PageContent>
     </Page>
   )
