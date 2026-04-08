@@ -68,8 +68,8 @@ export const MiracleList = () => {
               }}
             >
               <Toolbar>
-                <DataSearch />
-                <DataTableGroupBy options={['country']} />
+                <DataSearch placeholder="Search miracles" />
+                {/*<DataTableGroupBy options={['country']} />*/}
                 <DataFilters layer />
                 <ToggleGroup
                   onToggle={e => {
