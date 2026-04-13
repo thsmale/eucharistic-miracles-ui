@@ -103,10 +103,6 @@ const Card = ({ country, city, year, path, }) => {
         <Box flex={false} align="start">
           <Button
             label='View details'
-            onClick={(event) => {
-              event?.stopPropagation();
-              navigate(`${country}/${city}`, { state: { path: path }})
-            }}
             secondary
           />
         </Box>
