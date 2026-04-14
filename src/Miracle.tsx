@@ -21,7 +21,7 @@ export const Miracle = () => {
     console.log(`fetch content for country: ${country} and city ${city} at ${location?.state?.path}`)
     const fetchData = async () => {
       try {
-        const response = await fetch(`/${location.state.path}`);
+        const response = await fetch(`/json/${location.state.path}`);
         const result = await response.json();
         console.log(result);
         setMiracle(result);
@@ -63,7 +63,7 @@ export const Miracle = () => {
               {miracle.images.map(img => (
                 <Box>
                   <Image fit="contain" src={`/images/${img.path}`} />
-                  <Text size="small">{img.caption}</Text>
+                  <Text size="small">{parse(img.caption)}</Text>
                 </Box>
               ))}
             </Box>

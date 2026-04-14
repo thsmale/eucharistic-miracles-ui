@@ -44,6 +44,24 @@ const toggleOptions = [
   },
 ]
 
+const colorMap = {
+  "blood": "#FF9999",        // Light Coral
+  "theft": "#8E9AAF",        // Overcast Blue (Dark/shadowy vibe, but safe for black text)
+  "doubt": "#D3D3D3",        // Light Gray
+  "face": "#FFE4C4",         // Bisque
+  "light": "#FFFACD",        // Lemon Chiffon
+  "fire": "#FFB347",         // Pastel Vivid Orange
+  "preservation": "#C2C5A8", // Muted Green-Grey
+  "animals": "#D2B48C",      // Tan
+  "science": "#98FB98",      // Pale Green
+  "levitation": "#CCEEFF",   // Airy Blue
+  "weight": "#A9A9A9",       // Dark Gray
+  "sorcery": "#E6E6FA",      // Lavender
+  "flesh": "#FFDAB9",        // Peach Puff
+  "tissue": "#FFF0F5",       // Lavender Blush
+  "flood": "#ADD8E6"         // Light Blue
+}
+
 export const MiracleList = () => {
   const [value, setValue] = useState('table');
   const navigate = useNavigate();
@@ -95,6 +113,32 @@ export const MiracleList = () => {
                     {
                       property: 'year',
                       header: <Text>Year</Text>,
+                    },
+                    {
+                      property: 'categories',
+                      header: <Text>Categories</Text>,
+                      render: datum => {
+                        if (datum.categories.length > 0) {
+                          return (
+                            <Box direction="row" gap="xsmall">
+                              {datum.categories.map(category => (
+                                <Box
+                                  background={colorMap[category]}
+                                  round='medium'
+                                  align='center'
+                                  width='xsmall'
+                                >
+                                  {category}
+                                </Box>
+                              ))}
+                            </Box>
+                          );
+
+                        }
+                        return (
+                          <Box>--</Box>
+                        )
+                      }
                     }
                   ]}
                   onClickRow={({ datum }) => {
