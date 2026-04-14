@@ -3,6 +3,7 @@ import {
   Box,
   Data,
   DataFilters,
+  DataFilter,
   DataSearch,
   DataSummary,
   DataTable,
@@ -82,13 +83,22 @@ export const MiracleList = () => {
             <Data
               data={miracles}
               properties={{
-                country: { label: 'Country' }
+                country: { label: 'Country' },
+                categories: { label: 'Category' }
               }}
             >
               <Toolbar>
                 <DataSearch placeholder="Search miracles" />
                 {/*<DataTableGroupBy options={['country']} />*/}
-                <DataFilters layer />
+                <DataFilters layer={true}>
+                  <DataFilter
+                    property="country"
+                  />
+                  <DataFilter
+                    options={Object.getOwnPropertyNames(colorMap)}
+                    property="categories"
+                  />
+                </DataFilters>
                 <ToggleGroup
                   onToggle={e => {
                     if (e.value.length) setValue(e.value);
@@ -127,6 +137,7 @@ export const MiracleList = () => {
                                   round='medium'
                                   align='center'
                                   width='xsmall'
+                                  key={`${datum.path}-${category}`}
                                 >
                                   {category}
                                 </Box>
