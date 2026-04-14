@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
 import {
   Box,
+  Carousel,
   Heading,
   Image,
   Page,
@@ -57,15 +58,17 @@ export const Miracle = () => {
           </Paragraph>
         </Box>
         {miracle?.images.length > 0 && (
-          <Box>
+          <Box pad={{bottom: 'large'}}>
             <Heading margin='none' level={3}>Images</Heading>
-            <Box gap='small'>
-              {miracle.images.map(img => (
-                <Box>
-                  <Image fit="contain" src={`/images/${img.path}`} />
-                  <Text size="small">{parse(img.caption)}</Text>
-                </Box>
-              ))}
+            <Box width="medium" height="medium" overflow="hidden">
+              <Carousel fill controls="arrows">
+                {miracle.images.map(img => (
+                  <Box key={img.path} width="medium" height="medium">
+                    <Image fit="cover" src={`/images/${img.path}`} />
+                    <Text size="small">{parse(img.caption)}</Text>
+                  </Box>
+                ))}
+              </Carousel>
             </Box>
           </Box>
         )}
