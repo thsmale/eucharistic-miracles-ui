@@ -37,7 +37,6 @@ export default function ({ width, height, events = false }: GeoMercatorProps) {
   const centerX = width / 2;
   const centerY = height / 2;
   const scale = (width / 630) * 100;
-  console.log("HELLO WORLD")
 
   return width < 10 ? null : (
     <svg width={width} height={height}>

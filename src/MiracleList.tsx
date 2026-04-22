@@ -27,6 +27,7 @@ import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
 import WorldMap from './Map';
+import ZoomI from './Zoom';
 
 
 const toggleOptions = [
@@ -166,7 +167,8 @@ export const MiracleList = () => {
               { value === 'map' && (
                 <Box id='yoooooo' height='xxlarge'>
                   <ParentSize>
-                    {({ width, height }) => <WorldMap width={width} height={height} />}
+                    {/*({ width, height }) => <WorldMap width={width} height={height} />*/}
+                    {({ width, height }) => <ZoomI width={width} height={height} />}
                   </ParentSize>
                 </Box>
               )}
