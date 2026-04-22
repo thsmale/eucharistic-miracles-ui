@@ -3,6 +3,7 @@ import { scaleQuantize } from '@visx/scale';
 import { Mercator, Graticule } from '@visx/geo';
 import * as topojson from 'topojson-client';
 import topology from './world-topo.json';
+import { Zoom } from '@visx/zoom';
 
 export const background = '#f9f7e8';
 
@@ -33,37 +34,147 @@ const color = scaleQuantize({
   range: ['#ffb01d', '#ffa020', '#ff9221', '#ff8424', '#ff7425', '#fc5e2f', '#f94b3a', '#f63a48'],
 });
 
-export default function ({ width, height, events = false }: GeoMercatorProps) {
+export default function ({ width, height, events = true }: GeoMercatorProps) {
   const centerX = width / 2;
   const centerY = height / 2;
-  const scale = (width / 630) * 100;
+  const initialScale = (width / 630) * 100;
 
   return width < 10 ? null : (
-    <svg width={width} height={height}>
-      <rect x={0} y={0} width={width} height={height} fill={background} rx={14} />
-      <Mercator<FeatureShape>
-        data={world.features}
-        scale={scale}
-        translate={[centerX, centerY + 50]}
+    <>
+      <Zoom<SVGSVGElement>
+        width={width}
+        height={height}
+        scaleXMin={100}
+        scaleXMax={1000}
+        scaleYMin={100}
+        scaleYMax={1000}
+        initialTransformMatrix={{
+          scaleX: initialScale,
+          scaleY: initialScale,
+          translateX: centerX,
+          translateY: centerY,
+          skewX: 0,
+          skewY: 0,
+        }}
       >
-        {(mercator) => (
-          <g>
-            <Graticule graticule={(g) => mercator.path(g) || ''} stroke="rgba(33,33,33,0.05)" />
-            {mercator.features.map(({ feature, path }, i) => (
-              <path
-                key={`map-feature-${i}`}
-                d={path || ''}
-                fill={color(feature.geometry.coordinates.length)}
-                stroke={background}
-                strokeWidth={0.5}
-                onClick={() => {
-                  if (events) alert(`Clicked: ${feature.properties.name} (${feature.id})`);
+        {(zoom) => (
+          <div className="container">
+            <svg
+              width={width}
+              height={height}
+              className={zoom.isDragging? 'dragging': undefined}
+              ref={zoom.containerRef}
+              style={{ touchAction: 'none' }}
+            >
+              <rect x={0} y={0} width={width} height={height} fill={background} rx={14} />
+              <Mercator<FeatureShape>
+                data={world.features}
+                scale={zoom.transformMatrix.scaleX}
+                translate={[zoom.transformMatrix.translateX, zoom.transformMatrix.translateY]}
+              >
+                {(mercator) => (
+                  <g>
+                    <Graticule graticule={(g) => mercator.path(g) || ''} stroke="rgba(33,33,33,0.05)" />
+                    {mercator.features.map(({ feature, path }, i) => (
+                      <path
+                        key={`map-feature-${i}`}
+                        d={path || ''}
+                        fill={color(feature.geometry.coordinates.length)}
+                        stroke={background}
+                        strokeWidth={0.5}
+                        onClick={() => {
+                          if (events) alert(`Clicked: ${feature.properties.name} (${feature.id})`);
+                        }}
+                      />
+                    ))}
+                  </g>
+                )}
+              </Mercator>
+              {/** intercept all mouse events */}
+              <rect
+                x={0}
+                y={0}
+                width={width}
+                height={height}
+                rx={14}
+                fill="transparent"
+                onTouchStart={zoom.dragStart}
+                onTouchMove={zoom.dragMove}
+                onTouchEnd={zoom.dragEnd}
+                onMouseDown={zoom.dragStart}
+                onMouseMove={zoom.dragMove}
+                onMouseUp={zoom.dragEnd}
+                onMouseLeave={() => {
+                  if (zoom.isDragging) zoom.dragEnd();
                 }}
               />
-            ))}
-          </g>
+
+            </svg>
+            {events && (
+              <div className="controls">
+                <button
+                  className="btn btn-zoom"
+                  onClick={() => zoom.scale({ scaleX: 1.2, scaleY: 1.2 })}
+                >
+                  +
+                </button>
+                <button
+                  className="btn btn-zoom btn-bottom"
+                  onClick={() => zoom.scale({ scaleX: 0.8, scaleY: 0.8 })}
+                >
+                  -
+                </button>
+                <button className="btn btn-lg" onClick={zoom.reset}>
+                  Reset
+                </button>
+              </div>
+            )}
+          </div>
         )}
-      </Mercator>
-    </svg>
+      </Zoom>
+      <style jsx>{`
+        .container {
+          position: relative;
+        }
+        svg {
+          cursor: grab;
+        }
+        svg.dragging {
+          cursor: grabbing;
+        }
+        .btn {
+          margin: 0;
+          text-align: center;
+          border: none;
+          background: #dde1fe;
+          color: #222;
+          padding: 0 4px;
+          border-top: 1px solid #8993f9;
+        }
+        .btn-lg {
+          font-size: 12px;
+          line-height: 1;
+          padding: 4px;
+        }
+        .btn-zoom {
+          width: 26px;
+          font-size: 22px;
+        }
+        .btn-bottom {
+          margin-bottom: 1rem;
+        }
+        .controls {
+          position: absolute;
+          bottom: 20px;
+          right: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+        }
+        label {
+          font-size: 12px;
+        }
+      `}</style>
+    </>
   );
 }
