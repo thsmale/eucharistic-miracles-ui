@@ -18,23 +18,21 @@ export const Hero = () => {
 
   return (
     <Page flex='grow'
-      background={
-        `
-          radial-gradient(ellipse ${ellipse} 100% at bottom left, #b3e7fe, transparent),
-          radial-gradient(ellipse ${ellipse} 100% at top right, #e7b7b7, transparent),
-          linear-gradient(to bottom right, #f8fafc, #eff6ff, #f1f5f9);
-          `
-      }
+      background={{
+        image: `url("/hero.svg")`,
+        size: 'cover',
+        opacity: .75,
+      }}
     >
       <PageContent>
         <Box height={{ 'min': 'medium' }} justify='center'>
           <Box id='carloHero'>
-            <Heading level={1} margin='none'>
-                The Eucharistic Miracles of the world
+            <Heading level={1} margin='none' size='large' color="#bd1c1d">
+              The Eucharistic Miracles of the world
             </Heading>
           </Box>
           <Box>
-            <Text size='xlarge'>An international exhibition created by Carlo Acutis.</Text>
+            <Text size='xxlarge'>An international exhibition created by Carlo Acutis.</Text>
           </Box>
         </Box>
       </PageContent>
