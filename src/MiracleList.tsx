@@ -22,9 +22,11 @@ import {
   Table,
 } from 'grommet-icons';
 import { useNavigate } from 'react-router';
+import { ParentSize } from '@visx/responsive';
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
+import WorldMap from './Map';
 
 
 const toggleOptions = [
@@ -160,6 +162,13 @@ export const MiracleList = () => {
                   sortable={true}
                   verticalAlign={{ body : 'top' }}
                 />
+              )}
+              { value === 'map' && (
+                <Box id='yoooooo' height='xxlarge'>
+                  <ParentSize>
+                    {({ width, height }) => <WorldMap width={width} height={height} />}
+                  </ParentSize>
+                </Box>
               )}
               { value === 'card' && <CardView /> }
             </Data>
