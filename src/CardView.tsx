@@ -83,16 +83,16 @@ const Card = ({ country, city, year, path, }) => {
         </Heading>
       </CardHeader>
       <CardBody align="start" pad={{ top: 'none', bottom: 'medium', ...padSize}}>
-          <Box direction="column">
-            <Box direction="row" align="center" gap="xsmall">
-              <Location/>
-              <Text>{city}</Text>
-            </Box>
-            <Box direction="row" align="center" gap="xsmall">
-              <Calendar />
-              <Text>{year}</Text>
-            </Box>
+        <Box direction="column">
+          <Box direction="row" align="center" gap="xsmall">
+            <Location/>
+            <Text>{city}</Text>
           </Box>
+          <Box direction="row" align="center" gap="xsmall">
+            <Calendar />
+            <Text>{year}</Text>
+          </Box>
+        </Box>
       </CardBody>
       <CardFooter
         align="stretch"

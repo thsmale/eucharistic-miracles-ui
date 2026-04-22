@@ -144,7 +144,6 @@ export const MiracleList = () => {
                               ))}
                             </Box>
                           );
-
                         }
                         return (
                           <Box>--</Box>
