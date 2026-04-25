@@ -27,6 +27,7 @@ import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
 import WorldMap from './Map';
+import MapChart from './SimpleMap';
 
 
 const toggleOptions = [
@@ -165,9 +166,12 @@ export const MiracleList = () => {
               )}
               { value === 'map' && (
                 <Box id='yoooooo' height='xxlarge'>
+                  <MapChart />
+                  {/*
                   <ParentSize>
                     {({ width, height }) => <WorldMap width={width} height={height} />}
                   </ParentSize>
+                */}
                 </Box>
               )}
               { value === 'card' && <CardView /> }

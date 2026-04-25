@@ -45,9 +45,9 @@ export default function ({ width, height, events = true }: GeoMercatorProps) {
         width={width}
         height={height}
         scaleXMin={100}
-        scaleXMax={1000}
+        scaleXMax={3000}
         scaleYMin={100}
-        scaleYMax={1000}
+        scaleYMax={3000}
         initialTransformMatrix={{
           scaleX: initialScale,
           scaleY: initialScale,
