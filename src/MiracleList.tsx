@@ -23,6 +23,7 @@ import {
 } from 'grommet-icons';
 import { useNavigate } from 'react-router';
 import { ParentSize } from '@visx/responsive';
+import { Tooltip } from 'react-tooltip';
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
@@ -68,6 +69,7 @@ const colorMap = {
 
 export const MiracleList = () => {
   const [value, setValue] = useState('table');
+  const [toolTipContent, setToolTipContent] = useState('');
   const navigate = useNavigate();
 
   return (
@@ -166,12 +168,15 @@ export const MiracleList = () => {
               )}
               { value === 'map' && (
                 <Box id='yoooooo' height='xxlarge'>
-                  <MapChart />
+                  <MapChart setToolTipContent={setToolTipContent}/>
                   {/*
                   <ParentSize>
                     {({ width, height }) => <WorldMap width={width} height={height} />}
                   </ParentSize>
                 */}
+                 <Tooltip id="yo">{toolTipContent}</Tooltip>
+                 <a className="my-anchor-element">askljdflkasjdflkjasdlkf</a>
+                 <Tooltip anchorSelect=".my-anchor-element">{toolTipContent}</Tooltip>
                 </Box>
               )}
               { value === 'card' && <CardView /> }
