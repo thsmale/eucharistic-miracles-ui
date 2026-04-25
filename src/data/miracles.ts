@@ -21,6 +21,9 @@ const miracles = [
     "city": "Buenos Aires",
     "year": "1992-1994-1996",
     "categories": [],
+    "coordinates": [
+      []
+    ],
     "path": "argentina/buenos_aires_1.json"
   },
   {
@@ -28,6 +31,9 @@ const miracles = [
     "city": "Buenos Aires",
     "year": "1992-1994-1996",
     "categories": [],
+    "coordinates": [
+      []
+    ],
     "path": "argentina/buenos_aires_2.json"
   },
   {
@@ -35,6 +41,9 @@ const miracles = [
     "city": "BUENOS AIRES",
     "year": "1992-1994-1996",
     "categories": [],
+    "coordinates": [
+      []
+    ],
     "path": "argentina/buenos_aires_3.json"
   },
   */
@@ -47,6 +56,12 @@ const miracles = [
       "doubt",
       "preservation"
     ],
+    "coordinates": [
+      [
+        11.7,
+        47.35
+      ]
+    ],
     "path": "austria/fiecht.json"
   },
   {
@@ -55,6 +70,12 @@ const miracles = [
     "year": "1384",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        11.185503284428165,
+        47.330347258989974
+      ]
     ],
     "path": "austria/seefeld.json"
   },
@@ -68,6 +89,16 @@ const miracles = [
       "light",
       "theft"
     ],
+    "coordinates": [
+      [
+        15.264916430152601,
+        48.29422169540734
+      ],
+      [
+        15.27497215216164,
+        48.3405801067846
+      ]
+    ],
     "path": "austria/weiten-raxendorf.json"
   },
   {
@@ -76,6 +107,12 @@ const miracles = [
     "year": "1405",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        4.317949716002352,
+        50.643138151368035
+      ]
     ],
     "path": "belgium/bois-seigneur-issac.json"
   },
@@ -87,6 +124,12 @@ const miracles = [
       "blood",
       "theft"
     ],
+    "coordinates": [
+      [
+        4.349836284393418,
+        50.84816074328751
+      ]
+    ],
     "path": "belgium/brussels.json"
   },
   {
@@ -96,6 +139,12 @@ const miracles = [
     "categories": [
       "light",
       "theft"
+    ],
+    "coordinates": [
+      [
+        4.834101542832338,
+        51.17733712817109
+      ]
     ],
     "path": "belgium/herentals.json"
   },
@@ -107,6 +156,12 @@ const miracles = [
       "blood",
       "face"
     ],
+    "coordinates": [
+      [
+        5.280228698987882,
+        50.95630350695051
+      ]
+    ],
     "path": "belgium/herkenrode-hasselt.json"
   },
   {
@@ -116,6 +171,16 @@ const miracles = [
     "categories": [
       "blood"
     ],
+    "coordinates": [
+      [
+        3.4121774490888903,
+        51.25588852502535
+      ],
+      [
+        4.7002160202448335,
+        50.87904314256116
+      ]
+    ],
     "path": "belgium/middleburg-lovanio.json"
   },
   {
@@ -124,6 +189,12 @@ const miracles = [
     "year": "1906",
     "categories": [
       "flood"
+    ],
+    "coordinates": [
+      [
+        -78.76732215742587,
+        1.8106377789343184
+      ]
     ],
     "path": "colombia/tumaco.json"
   },
@@ -135,6 +206,12 @@ const miracles = [
       "blood",
       "doubt"
     ],
+    "coordinates": [
+      [
+        16.617043701477666,
+        46.25070277522832
+      ]
+    ],
     "path": "croatia/ludbreg.json"
   },
   {
@@ -145,6 +222,12 @@ const miracles = [
       "blood",
       "face"
     ],
+    "coordinates": [
+      [
+        30.248638400186216,
+        30.504095067534468
+      ]
+    ],
     "path": "egypt/scete.json"
   },
   {
@@ -152,6 +235,12 @@ const miracles = [
     "city": "St. Mary of Egypt",
     "year": "Seventh Century",
     "categories": [],
+    "coordinates": [
+      [
+        31.20704097572857,
+        30.132417916251722
+      ]
+    ],
     "path": "egypt/st_mary_of_egypt.json"
   },
   {
@@ -160,6 +249,12 @@ const miracles = [
     "year": "1433",
     "categories": [
       "flood"
+    ],
+    "coordinates": [
+      [
+        4.802355361090868,
+        43.94869824453833
+      ]
     ],
     "path": "france/avignon.json"
   },
@@ -171,6 +266,12 @@ const miracles = [
       "blood",
       "preservation"
     ],
+    "coordinates": [
+      [
+        4.7351838558601465,
+        46.47562315792403
+      ]
+    ],
     "path": "france/blanot.json"
   },
   {
@@ -179,6 +280,12 @@ const miracles = [
     "year": "1822",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        -0.5832660520376958,
+        44.84253574364193
+      ]
     ],
     "path": "france/bordeaux.json"
   },
@@ -191,6 +298,12 @@ const miracles = [
       "face",
       "preservation"
     ],
+    "coordinates": [
+      [
+        5.047324833916243,
+        47.33081526575888
+      ]
+    ],
     "path": "france/dijon.json"
   },
   {
@@ -200,6 +313,12 @@ const miracles = [
     "categories": [
       "face",
       "levitation"
+    ],
+    "coordinates": [
+      [
+        3.078568347498056,
+        50.368235830229594
+      ]
     ],
     "path": "france/douai.json"
   },
@@ -211,6 +330,12 @@ const miracles = [
       "fire",
       "levitation"
     ],
+    "coordinates": [
+      [
+        6.105394143242124,
+        47.767661324315505
+      ]
+    ],
     "path": "france/faverney.json"
   },
   {
@@ -218,6 +343,12 @@ const miracles = [
     "city": "La Rochelle",
     "year": "1461",
     "categories": [],
+    "coordinates": [
+      [
+        -1.1518487641566078,
+        46.16030972648806
+      ]
+    ],
     "path": "france/la_rochelle.json"
   },
   {
@@ -227,6 +358,12 @@ const miracles = [
     "categories": [
       "face"
     ],
+    "coordinates": [
+      [
+        -0.1802117821916865,
+        47.220034175719945
+      ]
+    ],
     "path": "france/les_ulmes.json"
   },
   {
@@ -235,6 +372,12 @@ const miracles = [
     "year": "1533",
     "categories": [
       "theft"
+    ],
+    "coordinates": [
+      [
+        5.366912324246467,
+        43.302555086678616
+      ]
     ],
     "path": "france/marseille-eu-beauvais.json"
   },
@@ -247,6 +390,12 @@ const miracles = [
       "fire",
       "levitation"
     ],
+    "coordinates": [
+      [
+        2.3526984704160814,
+        48.85760521906473
+      ]
+    ],
     "path": "france/paris.json"
   },
   {
@@ -255,6 +404,12 @@ const miracles = [
     "year": "1643",
     "categories": [
       "fire"
+    ],
+    "coordinates": [
+      [
+        0.566006200100576,
+        46.11587260028606
+      ]
     ],
     "path": "france/pressac.json"
   },
@@ -267,6 +422,12 @@ const miracles = [
       "face",
       "theft"
     ],
+    "coordinates": [
+      [
+        10.897747641826326,
+        48.36909064227163
+      ]
+    ],
     "path": "germany/augsburg.json"
   },
   {
@@ -277,6 +438,12 @@ const miracles = [
       "blood",
       "theft"
     ],
+    "coordinates": [
+      [
+        10.21179465523487,
+        47.96750596503706
+      ]
+    ],
     "path": "germany/benningen.json"
   },
   {
@@ -286,6 +453,12 @@ const miracles = [
     "categories": [
       "theft",
       "weight"
+    ],
+    "coordinates": [
+      [
+        11.555347928914562,
+        48.8747985904799
+      ]
     ],
     "path": "germany/bettbrunn.json"
   },
@@ -298,6 +471,12 @@ const miracles = [
       "light",
       "theft"
     ],
+    "coordinates": [
+      [
+        11.907112791304824,
+        48.30625380379896
+      ]
+    ],
     "path": "germany/erding.json"
   },
   {
@@ -305,6 +484,12 @@ const miracles = [
     "city": "Kranenburg, District of Kleve",
     "year": "1280",
     "categories": [],
+    "coordinates": [
+      [
+        6.008243854685665,
+        51.78630834478586
+      ]
+    ],
     "path": "germany/kranenburg_district_of_kleve.json"
   },
   {
@@ -314,6 +499,12 @@ const miracles = [
     "categories": [
       "doubt"
     ],
+    "coordinates": [
+      [
+        12.101757678534742,
+        49.01313856219421
+      ]
+    ],
     "path": "germany/regensburg.json"
   },
   {
@@ -322,6 +513,12 @@ const miracles = [
     "year": "1330",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        9.361084971076668,
+        49.58182351534291
+      ]
     ],
     "path": "germany/walldurn.json"
   },
@@ -333,6 +530,12 @@ const miracles = [
       "blood",
       "fire"
     ],
+    "coordinates": [
+      [
+        11.949358991431106,
+        52.95504414291643
+      ]
+    ],
     "path": "germany/wilsnack.json"
   },
   {
@@ -341,6 +544,12 @@ const miracles = [
     "year": "1429",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        4.753318268310122,
+        52.632883068968354
+      ]
     ],
     "path": "holland/alkmaar.json"
   },
@@ -352,6 +561,12 @@ const miracles = [
       "fire",
       "light"
     ],
+    "coordinates": [
+      [
+        4.893659028911645,
+        52.36721672741879
+      ]
+    ],
     "path": "holland/amsterdam.json"
   },
   {
@@ -360,6 +575,12 @@ const miracles = [
     "year": "1421",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        4.7069406016743915,
+        52.67480967230775
+      ]
     ],
     "path": "holland/bergen.json"
   },
@@ -371,6 +592,12 @@ const miracles = [
       "blood",
       "doubt"
     ],
+    "coordinates": [
+      [
+        5.957023376059402,
+        51.64532923730793
+      ]
+    ],
     "path": "holland/boxmeer.json"
   },
   {
@@ -379,6 +606,16 @@ const miracles = [
     "year": "1380",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        5.312292616747941,
+        51.60189144450432
+      ],
+      [
+        4.7594443109897835,
+        51.404873005733506
+      ]
     ],
     "path": "holland/boxtel-hoogstraten.json"
   },
@@ -390,6 +627,12 @@ const miracles = [
       "preservation",
       "theft"
     ],
+    "coordinates": [
+      [
+        4.765369702781071,
+        51.572278625293514
+      ]
+    ],
     "path": "holland/breda-neirvaart.json"
   },
   {
@@ -400,6 +643,12 @@ const miracles = [
       "blood",
       "fire"
     ],
+    "coordinates": [
+      [
+        5.751628225258717,
+        50.88489018438606
+      ]
+    ],
     "path": "holland/meerssen.json"
   },
   {
@@ -409,6 +658,12 @@ const miracles = [
     "categories": [
       "fire"
     ],
+    "coordinates": [
+      [
+        5.6184787229189075,
+        51.48599077205647
+      ]
+    ],
     "path": "holland/stiphout.json"
   },
   {
@@ -417,6 +672,12 @@ const miracles = [
     "year": "May 5, 2001",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        76.83867180560793,
+        8.9813915337447
+      ]
     ],
     "path": "india/chirattakonam.json"
   },
@@ -428,6 +689,12 @@ const miracles = [
       "sorcery",
       "theft"
     ],
+    "coordinates": [
+      [
+        13.33880506545787,
+        41.72693702899531
+      ]
+    ],
     "path": "italy/alatri.json"
   },
   {
@@ -435,14 +702,27 @@ const miracles = [
     "city": "Saint Clare of Assisi",
     "year": "1240",
     "categories": [],
+    "coordinates": [
+      [
+        12.618927944607501,
+        43.070711027903194
+      ]
+    ],
     "path": "italy/assisi.json"
   },
+  /*
   {
     "country": "Italy",
     "city": "Asti",
     "year": "1535",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        8.206105412141332,
+        44.90125087527754
+      ]
     ],
     "path": "italy/asti_1.json"
   },
@@ -453,8 +733,15 @@ const miracles = [
     "categories": [
       "blood"
     ],
+    "coordinates": [
+      [
+        8.206105412141332,
+        44.90125087527754
+      ]
+    ],
     "path": "italy/asti_2.json"
   },
+  */
   {
     "country": "Italy",
     "city": "Bagno di Romagna",
@@ -462,6 +749,12 @@ const miracles = [
     "categories": [
       "blood",
       "doubt"
+    ],
+    "coordinates": [
+      [
+        11.959534806731979,
+        43.836808794891574
+      ]
     ],
     "path": "italy/bagno_di_romagna.json"
   },
@@ -473,6 +766,12 @@ const miracles = [
       "blood",
       "doubt"
     ],
+    "coordinates": [
+      [
+        11.985112742883903,
+        42.64461367722893
+      ]
+    ],
     "path": "italy/bolsena.json"
   },
   {
@@ -481,6 +780,12 @@ const miracles = [
     "year": "1630",
     "categories": [
       "flood"
+    ],
+    "coordinates": [
+      [
+        7.081548252190529,
+        44.4551400897048
+      ]
     ],
     "path": "italy/canosio.json"
   },
@@ -491,6 +796,12 @@ const miracles = [
     "categories": [
       "blood"
     ],
+    "coordinates": [
+      [
+        13.013718733800824,
+        42.716833066937305
+      ]
+    ],
     "path": "italy/cascia.json"
   },
   {
@@ -498,6 +809,12 @@ const miracles = [
     "city": "Cava dei Tirreni",
     "year": "1656",
     "categories": [],
+    "coordinates": [
+      [
+        14.703963867615583,
+        40.70386467752794
+      ]
+    ],
     "path": "italy/cava_dei_tirreni.json"
   },
   {
@@ -506,6 +823,12 @@ const miracles = [
     "year": "1631",
     "categories": [
       "fire"
+    ],
+    "coordinates": [
+      [
+        7.36745032012151,
+        44.46347342647197
+      ]
     ],
     "path": "italy/dronero.json"
   },
@@ -517,14 +840,27 @@ const miracles = [
       "blood",
       "face"
     ],
+    "coordinates": [
+      [
+        11.617088632431855,
+        44.83921984084136
+      ]
+    ],
     "path": "italy/ferrara.json"
   },
+  /*
   {
     "country": "Italy",
     "city": "Firenze",
     "year": "1230-1595",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        11.248461953846778,
+        43.775497265352975
+      ]
     ],
     "path": "italy/florence_1.json"
   },
@@ -535,14 +871,27 @@ const miracles = [
     "categories": [
       "fire"
     ],
+    "coordinates": [
+      [
+        11.248461953846778,
+        43.775497265352975
+      ]
+    ],
     "path": "italy/florence_2.json"
   },
+  */
   {
     "country": "Italy",
     "city": "Gruaro (Valvasone)",
     "year": "1294",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        12.843345375761915,
+        45.8333086443474
+      ]
     ],
     "path": "italy/gruary_valvasone.json"
   },
@@ -556,6 +905,12 @@ const miracles = [
       "science",
       "weight"
     ],
+    "coordinates": [
+      [
+        14.389689825834072,
+        42.22525647501123
+      ]
+    ],
     "path": "italy/lanciano.json"
   },
   {
@@ -566,6 +921,12 @@ const miracles = [
       "blood",
       "doubt"
     ],
+    "coordinates": [
+      [
+        13.455181399617445,
+        43.29839068757261
+      ]
+    ],
     "path": "italy/macerata.json"
   },
   {
@@ -575,6 +936,12 @@ const miracles = [
     "categories": [
       "weight"
     ],
+    "coordinates": [
+      [
+        8.775021704596858,
+        39.68235516551309
+      ]
+    ],
     "path": "italy/mogoro.json"
   },
   {
@@ -583,6 +950,12 @@ const miracles = [
     "year": "1560",
     "categories": [
       "fire"
+    ],
+    "coordinates": [
+      [
+        13.582512446214178,
+        43.31512905621321
+      ]
     ],
     "path": "italy/morrovalle.json"
   },
@@ -594,6 +967,12 @@ const miracles = [
       "animals",
       "fire",
       "sorcery"
+    ],
+    "coordinates": [
+      [
+        13.693141962961615,
+        42.936605178665005
+      ]
     ],
     "path": "italy/offida.json"
   },
@@ -607,6 +986,16 @@ const miracles = [
       "preservation",
       "theft"
     ],
+    "coordinates": [
+      [
+        15.734804892601554,
+        40.37857552552136
+      ],
+      [
+        14.267201202670707,
+        40.852627697437406
+      ]
+    ],
     "path": "italy/patierno_naples.json"
   },
   {
@@ -617,8 +1006,15 @@ const miracles = [
       "animals",
       "doubt"
     ],
+    "coordinates": [
+      [
+        12.566355979489877,
+        44.05808613002166
+      ]
+    ],
     "path": "italy/rimini.json"
   },
+  /*
   {
     "country": "Italy",
     "city": "Rome",
@@ -626,6 +1022,12 @@ const miracles = [
     "categories": [
       "blood",
       "doubt"
+    ],
+    "coordinates": [
+      [
+        12.487413118930732,
+        41.89734828943418
+      ]
     ],
     "path": "italy/rome_1.json"
   },
@@ -638,14 +1040,27 @@ const miracles = [
       "doubt",
       "weight"
     ],
+    "coordinates": [
+      [
+        12.487413118930732,
+        41.89734828943418
+      ]
+    ],
     "path": "italy/rome_3.json"
   },
+  */
   {
     "country": "Italy",
     "city": "Salzano",
     "year": "1517",
     "categories": [
       "animals"
+    ],
+    "coordinates": [
+      [
+        12.103502776702083,
+        45.521231537414124
+      ]
     ],
     "path": "italy/salzano.json"
   },
@@ -658,6 +1073,12 @@ const miracles = [
       "science",
       "theft"
     ],
+    "coordinates": [
+      [
+        15.29055221549396,
+        40.123954973341874
+      ]
+    ],
     "path": "italy/san_mauro_la_bruca.json"
   },
   {
@@ -665,6 +1086,12 @@ const miracles = [
     "city": "Scala",
     "year": "1732",
     "categories": [],
+    "coordinates": [
+      [
+        14.608333926680416,
+        40.65576052941164
+      ]
+    ],
     "path": "italy/scala.json"
   },
   {
@@ -675,6 +1102,12 @@ const miracles = [
       "preservation",
       "science",
       "theft"
+    ],
+    "coordinates": [
+      [
+        11.33056731850384,
+        43.31850445204576
+      ]
     ],
     "path": "italy/siena.json"
   },
@@ -687,6 +1120,12 @@ const miracles = [
       "sorcery",
       "theft"
     ],
+    "coordinates": [
+      [
+        12.749803275540332,
+        43.507518538562024
+      ]
+    ],
     "path": "italy/st_peter_damian.json"
   },
   {
@@ -698,8 +1137,15 @@ const miracles = [
       "doubt",
       "theft"
     ],
+    "coordinates": [
+      [
+        16.419627002740057,
+        41.276589902927746
+      ]
+    ],
     "path": "italy/trani.json"
   },
+  /*
   {
     "country": "Italy",
     "city": "Turin",
@@ -710,6 +1156,12 @@ const miracles = [
       "light",
       "theft"
     ],
+    "coordinates": [
+      [
+        7.6914656458277175,
+        45.072789430907
+      ]
+    ],
     "path": "italy/turin_1.json"
   },
   {
@@ -719,14 +1171,27 @@ const miracles = [
     "categories": [
       "fire"
     ],
+    "coordinates": [
+      [
+        7.6914656458277175,
+        45.072789430907
+      ]
+    ],
     "path": "italy/turin_3.json"
   },
+  */
   {
     "country": "Italy",
     "city": "Veroli",
     "year": "1570",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        13.418649195805772,
+        41.69257417660216
+      ]
     ],
     "path": "italy/veroli.json"
   },
@@ -739,6 +1204,12 @@ const miracles = [
       "light",
       "theft"
     ],
+    "coordinates": [
+      [
+        10.855344819135217,
+        43.40441310014632
+      ]
+    ],
     "path": "italy/volterra.json"
   },
   {
@@ -747,6 +1218,12 @@ const miracles = [
     "year": "1902",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        -61.13400259304196,
+        14.772858952511548
+      ]
     ],
     "path": "martinique/morne-rouge.json"
   },
@@ -757,6 +1234,12 @@ const miracles = [
     "year": "October 21, 2006",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        -99.39953979859278,
+        17.56772407180631
+      ]
     ],
     "path": "mexico/tixtla_1.json"
   },
@@ -769,6 +1252,12 @@ const miracles = [
       "flesh",
       "science"
     ],
+    "coordinates": [
+      [
+        -99.39953979859278,
+        17.56772407180631
+      ]
+    ],
     "path": "mexico/tixtla_2.json"
   },
   */
@@ -778,6 +1267,12 @@ const miracles = [
     "year": "1649",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        -79.86434680109905,
+        -6.926247196000024
+      ]
     ],
     "path": "peru/eten.json"
   },
@@ -789,6 +1284,12 @@ const miracles = [
       "animals",
       "light"
     ],
+    "coordinates": [
+      [
+        20.365938679212757,
+        53.959650151348235
+      ]
+    ],
     "path": "poland/glotowo.json"
   },
   {
@@ -799,6 +1300,12 @@ const miracles = [
       "light",
       "theft"
     ],
+    "coordinates": [
+      [
+        19.94299239520395,
+        50.06516622341976
+      ]
+    ],
     "path": "poland/krakow.json"
   },
   {
@@ -808,6 +1315,12 @@ const miracles = [
     "categories": [
       "science",
       "tissue"
+    ],
+    "coordinates": [
+      [
+        16.156686311399877,
+        51.20715391403807
+      ]
     ],
     "path": "poland/legnica.json"
   },
@@ -820,16 +1333,27 @@ const miracles = [
       "levitation",
       "light"
     ],
+    "coordinates": [
+      [
+        16.931857662077153,
+        52.40499669186131
+      ]
+    ],
     "path": "poland/poznan.json"
   },
-  /*
   {
     "country": "Poland",
-    "city": "Sokolka",
+    "city": "Sokółka",
     "year": "October 12, 2008",
     "categories": [
       "science",
       "tissue"
+    ],
+    "coordinates": [
+      [
+        23.50272139750997,
+        53.40595947770447
+      ]
     ],
     "path": "poland/sokółka_1.json"
   },
@@ -842,6 +1366,12 @@ const miracles = [
       "science",
       "tissue"
     ],
+    "coordinates": [
+      [
+        23.50272139750997,
+        53.40595947770447
+      ]
+    ],
     "path": "poland/sokółka_2.json"
   },
   {
@@ -852,12 +1382,17 @@ const miracles = [
       "science",
       "tissue"
     ],
+    "coordinates": [
+      [
+        23.50272139750997,
+        53.40595947770447
+      ]
+    ],
     "path": "poland/sokółka_3.json"
   },
-  */
   {
     "country": "Portugal",
-    "city": "Santarem",
+    "city": "Santarém",
     "year": "1247",
     "categories": [
       "blood",
@@ -866,14 +1401,26 @@ const miracles = [
       "sorcery",
       "theft"
     ],
+    "coordinates": [
+      [
+        -8.68509654614398,
+        39.236597267915634
+      ]
+    ],
     "path": "portugal/santarem.json"
   },
   {
-    "country": "Reunion",
-    "city": "Saint Andre",
+    "country": "Réunion",
+    "city": "Saint André",
     "year": "1902",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        55.65346500470871,
+        -20.96012982239351
+      ]
     ],
     "path": "reunion/saint_andre.json"
   },
@@ -883,6 +1430,12 @@ const miracles = [
     "year": "1348",
     "categories": [
       "animals"
+    ],
+    "coordinates": [
+      [
+        -0.35177227951536877,
+        39.50007343782357
+      ]
     ],
     "path": "spain/alboraya.json"
   },
@@ -894,6 +1447,12 @@ const miracles = [
       "preservation",
       "theft"
     ],
+    "coordinates": [
+      [
+        -3.3691651190158405,
+        40.48480077913516
+      ]
+    ],
     "path": "spain/alcala.json"
   },
   {
@@ -903,6 +1462,12 @@ const miracles = [
     "categories": [
       "theft"
     ],
+    "coordinates": [
+      [
+        -0.48043155444748953,
+        38.698672619346006
+      ]
+    ],
     "path": "spain/alcoy.json"
   },
   {
@@ -911,6 +1476,12 @@ const miracles = [
     "year": "1231",
     "categories": [
       "face"
+    ],
+    "coordinates": [
+      [
+        -1.8611924194561793,
+        38.10432771362119
+      ]
     ],
     "path": "spain/carvaca_de_la_cruz.json"
   },
@@ -923,6 +1494,12 @@ const miracles = [
       "doubt",
       "flesh"
     ],
+    "coordinates": [
+      [
+        -1.774399765472321,
+        41.101666274931915
+      ]
+    ],
     "path": "spain/cimballa.json"
   },
   {
@@ -932,6 +1509,12 @@ const miracles = [
     "categories": [
       "animals",
       "blood"
+    ],
+    "coordinates": [
+      [
+        -1.4150485924925549,
+        41.1148808431742
+      ]
     ],
     "path": "spain/daroca.json"
   },
@@ -944,6 +1527,12 @@ const miracles = [
       "doubt",
       "flesh"
     ],
+    "coordinates": [
+      [
+        2.8233019299228235,
+        41.98318324047948
+      ]
+    ],
     "path": "spain/gerona.json"
   },
   {
@@ -952,6 +1541,16 @@ const miracles = [
     "year": "1572",
     "categories": [
       "blood"
+    ],
+    "coordinates": [
+      [
+        4.974799283359529,
+        51.83720155004567
+      ],
+      [
+        -4.125181828848294,
+        40.58443048186775
+      ]
     ],
     "path": "spain/gorkum-escorial.json"
   },
@@ -963,6 +1562,12 @@ const miracles = [
       "blood",
       "doubt"
     ],
+    "coordinates": [
+      [
+        -5.326987068899295,
+        39.45152187587227
+      ]
+    ],
     "path": "spain/guadalupe.json"
   },
   {
@@ -972,6 +1577,12 @@ const miracles = [
     "categories": [
       "blood",
       "doubt"
+    ],
+    "coordinates": [
+      [
+        1.3927124010570064,
+        41.77159254263068
+      ]
     ],
     "path": "spain/ivorra.json"
   },
@@ -983,6 +1594,12 @@ const miracles = [
       "doubt",
       "face"
     ],
+    "coordinates": [
+      [
+        -0.39348216375313066,
+        39.545484879940005
+      ]
+    ],
     "path": "spain/moncada.json"
   },
   {
@@ -990,6 +1607,12 @@ const miracles = [
     "city": "Montserrat",
     "year": "1657",
     "categories": [],
+    "coordinates": [
+      [
+        -0.6011429219711684,
+        39.35823549696924
+      ]
+    ],
     "path": "spain/montserrat.json"
   },
   {
@@ -1001,6 +1624,12 @@ const miracles = [
       "doubt",
       "flesh"
     ],
+    "coordinates": [
+      [
+        -7.04367768677811,
+        42.707934076122164
+      ]
+    ],
     "path": "spain/ocebreiro.json"
   },
   {
@@ -1010,6 +1639,12 @@ const miracles = [
     "categories": [
       "preservation",
       "theft"
+    ],
+    "coordinates": [
+      [
+        -0.6729050954798383,
+        38.62949027392014
+      ]
     ],
     "path": "spain/onil.json"
   },
@@ -1023,6 +1658,12 @@ const miracles = [
       "theft",
       "weight"
     ],
+    "coordinates": [
+      [
+        -6.598179109247415,
+        42.54827688216941
+      ]
+    ],
     "path": "spain/ponferrada.json"
   },
   {
@@ -1032,6 +1673,12 @@ const miracles = [
     "categories": [
       "preservation"
     ],
+    "coordinates": [
+      [
+        2.2871237129358937,
+        42.23621449558365
+      ]
+    ],
     "path": "spain/saint_john_of_the_abbesses.json"
   },
   {
@@ -1040,6 +1687,12 @@ const miracles = [
     "year": "1907",
     "categories": [
       "theft"
+    ],
+    "coordinates": [
+      [
+        -0.41563321587732,
+        39.361773644502875
+      ]
     ],
     "path": "spain/silla.json"
   },
@@ -1052,6 +1705,12 @@ const miracles = [
       "fire",
       "sorcery",
       "theft"
+    ],
+    "coordinates": [
+      [
+        -0.8848530069973266,
+        41.647456521398524
+      ]
     ],
     "path": "spain/zaragoza.json"
   },
@@ -1066,6 +1725,12 @@ const miracles = [
       "theft",
       "weight"
     ],
+    "coordinates": [
+      [
+        8.019146144604022,
+        47.15014500788676
+      ]
+    ],
     "path": "switzerland/ettiswil.json"
   },
   {
@@ -1075,6 +1740,12 @@ const miracles = [
     "categories": [
       "blood",
       "science"
+    ],
+    "coordinates": [
+      [
+        -72.43804640225625,
+        7.460110518352143
+      ]
     ],
     "path": "venezuela/betania.json"
   }

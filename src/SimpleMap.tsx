@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Box, Button } from 'grommet';
+import { Location} from 'grommet-icons';
 import {
   ComposableMap,
   Geographies,
@@ -11,10 +12,10 @@ import { Tooltip } from 'react-tooltip';
 import topology from "./world-topo.json"
 
 
-export default function MapChart({ setToolTipContent }) {
+export default function MapChart({ setToolTipContent, miracles }) {
   const defaultPosition = { coordinates: [0, 0], zoom: 1 };
   const [position, setPosition] = useState(defaultPosition)
-  const [x, setX] = useState('');
+  const [circleRadius, setCircleRadius] = useState(3);
   return (
     <Box width="100%" height="xxlarge">
       <ComposableMap
@@ -35,8 +36,32 @@ export default function MapChart({ setToolTipContent }) {
           zoom={position.zoom}
           center={position.coordinates}
           minZoom={1}
-          maxZoom={20}
-          //onMoveEnd={(position) => setPosition(position)}
+          maxZoom={50}
+          onMoveEnd={(position) => { 
+            setPosition(position)
+            console.log(position.zoom);
+            if (position.zoom < 3) {
+              setCircleRadius(3)
+            }
+            if (position.zoom > 3 && position.zoom < 6) {
+              setCircleRadius(2);
+            }
+            if (position.zoom > 6 && position.zoom < 12) {
+              setCircleRadius(1);
+            }
+            if (position.zoom > 12 && position.zoom < 15) {
+              setCircleRadius(.5);
+            }
+            if (position.zoom > 15 && position.zoom < 23) {
+              setCircleRadius(.25);
+            }
+            if (position.zoom > 23 && position.zoom < 35) {
+              setCircleRadius(.10)
+            }
+            if (position.zoom > 35) {
+              setCircleRadius(.05)
+            }
+          }}
         >
           <Geographies geography={topology}>
             {({ geographies }) =>
@@ -45,17 +70,6 @@ export default function MapChart({ setToolTipContent }) {
                   key={geo.rsmKey}
                   geography={geo}
                   fill="#2a354d"
-                  /*
-                  onMouseEnter={() => {
-                    console.log(geo.properties.name)
-                    setToolTipContent(`${geo.properties.name}`)
-                    setX(`${geo.properties.name}`)
-                  }}
-                  onMouseLeave={() => {
-                    setToolTipContent('')
-                    setX('');
-                  }}
-                    */
                   stroke="#000"
                   strokeWidth={.3}
                   style={{
@@ -70,35 +84,41 @@ export default function MapChart({ setToolTipContent }) {
                       outline: "none"
                     },
                     hover: {
-                      fill: "#F53",
+                      fill: "#D6D6DA",
                       outline: "none"
                     },
+                   /*
                     pressed: {
                       fill: "#E42",
                       outline: "none"
                     }
+                      */
                   }}
                 />
               ))
             }
           </Geographies>
-          <Marker
-            coordinates={[-58.3772, -34.6132]}
-            data-tooltip-id="yo"
-            //data-tooltip-content={`yooooo`}
-          >
-            <circle
-                //className=".yo"
-                r={8}
-                fill="#F53"
-                onMouseEnter={() => {
-                    setToolTipContent(`'sup blood`)
-                }}
-                onMouseLeave={() => {
-                    setToolTipContent('')
-                }}
-            />
-          </Marker>
+          {
+            miracles.map((miracle) => (
+              <Marker
+                key={miracle.path}
+                coordinates={miracle.coordinates[0]}
+                data-tooltip-id='yo'
+                data-tooltip-content={`${miracle.city}, ${miracle.country}`}
+              >
+                <circle
+                    r={circleRadius}
+                    fill="#F53"
+                    onMouseEnter={() => {
+                        setToolTipContent(`${miracle.city}, ${miracle.country}`)
+                    }}
+                    onMouseLeave={() => {
+                        setToolTipContent('')
+                    }}
+                />
+              </Marker>
+            ))
+          }
         </ZoomableGroup>
       </ComposableMap>
       <div className='controls'>

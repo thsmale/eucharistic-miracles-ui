@@ -168,15 +168,18 @@ export const MiracleList = () => {
               )}
               { value === 'map' && (
                 <Box id='yoooooo' height='xxlarge'>
-                  <MapChart setToolTipContent={setToolTipContent}/>
+                  <MapChart setToolTipContent={setToolTipContent} miracles={miracles}/>
                   {/*
                   <ParentSize>
                     {({ width, height }) => <WorldMap width={width} height={height} />}
                   </ParentSize>
                 */}
-                 <Tooltip id="yo">{toolTipContent}</Tooltip>
-                 <a className="my-anchor-element">askljdflkasjdflkjasdlkf</a>
-                 <Tooltip anchorSelect=".my-anchor-element">{toolTipContent}</Tooltip>
+                 <Tooltip
+                  id="yo"
+                  render={({ content }) => {
+                    return content ? <div>{content}</div> : null
+                  }}
+                />
                 </Box>
               )}
               { value === 'card' && <CardView /> }
