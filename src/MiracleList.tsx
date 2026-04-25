@@ -168,18 +168,18 @@ export const MiracleList = () => {
               )}
               { value === 'map' && (
                 <Box id='yoooooo' height='xxlarge'>
-                  <MapChart setToolTipContent={setToolTipContent} miracles={miracles}/>
-                  {/*
-                  <ParentSize>
-                    {({ width, height }) => <WorldMap width={width} height={height} />}
-                  </ParentSize>
-                */}
+                  {<MapChart setToolTipContent={setToolTipContent} miracles={miracles}/>}
                  <Tooltip
                   id="yo"
                   render={({ content }) => {
                     return content ? <div>{content}</div> : null
                   }}
                 />
+                  {/*
+                  <ParentSize>
+                    {({ width, height }) => <WorldMap width={width} height={height} />}
+                  </ParentSize>
+                */}
                 </Box>
               )}
               { value === 'card' && <CardView /> }
