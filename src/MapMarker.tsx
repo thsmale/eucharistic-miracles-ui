@@ -4,7 +4,6 @@ import {
   arrow,
   offset,
   useFloating,
-  autoUpdate,
   useHover,
   useInteractions,
   safePolygon,
@@ -20,7 +19,6 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
     open: isOpen,
     onOpenChange: setIsOpen,
     placement: "top",
-    //whileElementsMounted: autoUpdate,
     middleware: [
         arrow({
             element: arrowRef,
@@ -57,7 +55,6 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
               padding: "5px 10px",
               borderRadius: "4px",
               fontSize: "14px",
-              //zIndex: 9999, // High z-index to stay above the map
             }}
             {...getFloatingProps()}
           >
