@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Box,
+  Button,
   Data,
   DataFilters,
   DataFilter,
@@ -69,7 +70,7 @@ const colorMap = {
 
 export const MiracleList = () => {
   const [value, setValue] = useState('table');
-  const [toolTipContent, setToolTipContent] = useState('');
+  const [toolTipContent, setToolTipContent] = useState(null);
   const navigate = useNavigate();
 
   return (
@@ -167,18 +168,55 @@ export const MiracleList = () => {
                 />
               )}
               { value === 'map' && (
-                <Box id='yoooooo' height='xxlarge'>
+                <Box pad={{ bottom: 'xlarge' }} /*data-tooltip-id='ayy'*/>
                   {<MapChart setToolTipContent={setToolTipContent} miracles={miracles}/>}
                  <Tooltip
-                  id="yo"
+                  clickable={true}
+                  //id="yo"
+                  id='ayy'
+                  wrapper='div'
+                  //openOnClick
+                  //positionStrategy='fixed'
+                  //float={true}
+                  offset={0}
+                  style={{ padding: '15px' }}
+                  openEvents={{ mouseover: true, mouseenter: true, focus: true }}
+                  closeEvents={{ mouseleave: true }}
+                  /*
                   render={({ content }) => {
-                    return content ? <div>{content}</div> : null
+                    if (!content || toolTipContent === null) return null;
+                    return (
+                      <Box style={{ pointerEvents: 'auto' }}>
+                        <Text>{toolTipContent.city}</Text>
+                        <Text>{toolTipContent.country}</Text>
+                        <Button
+                          label="View details"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        />
+                      </Box>
+                    )
                   }}
-                />
+                    */
+                >
+                  <div onMouseEnter={() => console.log('yaaa')}>
+                    <button>You can click me!</button>
+                  </div>
+                </Tooltip>
+                <Box height='small' />
+                <div data-tooltip-id='clickable'>
+                  ◕‿‿◕
+                  <Tooltip id="clickable" clickable>
+                    <button>You can click me!</button>
+                  </Tooltip>
+                </div>
                   {/*
+                <Box id='yoooooo' height='xxlarge'>
                   <ParentSize>
                     {({ width, height }) => <WorldMap width={width} height={height} />}
                   </ParentSize>
+                </Box>
                 */}
                 </Box>
               )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, memo } from "react"
 import { Box, Button, Stack } from 'grommet';
 import { ZoomIn, ZoomOut } from 'grommet-icons';
 import {
@@ -8,10 +8,22 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps"
+import { Tooltip } from "react-tooltip";
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  safePolygon,
+  shift,
+  useHover,
+  useInteractions,
+} from "@floating-ui/react";
 import topology from "./world-topo.json"
+import MarkerWithTooltip from './MapMarker';
 
 
-export default function MapChart({ setToolTipContent, miracles }) {
+function MapChart({ setToolTipContent, miracles }) {
   const defaultPosition = { coordinates: [0, 0], zoom: 1 };
   const [position, setPosition] = useState(defaultPosition)
   const [circleRadius, setCircleRadius] = useState(3);
@@ -111,27 +123,13 @@ export default function MapChart({ setToolTipContent, miracles }) {
                 ))
               }
             </Geographies>
-            {
-              miracles.map((miracle) => (
-                <Marker
-                  key={miracle.path}
-                  coordinates={miracle.coordinates[0]}
-                  data-tooltip-id='yo'
-                  data-tooltip-content={`${miracle.city}, ${miracle.country}`}
-                >
-                  <circle
-                      r={circleRadius}
-                      fill="#F53"
-                      onMouseEnter={() => {
-                          setToolTipContent(`${miracle.city}, ${miracle.country}`)
-                      }}
-                      onMouseLeave={() => {
-                          setToolTipContent('')
-                      }}
-                  />
-                </Marker>
-              ))
-            }
+            {miracles.map((miracle, index) => (
+              <MarkerWithTooltip 
+                key={index} 
+                miracle={miracle}
+                circleRadius={circleRadius}
+              />
+            ))}
           </ZoomableGroup>
         </ComposableMap>
       </Box>
@@ -148,6 +146,10 @@ export default function MapChart({ setToolTipContent, miracles }) {
           }} 
         />
       </Box>
+
     </Stack>
+
   )
 }
+
+export default memo(MapChart);
