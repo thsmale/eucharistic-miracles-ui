@@ -1,4 +1,10 @@
 import React, { useRef, useState } from "react";
+import {
+    Box,
+    Button,
+    Text,
+} from 'grommet';
+import { Location, Calendar } from "grommet-icons";
 import { Marker } from "react-simple-maps";
 import {
   arrow,
@@ -10,8 +16,10 @@ import {
   FloatingArrow,
   FloatingPortal, // This is the fix for "Map Version"
 } from "@floating-ui/react";
+import { useNavigate } from 'react-router';
 
 const MarkerWithTooltip = ({ miracle, circleRadius }) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);
 
@@ -50,16 +58,33 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
             ref={refs.setFloating}
             style={{
               ...floatingStyles,
-              backgroundColor: "#333",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "4px",
-              fontSize: "14px",
             }}
             {...getFloatingProps()}
           >
             <FloatingArrow ref={arrowRef} context={context} />
-            {`${miracle.city}, ${miracle.country}`}
+                <Box
+                    direction="column"
+                    gap='small'
+                    elevation='medium'
+                    background='background-front'
+                    pad='medium'
+                >
+                    <Box direction="row" align="center" gap="xsmall">
+                        <Location />
+                        <Text>{`${miracle.city}, ${miracle.country}`}</Text>
+                    </Box>
+                    <Box direction="row" align="center" gap="xsmall">
+                        <Calendar />
+                        <Text>{miracle.year}</Text>
+                    </Box>
+                    <Box flex={false} align="start">
+                    <Button
+                        label='View details'
+                        secondary
+                        onClick={() => navigate(`${miracle.country}/${miracle.city}`, { state: { path: miracle.path }})}
+                    />
+                    </Box>
+                </Box>
           </div>
         </FloatingPortal>
       )}
