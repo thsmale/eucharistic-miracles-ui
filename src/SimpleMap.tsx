@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react"
+import React, { useState, } from "react"
 import { Box, Button, Stack } from 'grommet';
 import { ZoomIn, ZoomOut } from 'grommet-icons';
 import {
@@ -8,17 +8,6 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps"
-import { Tooltip } from "react-tooltip";
-import {
-  useFloating,
-  autoUpdate,
-  offset,
-  flip,
-  safePolygon,
-  shift,
-  useHover,
-  useInteractions,
-} from "@floating-ui/react";
 import topology from "./world-topo.json"
 import MarkerWithTooltip from './MapMarker';
 
@@ -152,4 +141,4 @@ function MapChart({ setToolTipContent, miracles }) {
   )
 }
 
-export default memo(MapChart);
+export default MapChart;
