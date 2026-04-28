@@ -23,9 +23,9 @@ import {
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
-import MapChart from './SimpleMap';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
+import { MiraclesMap } from './MiraclesMap';
 
 
 const toggleOptions = [
@@ -123,7 +123,7 @@ export const MiracleList = () => {
               </Box>
               <DataSummary />
               { value === 'table' && <MiraclesDataTable /> }
-              { value === 'map' && <MapChart miracles={data}/> }
+              { value === 'map' && <MiraclesMap miracles={data}/> }
               { value === 'card' && <CardView /> }
             </Data>
             {showLayer && (

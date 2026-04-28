@@ -11,7 +11,7 @@ import topology from "./world-topo.json"
 import MarkerWithTooltip from './MapMarker';
 
 
-function MapChart({ miracles }) {
+export const MiraclesMap = ({ miracles }) => {
   const defaultPosition = { coordinates: [0, 0], zoom: 1 };
   const [position, setPosition] = useState(defaultPosition)
   const [circleRadius, setCircleRadius] = useState(3);
@@ -116,5 +116,3 @@ function MapChart({ miracles }) {
     </Box>
   )
 }
-
-export default MapChart;
