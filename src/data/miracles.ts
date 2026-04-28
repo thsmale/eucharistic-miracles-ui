@@ -1,18 +1,21 @@
-/*
- 01_ARGENTINE   10_INDIA        19_SWITZERLAND
- 02_AUSTRIA     11_ITALY        20_VENEZUELA
- 03_BELGIUM     12_MARTINIQUE  '21_SAINTS, MYSTICS AND THE EUCHARIST'
- 04_COLOMBIA    13_MEXICO      '22_OUR LADY AND THE EUCHARIST'
- 05_CROATIA     14_PERU        '23_MIRACULOUS COMMUNIONS'
- 06_EGYPT       15_POLAND      '24_MAPS OF COUNTRIES'
- 07_FRANCE      16_PORTUGAL    '27_PRESENTATION OF EXHIBITION'
- 08_GERMANY     17_REUNION
- 09_HOLLAND     18_SPAIN
- */
+const colorMap = {
+  "blood": "#FF9999",        // Light Coral
+  "theft": "#8E9AAF",        // Overcast Blue (Dark/shadowy vibe, but safe for black text)
+  "doubt": "#D3D3D3",        // Light Gray
+  "face": "#FFE4C4",         // Bisque
+  "light": "#FFFACD",        // Lemon Chiffon
+  "fire": "#FFB347",         // Pastel Vivid Orange
+  "preservation": "#C2C5A8", // Muted Green-Grey
+  "animals": "#D2B48C",      // Tan
+  "science": "#98FB98",      // Pale Green
+  "levitation": "#CCEEFF",   // Airy Blue
+  "weight": "#A9A9A9",       // Dark Gray
+  "sorcery": "#E6E6FA",      // Lavender
+  "flesh": "#FFDAB9",        // Peach Puff
+  "tissue": "#FFF0F5",       // Lavender Blush
+  "flood": "#ADD8E6"         // Light Blue
+}
 
-const description = "Lorem Ipsum"
-
-const page = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 const miracles = [
   /*
@@ -1752,5 +1755,6 @@ const miracles = [
 ]
 
 export {
+  colorMap,
   miracles,
 }

@@ -29,8 +29,8 @@ export const AppHeader = () => {
               <ellipse cx="32" cy="52" rx="20" ry="4" />
             </g>
             <g>
-              <circle cx="32" cy="26" r="14" fill="white" stroke="black" stroke-width="2" />
-              <path d="M 32 16 V 36 M 22 26 H 42" stroke="black" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="32" cy="26" r="14" fill="white" stroke="black" strokeWidth="2" />
+              <path d="M 32 16 V 36 M 22 26 H 42" stroke="black" strokeWidth="2.5" strokeLinecap="round" />
             </g>
           </svg>
           <Box direction='row' gap='xsmall' wrap>

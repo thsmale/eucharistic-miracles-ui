@@ -3,33 +3,29 @@ import {
   Box,
   Button,
   Data,
-  DataFilters,
-  DataFilter,
-  DataSearch,
   DataSummary,
-  DataTable,
-  DataTableGroupBy,
   Page,
   PageContent,
   PageHeader,
   Paragraph,
-  Text,
+  TextInput,
   ToggleGroup,
-  Toolbar,
 } from 'grommet';
 import {
   AppsRounded,
+  Filter,
   Map,
+  Search,
   Table,
 } from 'grommet-icons';
-import { useNavigate } from 'react-router';
 import { ParentSize } from '@visx/responsive';
-import { Tooltip } from 'react-tooltip';
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
 import WorldMap from './Map';
 import MapChart from './SimpleMap';
+import { MiraclesDataTable } from './MiraclesDataTable';
+import { MiraclesFilters } from './MiraclesFilters';
 
 
 const toggleOptions = [
@@ -50,28 +46,11 @@ const toggleOptions = [
   },
 ]
 
-const colorMap = {
-  "blood": "#FF9999",        // Light Coral
-  "theft": "#8E9AAF",        // Overcast Blue (Dark/shadowy vibe, but safe for black text)
-  "doubt": "#D3D3D3",        // Light Gray
-  "face": "#FFE4C4",         // Bisque
-  "light": "#FFFACD",        // Lemon Chiffon
-  "fire": "#FFB347",         // Pastel Vivid Orange
-  "preservation": "#C2C5A8", // Muted Green-Grey
-  "animals": "#D2B48C",      // Tan
-  "science": "#98FB98",      // Pale Green
-  "levitation": "#CCEEFF",   // Airy Blue
-  "weight": "#A9A9A9",       // Dark Gray
-  "sorcery": "#E6E6FA",      // Lavender
-  "flesh": "#FFDAB9",        // Peach Puff
-  "tissue": "#FFF0F5",       // Lavender Blush
-  "flood": "#ADD8E6"         // Light Blue
-}
 
 export const MiracleList = () => {
   const [value, setValue] = useState('table');
-  const [toolTipContent, setToolTipContent] = useState(null);
-  const navigate = useNavigate();
+  const [data, setData] = useState(miracles);
+  const [showLayer, setShowLayer] = useState(false);
 
   return (
     <Box>
@@ -87,24 +66,24 @@ export const MiracleList = () => {
           </Paragraph>
           <Box gap='medium'>
             <Data
-              data={miracles}
+              data={data}
               properties={{
                 country: { label: 'Country' },
                 categories: { label: 'Category' }
               }}
             >
-              <Toolbar>
-                <DataSearch placeholder="Search miracles" />
-                {/*<DataTableGroupBy options={['country']} />*/}
-                <DataFilters layer={true}>
-                  <DataFilter
-                    property="country"
+              <Box direction='row'>
+                <Box width='medium'>
+                  <TextInput
+                    icon={<Search />}
+                    placeholder="Search miracles"
                   />
-                  <DataFilter
-                    options={Object.getOwnPropertyNames(colorMap)}
-                    property="categories"
-                  />
-                </DataFilters>
+                </Box>
+                <Button
+                  icon={<Filter />}
+                  onClick={() => setShowLayer(true)}
+                  tip="Open filters"
+                />
                 <ToggleGroup
                   onToggle={e => {
                     if (e.value.length) setValue(e.value);
@@ -112,72 +91,22 @@ export const MiracleList = () => {
                   value={value}
                   options={toggleOptions}
                 />
-              </Toolbar>
+              </Box>
               <DataSummary />
-              { value === 'table' && (
-                <DataTable
-                  aria-describedby='eucharistic-miracles-list'
-                  columns={[
-                    {
-                      property: 'country',
-                      header: <Text>Country</Text>,
-                    },
-                    {
-                      property: 'city',
-                      header: <Text>City</Text>,
-                    },
-                    {
-                      property: 'year',
-                      header: <Text>Year</Text>,
-                    },
-                    {
-                      property: 'categories',
-                      header: <Text>Categories</Text>,
-                      render: datum => {
-                        if (datum.categories.length > 0) {
-                          return (
-                            <Box direction="row" gap="xsmall">
-                              {datum.categories.map(category => (
-                                <Box
-                                  background={colorMap[category]}
-                                  round='medium'
-                                  align='center'
-                                  width='xsmall'
-                                  key={`${datum.path}-${category}`}
-                                >
-                                  {category}
-                                </Box>
-                              ))}
-                            </Box>
-                          );
-                        }
-                        return (
-                          <Box>--</Box>
-                        )
-                      }
-                    }
-                  ]}
-                  onClickRow={({ datum }) => {
-                    console.log(datum);
-                    console.log('click')
-                    navigate(`${datum.country}/${datum.city}`, { state: { path: datum.path }})
-                  }}
-                  primaryKey={'path'}
-                  sortable={true}
-                  verticalAlign={{ body : 'top' }}
-                />
-              )}
+              { value === 'table' && <MiraclesDataTable /> }
               { value === 'map' && (
                 <Box pad={{ bottom: 'xlarge' }}>
-                  {<MapChart setToolTipContent={setToolTipContent} miracles={miracles}/>}
+                  {<MapChart miracles={data}/>}
                 </Box>
               )}
               { value === 'card' && <CardView /> }
             </Data>
+            {showLayer && (
+              <MiraclesFilters setShowLayer={setShowLayer} />
+            )}
           </Box>
         </PageContent>
       </Page>
     </Box>
- 
   )
 }

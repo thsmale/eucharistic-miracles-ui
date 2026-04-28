@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import {
-    Box,
-    Button,
-    Text,
+  Box,
+  Button,
+  Text,
 } from 'grommet';
 import { Location, Calendar } from "grommet-icons";
 import { Marker } from "react-simple-maps";
@@ -28,10 +28,10 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
     onOpenChange: setIsOpen,
     placement: "top",
     middleware: [
-        arrow({
-            element: arrowRef,
-        }),
-        offset(8),
+      arrow({
+        element: arrowRef,
+      }),
+      offset(8),
     ]
   });
 
@@ -62,29 +62,29 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
             {...getFloatingProps()}
           >
             <FloatingArrow ref={arrowRef} context={context} />
-                <Box
-                    direction="column"
-                    gap='small'
-                    elevation='medium'
-                    background='background-front'
-                    pad='medium'
-                >
-                    <Box direction="row" align="center" gap="xsmall">
-                        <Location />
-                        <Text>{`${miracle.city}, ${miracle.country}`}</Text>
-                    </Box>
-                    <Box direction="row" align="center" gap="xsmall">
-                        <Calendar />
-                        <Text>{miracle.year}</Text>
-                    </Box>
-                    <Box flex={false} align="start">
-                    <Button
-                        label='View details'
-                        secondary
-                        onClick={() => navigate(`${miracle.country}/${miracle.city}`, { state: { path: miracle.path }})}
-                    />
-                    </Box>
-                </Box>
+            <Box
+              direction="column"
+              gap='small'
+              elevation='medium'
+              background='background-front'
+              pad='medium'
+            >
+              <Box direction="row" align="center" gap="xsmall">
+                <Location />
+                <Text>{`${miracle.city}, ${miracle.country}`}</Text>
+              </Box>
+              <Box direction="row" align="center" gap="xsmall">
+                <Calendar />
+                <Text>{miracle.year}</Text>
+              </Box>
+              <Box flex={false} align="start">
+                <Button
+                  label='View details'
+                  secondary
+                  onClick={() => navigate(`${miracle.country}/${miracle.city}`, { state: { path: miracle.path }})}
+                />
+              </Box>
+            </Box>
           </div>
         </FloatingPortal>
       )}
