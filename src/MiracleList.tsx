@@ -109,6 +109,7 @@ export const MiracleList = () => {
                         onClick={() => {
                           setFilters(defaultFilters);
                           setNumFilters(0)
+                          setData(miracles);
                         }}
                       />
                     </Box>
@@ -134,6 +135,7 @@ export const MiracleList = () => {
             {showLayer && (
               <MiraclesFilters
                 filters={filters}
+                setData={setData}
                 setFilters={setFilters}
                 setNumFilters={setNumFilters}
                 setShowLayer={setShowLayer}
