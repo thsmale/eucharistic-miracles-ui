@@ -1,50 +1,20 @@
 import { useState } from 'react';
 import {
   Box,
-  Button,
   Data,
   DataSummary,
   Page,
   PageContent,
   PageHeader,
   Paragraph,
-  Stack,
-  Text,
-  TextInput,
-  ToggleGroup,
 } from 'grommet';
-import {
-  AppsRounded,
-  Filter,
-  Map,
-  Search,
-  Table,
-} from 'grommet-icons';
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
 import { MiraclesMap } from './MiraclesMap';
-
-
-const toggleOptions = [
-  {
-    icon: <Table a11yTitle='Table view' />,
-    value: 'table',
-    tip: 'Table',
-  },
-  {
-    icon: <Map a11yTitle='Map view' />,
-    value: 'map',
-    tip: 'Map',
-  },
-  {
-    icon: <AppsRounded a11yTitle='Card view' />,
-    value: 'card',
-    tip: 'Card',
-  },
-]
+import { MiraclesToolbar } from './MiraclesToolbar';
 
 
 export const MiracleList = () => {
@@ -52,7 +22,7 @@ export const MiracleList = () => {
     countries: [],
     categories: [],
   }
-  const [value, setValue] = useState('table');
+  const [toggleGroupValue, setToggleGroupValue] = useState('table');
   const [data, setData] = useState(miracles);
   const [showLayer, setShowLayer] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
@@ -78,53 +48,20 @@ export const MiracleList = () => {
                 categories: { label: 'Category' }
               }}
             >
-              <Box direction='row'>
-                <Box width='medium'>
-                  <TextInput
-                    icon={<Search />}
-                    placeholder="Search miracles"
-                  />
-                </Box>
-                <Box direction='row'>
-                  <Stack anchor='top-right'>
-                    <Button
-                      icon={<Filter />}
-                      onClick={() => setShowLayer(true)}
-                      tip={numFilters > 0 ? `Open filters, ${numFilters} filters applied` : 'Open filters'}
-                    />
-                    <Box
-                      background='brand'
-                      pad={{ horizontal: 'xsmall' }}
-                      round
-                    >
-                      <Text>{numFilters > 0 ? numFilters : ''}</Text>
-                    </Box>
-                  </Stack>
-                  {numFilters > 0 && (
-                    <Box pad={{ horizontal: 'xsmall' }}>
-                      <Button
-                        label='Clear filters'
-                        onClick={() => {
-                          setFilters(defaultFilters);
-                          setNumFilters(0)
-                          setData(miracles);
-                        }}
-                      />
-                    </Box>
-                  )}
-                </Box>
-                <ToggleGroup
-                  onToggle={e => {
-                    if (e.value.length) setValue(e.value);
-                  }}
-                  value={value}
-                  options={toggleOptions}
-                />
-              </Box>
+              <MiraclesToolbar
+                defaultFilters={defaultFilters}
+                numFilters={numFilters}
+                setData={setData}
+                setFilters={setFilters}
+                setNumFilters={setNumFilters}
+                setShowLayer={setShowLayer}
+                setToggleGroupValue={setToggleGroupValue}
+                toggleGroupValue={toggleGroupValue}
+              />
               <DataSummary />
-              { value === 'table' && <MiraclesDataTable /> }
-              { value === 'map' && <MiraclesMap miracles={data}/> }
-              { value === 'card' && <CardView /> }
+              { toggleGroupValue === 'table' && <MiraclesDataTable /> }
+              { toggleGroupValue === 'map' && <MiraclesMap miracles={data}/> }
+              { toggleGroupValue === 'card' && <CardView /> }
             </Data>
             {showLayer && (
               <MiraclesFilters
