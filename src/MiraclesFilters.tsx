@@ -50,7 +50,7 @@ export const MiraclesFilters = ({ filters, setData, setFilters, setNumFilters, s
           <Button
             a11yTitle='Close modal'
             icon={<Close />}
-            //onClick={setShowLayer(false)}
+            onClick={() => setShowLayer(false)}
           />
         </Header>
         <Box flex={false}>

@@ -20,11 +20,9 @@ import {
   Search,
   Table,
 } from 'grommet-icons';
-import { ParentSize } from '@visx/responsive';
 import { Hero } from './Hero';
 import { CardView } from './CardView';
 import { miracles } from './data/miracles';
-import WorldMap from './Map';
 import MapChart from './SimpleMap';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
@@ -125,11 +123,7 @@ export const MiracleList = () => {
               </Box>
               <DataSummary />
               { value === 'table' && <MiraclesDataTable /> }
-              { value === 'map' && (
-                <Box pad={{ bottom: 'xlarge' }}>
-                  {<MapChart miracles={data}/>}
-                </Box>
-              )}
+              { value === 'map' && <MapChart miracles={data}/> }
               { value === 'card' && <CardView /> }
             </Data>
             {showLayer && (
