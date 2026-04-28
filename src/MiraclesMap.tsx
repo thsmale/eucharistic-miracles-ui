@@ -8,7 +8,7 @@ import {
   ZoomableGroup,
 } from "react-simple-maps"
 import topology from "./world-topo.json"
-import MarkerWithTooltip from './MapMarker';
+import MarkerWithTooltip from './MiraclesMapMarker';
 
 
 export const MiraclesMap = ({ miracles }) => {
