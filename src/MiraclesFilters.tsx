@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -11,9 +12,12 @@ import {
 import { Close } from 'grommet-icons';
 import { colorMap, miracles } from './data/miracles';
 
-const countries = Array.from(new Set(miracles.map(({ country }) => country)));
+const uniqueCountries = Array.from(new Set(miracles.map(({ country }) => country)));
 
-export const MiraclesFilters = ({ setShowLayer }) => {
+export const MiraclesFilters = ({ filters, setFilters, setNumFilters, setShowLayer }) => {
+  // Use to maintain local state since filters are only applied when submit is pressed
+  const [localFilters, setLocalFilters] = useState(filters);
+
   return (
     <Layer
       position='right'
@@ -32,41 +36,52 @@ export const MiraclesFilters = ({ setShowLayer }) => {
           />
         </Header>
         <Box flex={false}>
-          <Form>
+          <Form
+            value={localFilters}
+            onChange={(value) => {
+              setLocalFilters(value)
+            }}
+            onSubmit={({ value }) => {
+              let numFilters = 0;
+              if (value.countries.length > 0) numFilters += 1;
+              if (value.categories.length > 0) numFilters += 1;
+              setFilters(value);
+              setNumFilters(numFilters);
+              setShowLayer(false);
+            }}
+          >
             <FormField
               label='Country'
-              name='country'
-              htmlFor='country'
+              name='countries'
+              htmlFor='countries'
             >
               <SelectMultiple
-                id='country'
-                name='country'
-                onChange={({ value, option }) => {
-                  console.log(value, option);
-                }}
-                options={countries}
+                id='countries'
+                name='countries'
+                options={uniqueCountries}
                 placeholder="Select countries"
               />
             </FormField>
             <FormField
               label='Category'
-              name='category'
-              htmlFor='category'
+              name='categories'
+              htmlFor='categories'
             >
               <SelectMultiple
-                id='country'
-                name='country'
+                id='categories'
+                name='categories'
                 options={Object.getOwnPropertyNames(colorMap)}
                 placeholder="Select categories"
               />
             </FormField>
+            <Box flex={false} align='start' pad={{ top: 'medium' }}>
+              <Button
+                label='Apply filters'
+                primary
+                type="submit"
+              />
+            </Box>
           </Form>
-        </Box>
-        <Box flex={false} align='start'>
-          <Button
-            label='Apply filters'
-            primary
-          />
         </Box>
       </Box>
     </Layer>

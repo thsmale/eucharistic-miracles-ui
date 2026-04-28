@@ -8,6 +8,8 @@ import {
   PageContent,
   PageHeader,
   Paragraph,
+  Stack,
+  Text,
   TextInput,
   ToggleGroup,
 } from 'grommet';
@@ -48,9 +50,15 @@ const toggleOptions = [
 
 
 export const MiracleList = () => {
+  const defaultFilters = {
+    countries: [],
+    categories: [],
+  }
   const [value, setValue] = useState('table');
   const [data, setData] = useState(miracles);
   const [showLayer, setShowLayer] = useState(false);
+  const [filters, setFilters] = useState(defaultFilters);
+  const [numFilters, setNumFilters] = useState(0);
 
   return (
     <Box>
@@ -79,11 +87,33 @@ export const MiracleList = () => {
                     placeholder="Search miracles"
                   />
                 </Box>
-                <Button
-                  icon={<Filter />}
-                  onClick={() => setShowLayer(true)}
-                  tip="Open filters"
-                />
+                <Box direction='row'>
+                  <Stack anchor='top-right'>
+                    <Button
+                      icon={<Filter />}
+                      onClick={() => setShowLayer(true)}
+                      tip={numFilters > 0 ? `Open filters, ${numFilters} filters applied` : 'Open filters'}
+                    />
+                    <Box
+                      background='brand'
+                      pad={{ horizontal: 'xsmall' }}
+                      round
+                    >
+                      <Text>{numFilters > 0 ? numFilters : ''}</Text>
+                    </Box>
+                  </Stack>
+                  {numFilters > 0 && (
+                    <Box pad={{ horizontal: 'xsmall' }}>
+                      <Button
+                        label='Clear filters'
+                        onClick={() => {
+                          setFilters(defaultFilters);
+                          setNumFilters(0)
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
                 <ToggleGroup
                   onToggle={e => {
                     if (e.value.length) setValue(e.value);
@@ -102,7 +132,12 @@ export const MiracleList = () => {
               { value === 'card' && <CardView /> }
             </Data>
             {showLayer && (
-              <MiraclesFilters setShowLayer={setShowLayer} />
+              <MiraclesFilters
+                filters={filters}
+                setFilters={setFilters}
+                setNumFilters={setNumFilters}
+                setShowLayer={setShowLayer}
+              />
             )}
           </Box>
         </PageContent>
