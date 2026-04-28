@@ -13,7 +13,7 @@ import {
 import { Location, Calendar } from "grommet-icons";
 import { useNavigate } from 'react-router';
 
-export const CardView = () => {
+export const MiraclesCards = () => {
   return (
     <Cards size='medium' margin={{ bottom: 'medium' }}>
       {datum => (

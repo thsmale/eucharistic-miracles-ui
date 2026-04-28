@@ -9,8 +9,8 @@ import {
   Paragraph,
 } from 'grommet';
 import { Hero } from './Hero';
-import { CardView } from './CardView';
 import { miracles } from './data/miracles';
+import { MiraclesCards } from './MiraclesCards';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
 import { MiraclesMap } from './MiraclesMap';
@@ -61,7 +61,7 @@ export const MiracleList = () => {
               <DataSummary />
               { toggleGroupValue === 'table' && <MiraclesDataTable /> }
               { toggleGroupValue === 'map' && <MiraclesMap miracles={data}/> }
-              { toggleGroupValue === 'card' && <CardView /> }
+              { toggleGroupValue === 'card' && <MiraclesCards /> }
             </Data>
             {showLayer && (
               <MiraclesFilters
