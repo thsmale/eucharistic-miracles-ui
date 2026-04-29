@@ -13,7 +13,6 @@ import {
   Search,
   Table,
 } from 'grommet-icons';
-import { miracles } from './data/miracles';
 
 const toggleOptions = [
   {
@@ -33,13 +32,18 @@ const toggleOptions = [
   },
 ]
 
+const searchKeys = ['country', 'city', 'year', 'categories'];
 
-export const MiraclesToolbar = ({ defaultFilters, numFilters, setData, setFilters, setNumFilters, setShowLayer, setToggleGroupValue, toggleGroupValue }) => {
+export const MiraclesToolbar = ({ defaultFilters, numFilters, setFilters, setNumFilters, setSearchInput, setShowLayer, setToggleGroupValue, toggleGroupValue }) => {
+
   return (
     <Box direction='row'>
       <Box width='medium'>
         <TextInput
           icon={<Search />}
+          onChange={event => {
+            setSearchInput(event.target.value);
+          }}
           placeholder="Search miracles"
         />
       </Box>
@@ -65,7 +69,6 @@ export const MiraclesToolbar = ({ defaultFilters, numFilters, setData, setFilter
               onClick={() => {
                 setFilters(defaultFilters);
                 setNumFilters(0)
-                setData(miracles);
               }}
             />
           </Box>

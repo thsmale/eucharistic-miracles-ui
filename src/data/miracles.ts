@@ -1,3 +1,5 @@
+import Fuse from 'fuse.js';
+
 const colorMap = {
   "blood": "#FF9999",        // Light Coral
   "theft": "#8E9AAF",        // Overcast Blue (Dark/shadowy vibe, but safe for black text)
@@ -16,6 +18,34 @@ const colorMap = {
   "flood": "#ADD8E6"         // Light Blue
 }
 
+const handleCategoryFilters = (miracles, categories) => {
+  if (categories.length === 0) return miracles;
+  return miracles.filter(miracle => {
+    if (categories.some(category => miracle.categories.includes(category))) {
+      return miracle;
+    }
+  })
+}
+
+const handleCountryFilters = (miracles, countries) => {
+  if (countries.length === 0) return miracles;
+  return miracles.filter((miracle) => {
+    if (countries.includes(miracle.country)) {
+      return miracle;
+    }
+  })
+}
+
+const handleSearchFilters = (miracles, searchInput) => {
+  if (searchInput === '') return miracles;
+  const fuse = new Fuse(miracles, {
+    ignoreDiacritics: true,
+    keys: ['country', 'city', 'year', 'categories'],
+    threshold: 0.2,
+  });
+  const results = fuse.search(searchInput);
+  return results.map(result => result.item);
+}
 
 const miracles = [
   /*
@@ -1756,5 +1786,8 @@ const miracles = [
 
 export {
   colorMap,
+  handleCategoryFilters,
+  handleCountryFilters,
+  handleSearchFilters,
   miracles,
 }

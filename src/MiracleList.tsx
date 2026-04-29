@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Data,
@@ -9,13 +9,17 @@ import {
   Paragraph,
 } from 'grommet';
 import { Hero } from './Hero';
-import { miracles } from './data/miracles';
+import {
+  handleCountryFilters,
+  handleCategoryFilters,
+  handleSearchFilters,
+  miracles,
+} from './data/miracles';
 import { MiraclesCards } from './MiraclesCards';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
 import { MiraclesMap } from './MiraclesMap';
 import { MiraclesToolbar } from './MiraclesToolbar';
-
 
 export const MiracleList = () => {
   const defaultFilters = {
@@ -27,6 +31,15 @@ export const MiracleList = () => {
   const [showLayer, setShowLayer] = useState(false);
   const [filters, setFilters] = useState(defaultFilters);
   const [numFilters, setNumFilters] = useState(0);
+  const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+    let filteredMiracles = miracles;
+    filteredMiracles = handleCountryFilters(filteredMiracles, filters.countries);
+    filteredMiracles = handleCategoryFilters(filteredMiracles, filters.categories);
+    filteredMiracles = handleSearchFilters(filteredMiracles, searchInput);
+    setData(filteredMiracles);
+  }, [filters, searchInput])
 
   return (
     <Box>
@@ -51,9 +64,9 @@ export const MiracleList = () => {
               <MiraclesToolbar
                 defaultFilters={defaultFilters}
                 numFilters={numFilters}
-                setData={setData}
                 setFilters={setFilters}
                 setNumFilters={setNumFilters}
+                setSearchInput={setSearchInput}
                 setShowLayer={setShowLayer}
                 setToggleGroupValue={setToggleGroupValue}
                 toggleGroupValue={toggleGroupValue}
@@ -66,7 +79,6 @@ export const MiracleList = () => {
             {showLayer && (
               <MiraclesFilters
                 filters={filters}
-                setData={setData}
                 setFilters={setFilters}
                 setNumFilters={setNumFilters}
                 setShowLayer={setShowLayer}

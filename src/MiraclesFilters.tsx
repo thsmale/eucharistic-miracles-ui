@@ -14,27 +14,9 @@ import { colorMap, miracles } from './data/miracles';
 
 const uniqueCountries = Array.from(new Set(miracles.map(({ country }) => country)));
 
-export const MiraclesFilters = ({ filters, setData, setFilters, setNumFilters, setShowLayer }) => {
+export const MiraclesFilters = ({ filters, setFilters, setNumFilters, setShowLayer }) => {
   // Use to maintain local state since filters are only applied when submit is pressed
   const [localFilters, setLocalFilters] = useState(filters);
-
-  const handleCountryFilters = (filteredMiracles, countries) => {
-    const filteredCountries = filteredMiracles.filter((miracle) => {
-      if (countries.includes(miracle.country)) {
-        return miracle;
-      }
-    })
-    return filteredCountries;
-  }
-
-  const handleCategoryFilters = (filteredMiracles, categories) => {
-    const filteredCategories = filteredMiracles.filter(miracle => {
-      if (categories.some(category => miracle.categories.includes(category))) {
-        return miracle;
-      }
-    })
-    return filteredCategories;
-  }
 
   return (
     <Layer
@@ -61,16 +43,10 @@ export const MiraclesFilters = ({ filters, setData, setFilters, setNumFilters, s
             }}
             onSubmit={({ value }) => {
               let numFilters = 0;
-              let filteredMiracles = miracles;
-              if (value.countries.length > 0) {
-                filteredMiracles = handleCountryFilters(filteredMiracles, value.countries);
+              if (value.countries.length > 0)
                 numFilters += 1;
-              }
-              if (value.categories.length > 0) {
+              if (value.categories.length > 0)
                 numFilters += 1;
-                filteredMiracles = handleCategoryFilters(filteredMiracles, value.categories)
-              }
-              setData(filteredMiracles);
               setFilters(value);
               setNumFilters(numFilters);
               setShowLayer(false);
