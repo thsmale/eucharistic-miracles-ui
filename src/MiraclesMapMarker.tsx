@@ -48,7 +48,7 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
         ref={refs.setReference} 
         {...getReferenceProps()}
       >
-        <circle r={circleRadius} fill="#F53" />
+        <circle r={circleRadius} fill="#7D4CDB" />
       </Marker>
 
       {/* The Portal ensures the tooltip sits on top of the Map container */}

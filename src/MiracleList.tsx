@@ -44,14 +44,14 @@ export const MiracleList = () => {
   return (
     <Box>
       <Hero />
-      <Page background='background-front'>
+      <Page background='background-front' pad={{ bottom: 'xlarge' }}>
         <PageContent gap='xlarge'>
           <PageHeader
             title="Miracles List"
             subtitle={`A catalog of every reported Eucharistic miracle in the world.`}
           />
           <Paragraph margin="none">
-            Discover, analyze, and share quality data. Learn more about data types, creating, and collaborating.
+            Discover, analyze, and share Eucharistic miracles. Examine historical accounts, scientific findings, and centuries of documented tradition.
           </Paragraph>
           <Box gap='medium'>
             <Data

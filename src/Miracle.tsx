@@ -41,7 +41,7 @@ export const Miracle = () => {
   }
 
   return (
-    <Page background='background-front' kind='narrow'>
+    <Page background='background-front' kind='narrow' pad={{ bottom: 'xlarge' }}>
       <PageContent gap='medium'>
         <PageHeader
           title={`${miracle?.title} ${miracle?.city}`}
@@ -58,7 +58,7 @@ export const Miracle = () => {
           </Paragraph>
         </Box>
         {miracle?.images.length > 0 && (
-          <Box pad={{bottom: 'large'}}>
+          <Box>
             <Heading margin='none' level={3}>Images</Heading>
             <Box width="medium" height="medium" overflow="hidden">
               <Carousel fill controls="arrows">

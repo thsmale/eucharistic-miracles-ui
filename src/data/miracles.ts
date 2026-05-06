@@ -1,22 +1,22 @@
 import Fuse from 'fuse.js';
 
 const colorMap = {
-  "blood": "#FF9999",        // Light Coral
-  "theft": "#8E9AAF",        // Overcast Blue (Dark/shadowy vibe, but safe for black text)
-  "doubt": "#D3D3D3",        // Light Gray
-  "face": "#FFE4C4",         // Bisque
-  "light": "#FFFACD",        // Lemon Chiffon
-  "fire": "#FFB347",         // Pastel Vivid Orange
-  "preservation": "#C2C5A8", // Muted Green-Grey
-  "animals": "#D2B48C",      // Tan
-  "science": "#98FB98",      // Pale Green
-  "levitation": "#CCEEFF",   // Airy Blue
-  "weight": "#A9A9A9",       // Dark Gray
-  "sorcery": "#E6E6FA",      // Lavender
-  "flesh": "#FFDAB9",        // Peach Puff
-  "tissue": "#FFF0F5",       // Lavender Blush
-  "flood": "#ADD8E6"         // Light Blue
-}
+  "blood": "#FFB3B3",        // Fresh Rose: More vivid than light-critical, less harsh than red
+  "theft": "#AAB8C2",        // Cool Slate: A punchier blue-grey, similar to a saturated light-6
+  "doubt": "#E0E0E0",        // Bright Silver: A crisp, confident grey with more depth than light-2
+  "face": "#FFECB3",         // Soft Gold: Similar to accent-3, but creamier and more "lit"
+  "light": "#FFF59D",        // Sunny: A high-visibility but soft yellow, avoids the "beige" trap
+  "fire": "#FFCC80",         // Bright Peach: Similar to status-warning, but lighter and friendlier
+  "preservation": "#C5E1A5", // Spring Leaf: A vibrant, clear green-grey similar to status-ok
+  "animals": "#D7CCC8",      // Warm Clay: A cleaner tan that feels modern rather than muddy
+  "science": "#B2FFD2",      // Electric Mint: A clean, high-energy pastel green
+  "levitation": "#B3E5FC",   // Sky Spark: A saturated light blue that pops against white
+  "weight": "#BDBDBD",       // Concrete: A solid, medium-light grey with neutral clarity
+  "sorcery": "#E1BEE7",      // Bright Orchid: Similar to accent-4, but much more luminous
+  "flesh": "#FFCCBC",        // Warm Apricot: High-clarity peach that feels vibrant on-screen
+  "tissue": "#FFEBEE",       // Cherry Blossom: A high-light pink with a clear, sharp base
+  "flood": "#90CAF9"         // Azure Mist: A clear, energetic blue that mimics neutral-3
+};
 
 const handleCategoryFilters = (miracles, categories) => {
   if (categories.length === 0) return miracles;

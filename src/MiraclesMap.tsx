@@ -29,11 +29,17 @@ export const MiraclesMap = ({ miracles }) => {
   }
 
   return (
-    <Box pad={{ top: 'small', bottom: 'xlarge' }}>
+    <Box
+      pad={{ top: 'small' }}
+      round='medium'
+    >
       <Stack anchor='bottom-right'>
-        <Box width="100%" height="large">
+        <Box width="100%" height="large" round='medium'>
           <ComposableMap
-            style={{ background: 'grey' }}
+            style={{
+              background: '#EDEDED',
+              borderRadius: '12px'
+            }}
             projectionConfig={{ scale: 200 }}
           >
             <ZoomableGroup
@@ -72,16 +78,16 @@ export const MiraclesMap = ({ miracles }) => {
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill="#2a354d"
+                      fill="#6FFFB0"
                       stroke="#000"
                       strokeWidth={.3}
                       style={{
                         default: {
-                          fill: "#D6D6DA",
+                          fill: "#6FFFB0",
                           outline: "none"
                         },
                         hover: {
-                          fill: "#D6D6DA",
+                          fill: "#6FFFB0",
                           outline: "none"
                         },
                       }}
