@@ -1,5 +1,10 @@
-import React, { useState } from "react"
-import { Box, Button, Stack } from 'grommet';
+import React, { useContext, useState } from "react"
+import {
+  Box,
+  Button,
+  ResponsiveContext,
+  Stack,
+} from 'grommet';
 import { ZoomIn, ZoomOut } from 'grommet-icons';
 import {
   ComposableMap,
@@ -10,13 +15,62 @@ import {
 import topology from "./world-topo.json"
 import MarkerWithTooltip from './MiraclesMapMarker';
 
+const getSmallScreenRadius = ({ zoom }) => {
+  if (zoom < 3) {
+    return 3;
+  }
+  if (zoom > 3 && zoom < 6) {
+    return 2;
+  }
+  if (zoom > 6 && zoom < 12) {
+    return 1;
+  }
+  if (zoom > 12 && zoom < 35) {
+    return .5;
+  }
+  if (zoom > 35 && zoom < 75) {
+    return .25;
+  }
+  if (zoom > 75 && zoom < 250) {
+    return .10
+  }
+  if (zoom > 250) {
+    return .05
+  }
+}
+
+const getRadius = ({ zoom }) => {
+  if (zoom < 3) {
+    return 3;
+  }
+  if (zoom > 3 && zoom < 6) {
+    return 2;
+  }
+  if (zoom > 6 && zoom < 12) {
+    return 1;
+  }
+  if (zoom > 12 && zoom < 15) {
+    return .5;
+  }
+  if (zoom > 15 && zoom < 35) {
+    return .25;
+  }
+  if (zoom > 35 && zoom < 75) {
+    return .10;
+  }
+  if (zoom > 75) {
+    return .05;
+  }
+}
+
 
 export const MiraclesMap = ({ miracles }) => {
+  const size = useContext(ResponsiveContext);
   const defaultPosition = { coordinates: [0, 0], zoom: 1 };
   const [position, setPosition] = useState(defaultPosition)
   const [circleRadius, setCircleRadius] = useState(3);
   const minZoom = 1;
-  const maxZoom = 50;
+  const maxZoom = 500;
 
   const handleZoomIn = () => {
     if (position.zoom >= maxZoom) return;
@@ -34,11 +88,13 @@ export const MiraclesMap = ({ miracles }) => {
       round='medium'
     >
       <Stack anchor='bottom-right'>
-        <Box width="100%" height="large" round='medium'>
+        <Box width="100%" height={size === 'small' ? 'medium' : "large"} round='medium'>
           <ComposableMap
             style={{
               background: '#EDEDED',
-              borderRadius: '12px'
+              borderRadius: '12px',
+              width: '100%',
+              height: '100%',
             }}
             projectionConfig={{ scale: 200 }}
           >
@@ -48,27 +104,8 @@ export const MiraclesMap = ({ miracles }) => {
               minZoom={minZoom}
               maxZoom={maxZoom}
               onMoveEnd={(position) => { 
-                if (position.zoom < 3) {
-                  setCircleRadius(3)
-                }
-                if (position.zoom > 3 && position.zoom < 6) {
-                  setCircleRadius(2);
-                }
-                if (position.zoom > 6 && position.zoom < 12) {
-                  setCircleRadius(1);
-                }
-                if (position.zoom > 12 && position.zoom < 15) {
-                  setCircleRadius(.5);
-                }
-                if (position.zoom > 15 && position.zoom < 23) {
-                  setCircleRadius(.25);
-                }
-                if (position.zoom > 23 && position.zoom < 35) {
-                  setCircleRadius(.10)
-                }
-                if (position.zoom > 35) {
-                  setCircleRadius(.05)
-                }
+                const radius = size === 'small' ? getSmallScreenRadius(position) : getRadius(position);
+                setCircleRadius(radius)
                 setPosition(position)
               }}
             >

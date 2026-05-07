@@ -1,21 +1,12 @@
-import { useContext } from 'react';
 import {
   Box,
   Heading,
   Page,
   PageContent,
-  ResponsiveContext,
   Text,
 } from 'grommet';
 
 export const Hero = () => {
-  const size = useContext(ResponsiveContext);
-  let ellipse = '10%';
-
-  if (size === 'small' || size === 'medium') {
-    ellipse = '50%';
-  }
-
   return (
     <Page flex='grow'
       background={{
