@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router';
 import {
   Box,
+  Button,
   Carousel,
   Heading,
   Image,
@@ -11,6 +12,12 @@ import {
   Paragraph,
   Text,
 } from 'grommet';
+import {
+  DocumentPdf,
+  Facebook,
+  Link,
+  X,
+} from 'grommet-icons';
 import parse from 'html-react-parser';
 
 export const Miracle = () => {
@@ -40,12 +47,48 @@ export const Miracle = () => {
     )
   }
 
+  const tweetContent = [
+    `Check out the ${miracle?.title} ${miracle?.city}, ${miracle?.country} ${miracle?.year}.`,
+    window.location.href
+  ].join('%0A%0A')
+
   return (
     <Page background='background-front' kind='narrow' pad={{ bottom: 'xlarge' }}>
       <PageContent gap='medium'>
         <PageHeader
           title={`${miracle?.title} ${miracle?.city}`}
-          subtitle={`${miracle?.country} ${miracle.year}`}
+          subtitle={(
+            <Box gap='small'>
+              <Text>
+                {miracle?.country} {miracle.year}
+              </Text>
+              <Box direction='row' gap='xsmall'>
+                <Button
+                  hoverIndicator
+                  icon={<X />}
+                  href={`https://twitter.com/intent/tweet?text=${tweetContent}`}
+                  target="_blank"
+                />
+                <Button
+                  hoverIndicator
+                  icon={<Facebook />}
+                  href={`http://www.facebook.com/sharer.php?u=${window.location.href}`}
+                  target="_blank"
+                />
+                <Button
+                  hoverIndicator
+                  icon={<Link />}
+                  onClick={() => navigator.clipboard.writeText(window.location.href)}
+                />
+                <Button
+                  hoverIndicator
+                  icon={<DocumentPdf />}
+                  href={miracle.pdfLink}
+                  target="_blank"
+                />
+              </Box>
+            </Box>
+          )}
         />
         <Box>
           <Heading margin='none' level={3}>Introduction</Heading>
