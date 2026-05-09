@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router/dom";
 import App from './App.tsx'
 import { MiracleList } from './MiracleList.tsx';
 import { Miracle } from './Miracle.tsx';
+import { NotFound } from './404.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <p>page no found</p>
+        element: <NotFound />
       }
     ]
   },

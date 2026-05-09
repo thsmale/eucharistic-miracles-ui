@@ -11,6 +11,7 @@ import {
   PageContent,
   PageHeader,
   Paragraph,
+  Spinner,
   Text,
 } from 'grommet';
 import {
@@ -20,32 +21,91 @@ import {
   X,
 } from 'grommet-icons';
 import parse from 'html-react-parser';
+import { NotFound } from './404';
+import { getPath } from './data/miracles';
+
+const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 
 export const Miracle = () => {
   const { country, city } = useParams();
   const location = useLocation();
   const [miracle, setMiracle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  // 0 no error, 1: 404 not found, 2: error loading data
+  const [errorType, setErrorType] = useState(0);
 
   useEffect(() => {
-    console.log(`fetch content for country: ${country} and city ${city} at ${location?.state?.path}`)
+    /**
+     * location.state.path will exist as it is received from navigate like onClick from DataTable, MapMarker, or Card
+     * if a user just types in a url like a/b we will try to find the path based off the country, city provided
+     */
+    const path = location?.state?.path || getPath(country, city);
     const fetchData = async () => {
       try {
-        const response = await fetch(`/json/${location.state.path}`);
+        const response = await fetch(`${cdnUrl}/json/${path}`);
+        if (response.status === 404) {
+          console.log(`Received 404 when fetching miracle ${path}`)
+          setErrorType(1);
+          return;
+        }
+        if (response.status < 200 || response.status >= 300) {
+          console.log(`Received non 2xx ${response.status} when fetching miracle ${path}`)
+          setErrorType(2);
+          return;
+        }
         const result = await response.json();
-        console.log(result);
         setMiracle(result);
       } catch (err) {
         console.error(`Error fetching ${err}`);
+        setErrorType(2);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
-  }, [country, city, location])
+  }, [country, city, location?.state?.path])
 
-
-  if (miracle === null) {
+  if (loading) {
     return (
-      <p>oops no data found!</p>
+      <Box
+        align='center'
+        justify='center'
+        margin={{ top: '25%' }}
+        width="100%"
+      >
+        <Spinner
+          message={{
+            start: 'Loading data.',
+            end: 'Data has been loaded.'
+          }}
+        />
+      </Box>
     )
+  }
+
+
+  if (errorType === 1) {
+    return <NotFound />
+  }
+
+  if (miracle === null || errorType !== 0) {
+    return (
+      <Page background='background-front' kind='narrow'>
+        <PageContent pad='medium'>
+          <PageHeader
+            title="An error occurred."
+            subtitle="Unable to load the Eucharistic miracle."
+          />
+          <Box flex={false} align='start'>
+            <Button
+              href={window.location.href}
+              label="Refresh page"
+              primary
+            />
+          </Box>
+        </PageContent>
+      </Page>
+    );
   }
 
   const tweetContent = [

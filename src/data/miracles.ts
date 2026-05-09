@@ -18,6 +18,19 @@ const colorMap = {
   "flood": "#90CAF9"         // Azure Mist: A clear, energetic blue that mimics neutral-3
 };
 
+// Returning null here as an indicator that getPath failed
+const getPath = (country, city) => {
+  const targetCountry = country.toLowerCase();
+  const targetCity = city.toLowerCase();
+
+  const match = miracles.find(item => 
+    item.country.toLowerCase() === targetCountry && 
+    item.city.toLowerCase() === targetCity
+  );
+
+  return match ? match.path : null;
+}
+
 const handleCategoryFilters = (miracles, categories) => {
   if (categories.length === 0) return miracles;
   return miracles.filter(miracle => {
@@ -1786,6 +1799,7 @@ const miracles = [
 
 export {
   colorMap,
+  getPath,
   handleCategoryFilters,
   handleCountryFilters,
   handleSearchFilters,
