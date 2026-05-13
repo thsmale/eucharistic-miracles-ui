@@ -18,14 +18,31 @@ const colorMap = {
   "flood": "#90CAF9"         // Azure Mist: A clear, energetic blue that mimics neutral-3
 };
 
-// Returning null here as an indicator that getPath failed
-const getPath = (country, city) => {
+/**
+ * Used for a tags in json data or for resources
+ * Provides the ability to look up a path and get this metadata
+ * So that we can set the proper URL
+ * @param path 
+ */
+const getMiracle = (path) => {
+  const miracle = miracles.find(miracle => miracle.path === path);
+  return miracle || {};
+}
+
+/**
+ * Returning null here as an indicator that getPath failed
+ * versus location.state.path would be undefined 
+ * so you can trace to see how the app failed in a 404
+ * pretty hacky... should handle this better
+ */
+const getPath = (country, city, year) => {
   const targetCountry = country.toLowerCase();
   const targetCity = city.toLowerCase();
 
   const match = miracles.find(item => 
     item.country.toLowerCase() === targetCountry && 
-    item.city.toLowerCase() === targetCity
+    item.city.toLowerCase() === targetCity &&
+    item.year === year
   );
 
   return match ? match.path : null;
@@ -61,38 +78,55 @@ const handleSearchFilters = (miracles, searchInput) => {
 }
 
 const miracles = [
-  /*
   {
     "country": "Argentina",
     "city": "Buenos Aires",
-    "year": "1992-1994-1996",
-    "categories": [],
+    "year": "1992",
+    "categories": [
+      "blood"
+    ],
     "coordinates": [
-      []
+      [
+        -58.380427228011285,
+        -34.603101207984515
+      ]
     ],
     "path": "argentina/buenos_aires_1.json"
   },
   {
     "country": "Argentina",
     "city": "Buenos Aires",
-    "year": "1992-1994-1996",
-    "categories": [],
+    "year": "1994",
+    "categories": [
+      "flesh",
+      "science",
+      "tissue"
+    ],
     "coordinates": [
-      []
+      [
+        -58.380427228011285,
+        -34.603101207984515
+      ]
     ],
     "path": "argentina/buenos_aires_2.json"
   },
   {
-    "country": "ARGENTINA",
-    "city": "BUENOS AIRES",
-    "year": "1992-1994-1996",
-    "categories": [],
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "year": "1996",
+    "categories": [
+      "preservation",
+      "science",
+      "tissue"
+    ],
     "coordinates": [
-      []
+      [
+        -58.380427228011285,
+        -34.603101207984515
+      ]
     ],
     "path": "argentina/buenos_aires_3.json"
   },
-  */
   {
     "country": "Austria",
     "city": "Fiecht",
@@ -756,7 +790,6 @@ const miracles = [
     ],
     "path": "italy/assisi.json"
   },
-  /*
   {
     "country": "Italy",
     "city": "Asti",
@@ -787,7 +820,6 @@ const miracles = [
     ],
     "path": "italy/asti_2.json"
   },
-  */
   {
     "country": "Italy",
     "city": "Bagno di Romagna",
@@ -894,11 +926,10 @@ const miracles = [
     ],
     "path": "italy/ferrara.json"
   },
-  /*
   {
     "country": "Italy",
-    "city": "Firenze",
-    "year": "1230-1595",
+    "city": "Florence",
+    "year": "1230",
     "categories": [
       "blood"
     ],
@@ -912,8 +943,8 @@ const miracles = [
   },
   {
     "country": "Italy",
-    "city": "Firenze",
-    "year": "1230-1595",
+    "city": "Florence",
+    "year": "1595",
     "categories": [
       "fire"
     ],
@@ -925,7 +956,6 @@ const miracles = [
     ],
     "path": "italy/florence_2.json"
   },
-  */
   {
     "country": "Italy",
     "city": "Gruaro (Valvasone)",
@@ -1060,7 +1090,6 @@ const miracles = [
     ],
     "path": "italy/rimini.json"
   },
-  /*
   {
     "country": "Italy",
     "city": "Rome",
@@ -1094,7 +1123,6 @@ const miracles = [
     ],
     "path": "italy/rome_3.json"
   },
-  */
   {
     "country": "Italy",
     "city": "Salzano",
@@ -1191,7 +1219,6 @@ const miracles = [
     ],
     "path": "italy/trani.json"
   },
-  /*
   {
     "country": "Italy",
     "city": "Turin",
@@ -1225,7 +1252,6 @@ const miracles = [
     ],
     "path": "italy/turin_3.json"
   },
-  */
   {
     "country": "Italy",
     "city": "Veroli",
@@ -1273,7 +1299,6 @@ const miracles = [
     ],
     "path": "martinique/morne-rouge.json"
   },
-  /*
   {
     "country": "Mexico",
     "city": "Tixtla",
@@ -1306,7 +1331,6 @@ const miracles = [
     ],
     "path": "mexico/tixtla_2.json"
   },
-  */
   {
     "country": "Peru",
     "city": "Eten",
@@ -1799,6 +1823,7 @@ const miracles = [
 
 export {
   colorMap,
+  getMiracle,
   getPath,
   handleCategoryFilters,
   handleCountryFilters,

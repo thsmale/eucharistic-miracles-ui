@@ -68,7 +68,7 @@ const Card = ({ country, city, year, path, }) => {
   return (
     <GrommetCard
       elevation='medium'
-      onClick={() => navigate(`${country}/${city}`, { state: { path: path }})}
+      onClick={() => navigate(`${country}/${city}/${year}`, { state: { path: path }})}
     >
       <CardHeader
         direction="column"

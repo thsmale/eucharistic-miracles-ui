@@ -1,0 +1,8 @@
+/* For miracle blogs */
+ol li {
+  margin-bottom: 15px;
+}
+
+ol li:last-child {
+  margin-bottom: 0;
+}

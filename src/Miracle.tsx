@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router';
 import {
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router';
+import {
+  Anchor,
   Box,
   Button,
   Carousel,
   Footer,
   Heading,
   Image,
+  Notification,
   Page,
   PageContent,
   PageHeader,
@@ -20,36 +26,41 @@ import {
   Link,
   X,
 } from 'grommet-icons';
-import parse from 'html-react-parser';
+import parse, { domToReact } from 'html-react-parser';
+import { isEmpty } from 'lodash';
 import { NotFound } from './404';
-import { getPath } from './data/miracles';
+import { getMiracle, getPath } from './data/miracles';
 
 const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 
+
+
 export const Miracle = () => {
-  const { country, city } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { country, city, year } = useParams();
   const [miracle, setMiracle] = useState(null);
   const [loading, setLoading] = useState(true);
   // 0 no error, 1: 404 not found, 2: error loading data
   const [errorType, setErrorType] = useState(0);
+  const [showNotification, setShowNotification] = useState(true);
 
   useEffect(() => {
-    /**
-     * location.state.path will exist as it is received from navigate like onClick from DataTable, MapMarker, or Card
-     * if a user just types in a url like a/b we will try to find the path based off the country, city provided
-     */
-    const path = location?.state?.path || getPath(country, city);
     const fetchData = async () => {
       try {
+        /**
+         * location.state.path will exist as it is received from navigate like onClick from DataTable, MapMarker, or Card
+         * if a user just types in a url like a/b/c we will try to find the path based off the country, city provided
+         */
+        const path = location?.state?.path || getPath(country, city, year);
         const response = await fetch(`${cdnUrl}/json/${path}`);
         if (response.status === 404) {
-          console.log(`Received 404 when fetching miracle ${path}`)
+          console.error(`Received 404 when fetching miracle ${path}`)
           setErrorType(1);
           return;
         }
         if (response.status < 200 || response.status >= 300) {
-          console.log(`Received non 2xx ${response.status} when fetching miracle ${path}`)
+          console.error(`Received non 2xx ${response.status} when fetching miracle ${path}`)
           setErrorType(2);
           return;
         }
@@ -63,7 +74,7 @@ export const Miracle = () => {
       }
     }
     fetchData();
-  }, [country, city, location?.state?.path])
+  }, [country, city, year, location?.state?.path])
 
   if (loading) {
     return (
@@ -108,10 +119,79 @@ export const Miracle = () => {
     );
   }
 
+  /**
+   * intro, overview, captions are expected to contain html
+   * we will use this to convert some html to Grommet
+   */
+  const htmlToReactOptions = {
+    replace(domNode) {
+    /**
+     * <p> check is recursive
+     * since it can have a or img child elements
+     */
+      if (domNode.name === 'p') {
+        return (
+          <Paragraph margin='none' fill={true}>
+            {domToReact(domNode.children, htmlToReactOptions)}
+          </Paragraph>
+        )
+      }
+      /**
+     * expecting a href value set to the path of the filename
+     * will use that to get the miracle details
+     * which can be used to properly set the href and navigate
+     */
+      if (domNode.name === 'a') {
+        const path = domNode.attribs.href;
+        const { country, city, year } = getMiracle(path);
+        const endpoint = `/${country}/${city}/${year}`;
+        return (
+          <Anchor
+            href={endpoint}
+            label={domNode.children[0].data}
+            onClick={() => {
+              navigate(endpoint, { state: { path }})
+            }}
+          />
+        )
+      }
+      // This is only used for the QR code in Buenos Aires 1996 (part 3)
+      if (domNode.name === 'img') {
+        const attribs = domNode.attribs;
+        const src = attribs.src;
+        const alt = attribs.alt;
+        return (
+          <Image
+            alt={alt}
+            fit="contain"
+            src={`${cdnUrl}/images/${src}`}
+          />
+        )
+      }
+    }
+  }
+
   const tweetContent = [
     `Check out the ${miracle?.title} ${miracle?.city}, ${miracle?.country} ${miracle?.year}.`,
     window.location.href
   ].join('%0A%0A')
+
+  // Notifications are to let users know if there is any missing context, like a part 1
+  let notificationActions = [];
+  let hasNotification = false;
+  if (!isEmpty(miracle.notification)) {
+    hasNotification = true;
+    miracle.notification.actions.map(action => {
+      const { country, city, year } = getMiracle(action.path);
+      const endpoint = `/${country}/${city}/${year}`;
+      const modifiedAction = {
+        label: action.label,
+        href: endpoint,
+        onClick: () => navigate(endpoint, { state: { path: action.path }})
+      }
+      notificationActions = [...notificationActions, modifiedAction]
+    })
+  }
 
   return (
     <Box>
@@ -153,14 +233,23 @@ export const Miracle = () => {
             )}
           />
           <Box>
+            {hasNotification && showNotification && (
+              <Box margin={{ bottom: 'medium' }}>
+                <Notification
+                  status="info"
+                  title={miracle.notification.title}
+                  message={miracle.notification.message}
+                  actions={notificationActions}
+                  onClose={() => setShowNotification(false)}
+                />
+              </Box>
+            )}
             <Heading margin='none' level={3}>Introduction</Heading>
-            <Paragraph margin='none' fill={true}>{miracle?.intro}</Paragraph>
+            {parse(miracle?.intro, htmlToReactOptions)}
           </Box>
           <Box>
             <Heading margin='none' level={3}>Overview</Heading>
-            <Paragraph margin='none' fill={true}>
-              {parse(miracle?.overview)}
-            </Paragraph>
+            {parse(miracle?.overview, htmlToReactOptions)}
           </Box>
           {miracle?.images.length > 0 && (
             <Box>
@@ -169,12 +258,38 @@ export const Miracle = () => {
                 <Carousel fill controls="arrows">
                   {miracle.images.map(img => (
                     <Box key={img.path} width="medium" height="medium">
-                      <Image fit="cover" src={`/images/${img.path}`} />
+                      <Image
+                        fallback="/picture-failed-to-load.svg"
+                        fit="cover"
+                        src={`${cdnUrl}/images/${img.path}`}
+                      />
                       <Text size="small">{parse(img.caption)}</Text>
                     </Box>
                   ))}
                 </Carousel>
               </Box>
+            </Box>
+          )}
+          {miracle?.resources.length > 0 && (
+            <Box>
+              <Heading margin='none' level={3}>Resources</Heading>
+              <ul style={{ marginTop: 0, marginBottom: 0 }}>
+                {miracle?.resources.map(resource => {
+                  const { country, city, year } = getMiracle(resource.path);
+                  const endpoint = `/${country}/${city}/${year}`;
+                  return (
+                    <li key={resource.path}>
+                      <Anchor
+                        href={endpoint}
+                        label={resource.label}
+                        onClick={() => {
+                          navigate(endpoint, { state: { path: resource.path }})
+                        }}
+                      />
+                    </li>
+                  )
+                })}
+              </ul>
             </Box>
           )}
         </PageContent>

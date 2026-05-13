@@ -66,7 +66,7 @@ export const MiraclesDataTable = () => {
           }
         ]}
         onClickRow={({ datum }) => {
-          navigate(`${datum.country}/${datum.city}`, { state: { path: datum.path }})
+          navigate(`${datum.country}/${datum.city}/${datum.year}`, { state: { path: datum.path }})
         }}
         onSort={({ property, direction }) => {
           const sortObj: SortObject = {

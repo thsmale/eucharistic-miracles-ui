@@ -6,6 +6,7 @@ import App from './App.tsx'
 import { MiracleList } from './MiracleList.tsx';
 import { Miracle } from './Miracle.tsx';
 import { NotFound } from './404.tsx';
+import './index.css'
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
         element: <MiracleList />,
       },
       {
-        path: "/:country/:city",
+        path: "/:country/:city/:year",
         element: <Miracle />
       },
       {

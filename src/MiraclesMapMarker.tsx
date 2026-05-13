@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import {
+  Anchor,
   Box,
   Button,
   Text,
@@ -40,11 +41,12 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
+  const { coordinates, city, country, miracles } = miracle;
 
   return (
     <>
       <Marker 
-        coordinates={miracle.coordinates[0]} 
+        coordinates={coordinates} 
         ref={refs.setReference} 
         {...getReferenceProps()}
       >
@@ -71,19 +73,46 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
             >
               <Box direction="row" align="center" gap="xsmall">
                 <Location />
-                <Text>{`${miracle.city}, ${miracle.country}`}</Text>
+                <Text>{`${city}, ${country}`}</Text>
               </Box>
-              <Box direction="row" align="center" gap="xsmall">
-                <Calendar />
-                <Text>{miracle.year}</Text>
-              </Box>
-              <Box flex={false} align="start">
-                <Button
-                  label='View details'
-                  secondary
-                  onClick={() => navigate(`${miracle.country}/${miracle.city}`, { state: { path: miracle.path }})}
-                />
-              </Box>
+              {miracles.length === 1 && (
+                <Box gap='small'>
+                  <Box direction="row" align="center" gap='xsmall'>
+                    <Calendar />
+                    <Text>{miracles[0].year}</Text>
+                  </Box>
+                  <Box flex={false} align="start">
+                    <Button
+                      label='View details'
+                      secondary
+                      onClick={() => 
+                        navigate(`${country}/${city}/${miracles[0].year}`, {
+                          state: { path: miracles[0].path }}
+                        )}
+                    />
+                  </Box>
+                </Box>
+              )}
+              {miracles.length > 1 && (
+                <Box pad={{ left: 'medium' }}>
+                  <ul style={{ marginTop: 0, marginBottom: 0, marginLeft: 0, paddingLeft: 0 }}>
+                    {miracles.map(item  => {
+                      const endpoint = `/${country}/${city}/${item.year}`;
+                      return (
+                        <li key={item.path}>
+                          <Anchor
+                            href={endpoint}
+                            label={item.year}
+                            onClick={() => {
+                              navigate(endpoint, { state: { path: item.path }})
+                            }}
+                          />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </Box>
+              )}
             </Box>
           </div>
         </FloatingPortal>
