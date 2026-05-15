@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import {
   Box,
   Button,
@@ -6,6 +7,8 @@ import {
 } from 'grommet';
 
 export const AppHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <Header
       fill='horizontal'
@@ -13,7 +16,7 @@ export const AppHeader = () => {
       border={{ side: 'bottom' }}
       background='background-back'
     >
-      <Button href='/'>
+      <Button onClick={() => navigate('/')}>
         <Box
           direction='row'
           align='center'

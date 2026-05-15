@@ -24,6 +24,7 @@ import {
   DocumentPdf,
   Facebook,
   Link,
+  LinkPrevious,
   X,
 } from 'grommet-icons';
 import parse, { domToReact } from 'html-react-parser';
@@ -149,9 +150,11 @@ export const Miracle = () => {
           <Anchor
             href={endpoint}
             label={domNode.children[0].data}
-            onClick={() => {
+            onClick={(event) => {
+              event?.preventDefault();
               navigate(endpoint, { state: { path }})
             }}
+            // cannot use as Link since tixtla and sokolka have same date
           />
         )
       }
@@ -187,7 +190,12 @@ export const Miracle = () => {
       const modifiedAction = {
         label: action.label,
         href: endpoint,
-        onClick: () => navigate(endpoint, { state: { path: action.path }})
+        onClick: (event) => {
+          // Cannot pass react-router Link, state, to here
+          // ...due to issue with Grommet
+          event?.preventDefault();
+          navigate(endpoint, { state: { path: action.path }})
+        }
       }
       notificationActions = [...notificationActions, modifiedAction]
     })
@@ -282,9 +290,11 @@ export const Miracle = () => {
                       <Anchor
                         href={endpoint}
                         label={resource.label}
-                        onClick={() => {
+                        onClick={(event) => {
+                          event?.preventDefault();
                           navigate(endpoint, { state: { path: resource.path }})
                         }}
+                        // cannot use as Link since tixtla, sokolka have same date
                       />
                     </li>
                   )
@@ -294,9 +304,20 @@ export const Miracle = () => {
           )}
         </PageContent>
       </Page>
-      <Footer border={{ side: 'top' }} pad='medium'>
-        <Text size='small'>{miracle.copyright}</Text>
-      </Footer>
+      <Box gap='medium'>
+        <Footer pad={{ left: 'medium' }}>
+          <Button
+            color='transparent'
+            hoverIndicator={true}
+            icon={<LinkPrevious />}
+            label="Go to miracle list"
+            onClick={() => navigate('/')}
+          />
+        </Footer>
+        <Footer border={{ side: 'top' }} pad='medium'>
+          <Text size='small'>{miracle.copyright}</Text>
+        </Footer>
+      </Box>
     </Box>
   )
 }

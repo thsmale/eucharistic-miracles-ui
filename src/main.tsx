@@ -2,10 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
+import { Provider } from 'react-redux';
 import App from './App.tsx'
 import { MiracleList } from './MiracleList.tsx';
 import { Miracle } from './Miracle.tsx';
 import { NotFound } from './404.tsx';
+import store from './redux/store.ts';
 import './index.css'
 
 const router = createBrowserRouter([
@@ -31,6 +33,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

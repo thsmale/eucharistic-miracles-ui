@@ -103,9 +103,11 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
                           <Anchor
                             href={endpoint}
                             label={item.year}
-                            onClick={() => {
+                            onClick={(event) => {
+                              event?.preventDefault();
                               navigate(endpoint, { state: { path: item.path }})
                             }}
+                            // Cannot use as Link since tixtla and sokolka have same date
                           />
                         </li>
                       )

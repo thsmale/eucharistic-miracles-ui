@@ -10,13 +10,21 @@ import {
   SelectMultiple,
 } from 'grommet';
 import { Close } from 'grommet-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFilters } from './redux/filters';
 import { colorMap, miracles } from './data/miracles';
 
 const uniqueCountries = Array.from(new Set(miracles.map(({ country }) => country)));
 
-export const MiraclesFilters = ({ filters, setFilters, setNumFilters, setShowLayer }) => {
+export const MiraclesFilters = ({ setShowLayer }) => {
   // Use to maintain local state since filters are only applied when submit is pressed
-  const [localFilters, setLocalFilters] = useState(filters);
+  const selectedCategories = useSelector(state => state.filters.categories); 
+  const selectedCountries = useSelector(state => state.filters.countries); 
+  const [localFilters, setLocalFilters] = useState({
+    categories: selectedCategories,
+    countries: selectedCountries,
+  });
+  const dispatch = useDispatch();
 
   return (
     <Layer
@@ -42,13 +50,7 @@ export const MiraclesFilters = ({ filters, setFilters, setNumFilters, setShowLay
               setLocalFilters(value)
             }}
             onSubmit={({ value }) => {
-              let numFilters = 0;
-              if (value.countries.length > 0)
-                numFilters += 1;
-              if (value.categories.length > 0)
-                numFilters += 1;
-              setFilters(value);
-              setNumFilters(numFilters);
+              dispatch(setFilters(value))
               setShowLayer(false);
             }}
           >

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Box,
   Data,
@@ -8,6 +8,7 @@ import {
   PageHeader,
   Paragraph,
 } from 'grommet';
+import { useSelector } from 'react-redux';
 import { Hero } from './Hero';
 import {
   handleCountryFilters,
@@ -22,24 +23,19 @@ import { MiraclesMap } from './MiraclesMap';
 import { MiraclesToolbar } from './MiraclesToolbar';
 
 export const MiracleList = () => {
-  const defaultFilters = {
-    countries: [],
-    categories: [],
-  }
-  const [toggleGroupValue, setToggleGroupValue] = useState('table');
-  const [data, setData] = useState(miracles);
   const [showLayer, setShowLayer] = useState(false);
-  const [filters, setFilters] = useState(defaultFilters);
-  const [numFilters, setNumFilters] = useState(0);
-  const [searchInput, setSearchInput] = useState('');
+  const selectedCategories = useSelector(state => state.filters.categories); 
+  const selectedCountries = useSelector(state => state.filters.countries); 
+  const searchValue = useSelector(state => state.search.value);
+  const toggleGroupValue = useSelector(state => state.toggleGroup.value); 
 
-  useEffect(() => {
+  const data = useMemo(() => {
     let filteredMiracles = miracles;
-    filteredMiracles = handleCountryFilters(filteredMiracles, filters.countries);
-    filteredMiracles = handleCategoryFilters(filteredMiracles, filters.categories);
-    filteredMiracles = handleSearchFilters(filteredMiracles, searchInput);
-    setData(filteredMiracles);
-  }, [filters, searchInput])
+    filteredMiracles = handleCountryFilters(filteredMiracles, selectedCountries);
+    filteredMiracles = handleCategoryFilters(filteredMiracles, selectedCategories);
+    filteredMiracles = handleSearchFilters(filteredMiracles, searchValue);
+    return filteredMiracles;
+  }, [selectedCountries, selectedCategories, searchValue])
 
   return (
     <Box>
@@ -61,28 +57,14 @@ export const MiracleList = () => {
                 categories: { label: 'Category' }
               }}
             >
-              <MiraclesToolbar
-                defaultFilters={defaultFilters}
-                numFilters={numFilters}
-                setFilters={setFilters}
-                setNumFilters={setNumFilters}
-                setSearchInput={setSearchInput}
-                setShowLayer={setShowLayer}
-                setToggleGroupValue={setToggleGroupValue}
-                toggleGroupValue={toggleGroupValue}
-              />
+              <MiraclesToolbar setShowLayer={setShowLayer}/>
               <DataSummary />
               { toggleGroupValue === 'table' && <MiraclesDataTable /> }
               { toggleGroupValue === 'map' && <MiraclesMap miracles={data}/> }
               { toggleGroupValue === 'card' && <MiraclesCards /> }
             </Data>
             {showLayer && (
-              <MiraclesFilters
-                filters={filters}
-                setFilters={setFilters}
-                setNumFilters={setNumFilters}
-                setShowLayer={setShowLayer}
-              />
+              <MiraclesFilters setShowLayer={setShowLayer}/>
             )}
           </Box>
         </PageContent>

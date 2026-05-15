@@ -1,7 +1,7 @@
 import {
   Grommet,
 } from 'grommet';
-import { Outlet } from 'react-router';
+import { Outlet, ScrollRestoration } from 'react-router';
 import { AppHeader } from './Header';
 
 const theme = {
@@ -23,6 +23,7 @@ function App() {
     <Grommet full='min' theme={theme}>
       <AppHeader />
       <Outlet />
+      {<ScrollRestoration />}
     </Grommet>
   )
 }
