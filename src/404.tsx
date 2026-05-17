@@ -5,8 +5,10 @@ import {
   PageContent,
   PageHeader,
 } from 'grommet';
+import { useNavigate } from 'react-router';
 
 export const NotFound = () => {
+  const navigate = useNavigate();
   return (
     <Page background='background-front' kind='narrow'>
       <PageContent pad='medium'>
@@ -16,8 +18,8 @@ export const NotFound = () => {
         />
         <Box flex={false} align='start'>
           <Button
-            href="/"
             label="Back to home"
+            onClick={() => navigate('/')}
             primary
           />
         </Box>
