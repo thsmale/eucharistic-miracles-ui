@@ -17,6 +17,7 @@ import { colorMap, miracles } from './data/miracles';
 const uniqueCountries = Array.from(new Set(miracles.map(({ country }) => country)));
 
 export const MiraclesFilters = ({ setShowLayer }) => {
+  const dispatch = useDispatch();
   // Use to maintain local state since filters are only applied when submit is pressed
   const selectedCategories = useSelector(state => state.filters.categories); 
   const selectedCountries = useSelector(state => state.filters.countries); 
@@ -24,7 +25,7 @@ export const MiraclesFilters = ({ setShowLayer }) => {
     categories: selectedCategories,
     countries: selectedCountries,
   });
-  const dispatch = useDispatch();
+  const [countryOptions, setCountryOptions] = useState(uniqueCountries);
 
   return (
     <Layer
@@ -62,7 +63,19 @@ export const MiraclesFilters = ({ setShowLayer }) => {
               <SelectMultiple
                 id='countries'
                 name='countries'
-                options={uniqueCountries}
+                options={countryOptions}
+                onClose={() => setCountryOptions(uniqueCountries)}
+                onSearch={(text) => {
+                  // The line below escapes regular expression special characters:
+                  // [ \ ^ $ . | ? * + ( )
+                  const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+
+                  // Create the regular expression with modified value which
+                  // handles escaping special characters. Without escaping special
+                  // characters, errors will appear in the console
+                  const exp = new RegExp(escapedText, 'i');
+                  setCountryOptions(uniqueCountries.filter((o) => exp.test(o)));
+                }}
                 placeholder="Select countries"
               />
             </FormField>
