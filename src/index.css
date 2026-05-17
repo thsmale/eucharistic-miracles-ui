@@ -6,3 +6,39 @@ ol li {
 ol li:last-child {
   margin-bottom: 0;
 }
+
+/* 
+ * most images don't fit the w/h of the image box
+ * this will fill in the remaining space similar to instagram
+ * https://medium.com/@yev-/empty-space-fill-for-variable-aspect-ratio-background-images-in-css-8e3b3c9c8387
+ */
+.image-bg {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 
+ * most images don't fit the w/h of the image box
+ * this will fill in the remaining space similar to instagram
+ * https://medium.com/@yev-/empty-space-fill-for-variable-aspect-ratio-background-images-in-css-8e3b3c9c8387
+ */
+.blur-bg {
+  position: absolute;
+  left: -25px;
+  right: -25px;
+  top: -25px;
+  bottom: -25px;
+  background-color: white;
+  -webkit-filter: blur(15px);
+     -moz-filter: blur(15px);
+          filter: blur(15px);
+  transform: scale(1.8);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

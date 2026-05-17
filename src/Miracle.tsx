@@ -44,6 +44,7 @@ export const Miracle = () => {
   // 0 no error, 1: 404 not found, 2: error loading data
   const [errorType, setErrorType] = useState(0);
   const [showNotification, setShowNotification] = useState(true);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -257,19 +258,40 @@ export const Miracle = () => {
           {miracle?.images.length > 0 && (
             <Box>
               <Heading margin='none' level={3}>Images</Heading>
-              <Box width="medium" height="medium" overflow="hidden">
-                <Carousel fill controls="arrows">
+              <Box>
+                <Carousel
+                  activeChild={activeImage}
+                  controls="arrows"
+                  height='medium'
+                  onChild={setActiveImage}
+                  width='medium'
+                >
                   {miracle.images.map(img => (
-                    <Box key={img.path} width="medium" height="medium">
+                    <Box
+                      key={img.path}
+                      width="medium"
+                      height="medium"
+                      background='background-front'
+                      overflow="hidden"
+                    >
                       <Image
+                        className="blur-bg"
                         fallback="/picture-failed-to-load.svg"
                         fit="cover"
                         src={`${cdnUrl}/images/${img.path}`}
                       />
-                      <Text size="small">{parse(img.caption)}</Text>
+                      <Image
+                        className="image-bg"
+                        fallback="/picture-failed-to-load.svg"
+                        fit="cover"
+                        src={`${cdnUrl}/images/${img.path}`}
+                      />
                     </Box>
                   ))}
                 </Carousel>
+                <Box width='medium'>
+                  <Paragraph fill>{parse(miracle.images[activeImage].caption)}</Paragraph>
+                </Box>
               </Box>
             </Box>
           )}
