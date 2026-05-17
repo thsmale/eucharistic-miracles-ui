@@ -22,10 +22,10 @@ const colorMap = {
  * Used for a tags in json data or for resources
  * Provides the ability to look up a path and get this metadata
  * So that we can set the proper URL
- * @param path 
+ * @param endpoint
  */
-const getMiracle = (path) => {
-  const miracle = miracles.find(miracle => miracle.path === path);
+const getMiracle = (endpoint) => {
+  const miracle = miracles.find(miracle => miracle.endpoint === endpoint);
   return miracle || {};
 }
 
@@ -35,17 +35,9 @@ const getMiracle = (path) => {
  * so you can trace to see how the app failed in a 404
  * pretty hacky... should handle this better
  */
-const getPath = (country, city, year) => {
-  const targetCountry = country.toLowerCase();
-  const targetCity = city.toLowerCase();
-
-  const match = miracles.find(item => 
-    item.country.toLowerCase() === targetCountry && 
-    item.city.toLowerCase() === targetCity &&
-    item.year === year
-  );
-
-  return match ? match.path : null;
+const getPath = (endpoint) => {
+  const miracle = miracles.find(miracle => miracle.endpoint === endpoint);
+  return miracle?.path || null;
 }
 
 const handleCategoryFilters = (miracles, categories) => {
@@ -91,6 +83,7 @@ const miracles = [
         -34.603101207984515
       ]
     ],
+    "endpoint": "/Argentina/Buenos%20Aires/1992/part1",
     "path": "argentina/buenos_aires_1.json"
   },
   {
@@ -108,6 +101,7 @@ const miracles = [
         -34.603101207984515
       ]
     ],
+    "endpoint": "/Argentina/Buenos%20Aires/1994/part2",
     "path": "argentina/buenos_aires_2.json"
   },
   {
@@ -125,6 +119,7 @@ const miracles = [
         -34.603101207984515
       ]
     ],
+    "endpoint": "/Argentina/Buenos%20Aires/1996/part3",
     "path": "argentina/buenos_aires_3.json"
   },
   {
@@ -142,6 +137,7 @@ const miracles = [
         47.35
       ]
     ],
+    "endpoint": "/Austria/Fiecht/1310",
     "path": "austria/fiecht.json"
   },
   {
@@ -157,6 +153,7 @@ const miracles = [
         47.330347258989974
       ]
     ],
+    "endpoint": "/Austria/Seefeld/1384",
     "path": "austria/seefeld.json"
   },
   {
@@ -179,6 +176,7 @@ const miracles = [
         48.3405801067846
       ]
     ],
+    "endpoint": "/Austria/Weiten-Raxendorf/1411",
     "path": "austria/weiten-raxendorf.json"
   },
   {
@@ -194,6 +192,7 @@ const miracles = [
         50.643138151368035
       ]
     ],
+    "endpoint": "/Belgium/Bois-Seigneur-Isaac/1405",
     "path": "belgium/bois-seigneur-issac.json"
   },
   {
@@ -210,6 +209,7 @@ const miracles = [
         50.84816074328751
       ]
     ],
+    "endpoint": "/Belgium/Brussels/1370",
     "path": "belgium/brussels.json"
   },
   {
@@ -226,6 +226,7 @@ const miracles = [
         51.17733712817109
       ]
     ],
+    "endpoint": "/Belgium/Herentals/1412",
     "path": "belgium/herentals.json"
   },
   {
@@ -242,6 +243,7 @@ const miracles = [
         50.95630350695051
       ]
     ],
+    "endpoint": "/Belgium/Herkenrode-Hasselt/1317",
     "path": "belgium/herkenrode-hasselt.json"
   },
   {
@@ -261,6 +263,7 @@ const miracles = [
         50.87904314256116
       ]
     ],
+    "endpoint": "/Belgium/Middleburg-Lovanio/1374",
     "path": "belgium/middleburg-lovanio.json"
   },
   {
@@ -276,6 +279,7 @@ const miracles = [
         1.8106377789343184
       ]
     ],
+    "endpoint": "/Colombia/Tumaco/1906",
     "path": "colombia/tumaco.json"
   },
   {
@@ -292,6 +296,7 @@ const miracles = [
         46.25070277522832
       ]
     ],
+    "endpoint": "/Croatia/Ludbreg/1411",
     "path": "croatia/ludbreg.json"
   },
   {
@@ -308,6 +313,7 @@ const miracles = [
         30.504095067534468
       ]
     ],
+    "endpoint": "/Egypt/Scete/Third%20-%20Fifth%20Centuries",
     "path": "egypt/scete.json"
   },
   {
@@ -321,6 +327,7 @@ const miracles = [
         30.132417916251722
       ]
     ],
+    "endpoint": "/Egypt/St.%20Mary%20of%20Egypt/Seventh%20Century",
     "path": "egypt/st_mary_of_egypt.json"
   },
   {
@@ -336,6 +343,7 @@ const miracles = [
         43.94869824453833
       ]
     ],
+    "endpoint": "/France/Avignon/1433",
     "path": "france/avignon.json"
   },
   {
@@ -352,6 +360,7 @@ const miracles = [
         46.47562315792403
       ]
     ],
+    "endpoint": "/France/Blanot/1331",
     "path": "france/blanot.json"
   },
   {
@@ -367,6 +376,7 @@ const miracles = [
         44.84253574364193
       ]
     ],
+    "endpoint": "/France/Bordeaux/1822",
     "path": "france/bordeaux.json"
   },
   {
@@ -384,6 +394,7 @@ const miracles = [
         47.33081526575888
       ]
     ],
+    "endpoint": "/France/Dijon/1430",
     "path": "france/dijon.json"
   },
   {
@@ -400,6 +411,7 @@ const miracles = [
         50.368235830229594
       ]
     ],
+    "endpoint": "/France/Douai/1254",
     "path": "france/douai.json"
   },
   {
@@ -416,6 +428,7 @@ const miracles = [
         47.767661324315505
       ]
     ],
+    "endpoint": "/France/Faverney/1608",
     "path": "france/faverney.json"
   },
   {
@@ -429,6 +442,7 @@ const miracles = [
         46.16030972648806
       ]
     ],
+    "endpoint": "/France/La%20Rochelle/1461",
     "path": "france/la_rochelle.json"
   },
   {
@@ -444,6 +458,7 @@ const miracles = [
         47.220034175719945
       ]
     ],
+    "endpoint": "/France/Les%20Ulmes/1668",
     "path": "france/les_ulmes.json"
   },
   {
@@ -459,6 +474,7 @@ const miracles = [
         43.302555086678616
       ]
     ],
+    "endpoint": "/France/Marseille-Eu-Beauvais/1533",
     "path": "france/marseille-eu-beauvais.json"
   },
   {
@@ -476,6 +492,7 @@ const miracles = [
         48.85760521906473
       ]
     ],
+    "endpoint": "/France/Paris/1290",
     "path": "france/paris.json"
   },
   {
@@ -491,6 +508,7 @@ const miracles = [
         46.11587260028606
       ]
     ],
+    "endpoint": "/France/Pressac/1643",
     "path": "france/pressac.json"
   },
   {
@@ -508,6 +526,7 @@ const miracles = [
         48.36909064227163
       ]
     ],
+    "endpoint": "/Germany/Augsburg/1194",
     "path": "germany/augsburg.json"
   },
   {
@@ -524,6 +543,7 @@ const miracles = [
         47.96750596503706
       ]
     ],
+    "endpoint": "/Germany/Benningen/1216",
     "path": "germany/benningen.json"
   },
   {
@@ -540,6 +560,7 @@ const miracles = [
         48.8747985904799
       ]
     ],
+    "endpoint": "/Germany/Bettbrunn/1125",
     "path": "germany/bettbrunn.json"
   },
   {
@@ -557,6 +578,7 @@ const miracles = [
         48.30625380379896
       ]
     ],
+    "endpoint": "/Germany/Erding/1417",
     "path": "germany/erding.json"
   },
   {
@@ -570,6 +592,7 @@ const miracles = [
         51.78630834478586
       ]
     ],
+    "endpoint": "/Germany/Kranenburg,%20District%20of%20Kleve/1280",
     "path": "germany/kranenburg_district_of_kleve.json"
   },
   {
@@ -585,6 +608,7 @@ const miracles = [
         49.01313856219421
       ]
     ],
+    "endpoint": "/Germany/Regensburg/1255",
     "path": "germany/regensburg.json"
   },
   {
@@ -600,6 +624,7 @@ const miracles = [
         49.58182351534291
       ]
     ],
+    "endpoint": "/Germany/Walldurn/1330",
     "path": "germany/walldurn.json"
   },
   {
@@ -616,6 +641,7 @@ const miracles = [
         52.95504414291643
       ]
     ],
+    "endpoint": "/Germany/Wilsnack/1383",
     "path": "germany/wilsnack.json"
   },
   {
@@ -631,6 +657,7 @@ const miracles = [
         52.632883068968354
       ]
     ],
+    "endpoint": "/Netherlands/Alkmaar/1429",
     "path": "holland/alkmaar.json"
   },
   {
@@ -647,6 +674,7 @@ const miracles = [
         52.36721672741879
       ]
     ],
+    "endpoint": "/Netherlands/Amsterdam/1345",
     "path": "holland/amsterdam.json"
   },
   {
@@ -662,6 +690,7 @@ const miracles = [
         52.67480967230775
       ]
     ],
+    "endpoint": "/Netherlands/Bergen/1421",
     "path": "holland/bergen.json"
   },
   {
@@ -678,6 +707,7 @@ const miracles = [
         51.64532923730793
       ]
     ],
+    "endpoint": "/Netherlands/Boxmeer/1400",
     "path": "holland/boxmeer.json"
   },
   {
@@ -697,6 +727,7 @@ const miracles = [
         51.404873005733506
       ]
     ],
+    "endpoint": "/Netherlands/Boxtel-Hoogstraten/1380",
     "path": "holland/boxtel-hoogstraten.json"
   },
   {
@@ -713,6 +744,7 @@ const miracles = [
         51.572278625293514
       ]
     ],
+    "endpoint": "/Netherlands/Breda-Niervaart/1300",
     "path": "holland/breda-neirvaart.json"
   },
   {
@@ -729,6 +761,7 @@ const miracles = [
         50.88489018438606
       ]
     ],
+    "endpoint": "/Netherlands/Meerssen/1222-1465",
     "path": "holland/meerssen.json"
   },
   {
@@ -744,6 +777,7 @@ const miracles = [
         51.48599077205647
       ]
     ],
+    "endpoint": "/Netherlands/Stiphout/1342",
     "path": "holland/stiphout.json"
   },
   {
@@ -759,6 +793,7 @@ const miracles = [
         8.9813915337447
       ]
     ],
+    "endpoint": "/India/Archdiocese%20of%20Trivandrum/May%205,%202001",
     "path": "india/chirattakonam.json"
   },
   {
@@ -775,6 +810,7 @@ const miracles = [
         41.72693702899531
       ]
     ],
+    "endpoint": "/Italy/Alatri/1228",
     "path": "italy/alatri.json"
   },
   {
@@ -788,6 +824,7 @@ const miracles = [
         43.070711027903194
       ]
     ],
+    "endpoint": "/Italy/Saint%20Clare%20of%20Assisi/1240",
     "path": "italy/assisi.json"
   },
   {
@@ -803,6 +840,7 @@ const miracles = [
         44.90125087527754
       ]
     ],
+    "endpoint": "/Italy/Asti/1535",
     "path": "italy/asti_1.json"
   },
   {
@@ -818,6 +856,7 @@ const miracles = [
         44.90125087527754
       ]
     ],
+    "endpoint": "/Italy/Asti/1718",
     "path": "italy/asti_2.json"
   },
   {
@@ -834,6 +873,7 @@ const miracles = [
         43.836808794891574
       ]
     ],
+    "endpoint": "/Italy/Bagno%20di%20Romagna/1412",
     "path": "italy/bagno_di_romagna.json"
   },
   {
@@ -850,6 +890,7 @@ const miracles = [
         42.64461367722893
       ]
     ],
+    "endpoint": "/Italy/Bolsena/1264",
     "path": "italy/bolsena.json"
   },
   {
@@ -865,6 +906,7 @@ const miracles = [
         44.4551400897048
       ]
     ],
+    "endpoint": "/Italy/Canosio/1630",
     "path": "italy/canosio.json"
   },
   {
@@ -880,6 +922,7 @@ const miracles = [
         42.716833066937305
       ]
     ],
+    "endpoint": "/Italy/Cascia/1330",
     "path": "italy/cascia.json"
   },
   {
@@ -893,6 +936,7 @@ const miracles = [
         40.70386467752794
       ]
     ],
+    "endpoint": "/Italy/Cava%20dei%20Tirreni/1656",
     "path": "italy/cava_dei_tirreni.json"
   },
   {
@@ -908,6 +952,7 @@ const miracles = [
         44.46347342647197
       ]
     ],
+    "endpoint": "/Italy/Dronero/1631",
     "path": "italy/dronero.json"
   },
   {
@@ -924,6 +969,7 @@ const miracles = [
         44.83921984084136
       ]
     ],
+    "endpoint": "/Italy/Ferrara/1171",
     "path": "italy/ferrara.json"
   },
   {
@@ -939,6 +985,7 @@ const miracles = [
         43.775497265352975
       ]
     ],
+    "endpoint": "/Italy/Florence/1230",
     "path": "italy/florence_1.json"
   },
   {
@@ -954,6 +1001,7 @@ const miracles = [
         43.775497265352975
       ]
     ],
+    "endpoint": "/Italy/Florence/1595",
     "path": "italy/florence_2.json"
   },
   {
@@ -969,6 +1017,7 @@ const miracles = [
         45.8333086443474
       ]
     ],
+    "endpoint": "/Italy/Gruaro%20(Valvasone)/1294",
     "path": "italy/gruary_valvasone.json"
   },
   {
@@ -987,6 +1036,7 @@ const miracles = [
         42.22525647501123
       ]
     ],
+    "endpoint": "/Italy/Lanciano/750%20A.D",
     "path": "italy/lanciano.json"
   },
   {
@@ -1003,6 +1053,7 @@ const miracles = [
         43.29839068757261
       ]
     ],
+    "endpoint": "/Italy/Macerata/1356",
     "path": "italy/macerata.json"
   },
   {
@@ -1018,6 +1069,7 @@ const miracles = [
         39.68235516551309
       ]
     ],
+    "endpoint": "/Italy/Mogoro/1604",
     "path": "italy/mogoro.json"
   },
   {
@@ -1033,6 +1085,7 @@ const miracles = [
         43.31512905621321
       ]
     ],
+    "endpoint": "/Italy/Morrovalle/1560",
     "path": "italy/morrovalle.json"
   },
   {
@@ -1050,6 +1103,7 @@ const miracles = [
         42.936605178665005
       ]
     ],
+    "endpoint": "/Italy/Offida/1273-1280",
     "path": "italy/offida.json"
   },
   {
@@ -1072,6 +1126,7 @@ const miracles = [
         40.852627697437406
       ]
     ],
+    "endpoint": "/Italy/Patierno%20(Naples)/1772",
     "path": "italy/patierno_naples.json"
   },
   {
@@ -1088,6 +1143,7 @@ const miracles = [
         44.05808613002166
       ]
     ],
+    "endpoint": "/Italy/Rimini/1227",
     "path": "italy/rimini.json"
   },
   {
@@ -1104,6 +1160,7 @@ const miracles = [
         41.89734828943418
       ]
     ],
+    "endpoint": "/Italy/Rome/Sixth%20-%20Seventh%20Centuries",
     "path": "italy/rome_1.json"
   },
   {
@@ -1121,6 +1178,7 @@ const miracles = [
         41.89734828943418
       ]
     ],
+    "endpoint": "/Italy/Rome/1610",
     "path": "italy/rome_3.json"
   },
   {
@@ -1136,6 +1194,7 @@ const miracles = [
         45.521231537414124
       ]
     ],
+    "endpoint": "/Italy/Salzano/1517",
     "path": "italy/salzano.json"
   },
   {
@@ -1153,6 +1212,7 @@ const miracles = [
         40.123954973341874
       ]
     ],
+    "endpoint": "/Italy/San%20Mauro%20Lu%20Bruca/1969",
     "path": "italy/san_mauro_la_bruca.json"
   },
   {
@@ -1166,6 +1226,7 @@ const miracles = [
         40.65576052941164
       ]
     ],
+    "endpoint": "/Italy/Scala/1732",
     "path": "italy/scala.json"
   },
   {
@@ -1183,6 +1244,7 @@ const miracles = [
         43.31850445204576
       ]
     ],
+    "endpoint": "/Italy/Siena/1730",
     "path": "italy/siena.json"
   },
   {
@@ -1200,6 +1262,7 @@ const miracles = [
         43.507518538562024
       ]
     ],
+    "endpoint": "/Italy/St.%20Peter%20Damian/Eleventh%20Century",
     "path": "italy/st_peter_damian.json"
   },
   {
@@ -1217,6 +1280,7 @@ const miracles = [
         41.276589902927746
       ]
     ],
+    "endpoint": "/Italy/Trani/Eleventh%20Century",
     "path": "italy/trani.json"
   },
   {
@@ -1235,6 +1299,7 @@ const miracles = [
         45.072789430907
       ]
     ],
+    "endpoint": "/Italy/Turin/1453",
     "path": "italy/turin_1.json"
   },
   {
@@ -1250,6 +1315,7 @@ const miracles = [
         45.072789430907
       ]
     ],
+    "endpoint": "/Italy/Turin/1640",
     "path": "italy/turin_3.json"
   },
   {
@@ -1265,6 +1331,7 @@ const miracles = [
         41.69257417660216
       ]
     ],
+    "endpoint": "/Italy/Veroli/1570",
     "path": "italy/veroli.json"
   },
   {
@@ -1282,6 +1349,7 @@ const miracles = [
         43.40441310014632
       ]
     ],
+    "endpoint": "/Italy/Volterra/1472",
     "path": "italy/volterra.json"
   },
   {
@@ -1297,6 +1365,7 @@ const miracles = [
         14.772858952511548
       ]
     ],
+    "endpoint": "/Caribbean%20Island%20of%20Martinique/Morne-Rouge/1902",
     "path": "martinique/morne-rouge.json"
   },
   {
@@ -1312,6 +1381,7 @@ const miracles = [
         17.56772407180631
       ]
     ],
+    "endpoint": "/Mexico/Tixtla/October%2021,%202006/part1",
     "path": "mexico/tixtla_1.json"
   },
   {
@@ -1329,6 +1399,7 @@ const miracles = [
         17.56772407180631
       ]
     ],
+    "endpoint": "/Mexico/Tixtla/October%2021,%202006/part2",
     "path": "mexico/tixtla_2.json"
   },
   {
@@ -1344,6 +1415,7 @@ const miracles = [
         -6.926247196000024
       ]
     ],
+    "endpoint": "/Peru/Eten/1649",
     "path": "peru/eten.json"
   },
   {
@@ -1360,6 +1432,7 @@ const miracles = [
         53.959650151348235
       ]
     ],
+    "endpoint": "/Poland/Glotowo/1290",
     "path": "poland/glotowo.json"
   },
   {
@@ -1376,6 +1449,7 @@ const miracles = [
         50.06516622341976
       ]
     ],
+    "endpoint": "/Poland/Krakow/1345",
     "path": "poland/krakow.json"
   },
   {
@@ -1392,6 +1466,7 @@ const miracles = [
         51.20715391403807
       ]
     ],
+    "endpoint": "/Poland/Legnica/2013",
     "path": "poland/legnica.json"
   },
   {
@@ -1409,6 +1484,7 @@ const miracles = [
         52.40499669186131
       ]
     ],
+    "endpoint": "/Poland/Poznan/1399",
     "path": "poland/poznan.json"
   },
   {
@@ -1425,6 +1501,7 @@ const miracles = [
         53.40595947770447
       ]
     ],
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part1",
     "path": "poland/sokółka_1.json"
   },
   {
@@ -1442,6 +1519,7 @@ const miracles = [
         53.40595947770447
       ]
     ],
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part2",
     "path": "poland/sokółka_2.json"
   },
   {
@@ -1458,6 +1536,7 @@ const miracles = [
         53.40595947770447
       ]
     ],
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part3",
     "path": "poland/sokółka_3.json"
   },
   {
@@ -1477,6 +1556,7 @@ const miracles = [
         39.236597267915634
       ]
     ],
+    "endpoint": "/Portugal/Santar%C3%A9m/1247",
     "path": "portugal/santarem.json"
   },
   {
@@ -1492,6 +1572,7 @@ const miracles = [
         -20.96012982239351
       ]
     ],
+    "endpoint": "/R%C3%A9union/Saint%20Andr%C3%A9/1902",
     "path": "reunion/saint_andre.json"
   },
   {
@@ -1507,6 +1588,7 @@ const miracles = [
         39.50007343782357
       ]
     ],
+    "endpoint": "/Spain/Alboraya-Alm%C3%A1cera/1348",
     "path": "spain/alboraya.json"
   },
   {
@@ -1523,6 +1605,7 @@ const miracles = [
         40.48480077913516
       ]
     ],
+    "endpoint": "/Spain/Alcal%C3%A1/1597",
     "path": "spain/alcala.json"
   },
   {
@@ -1538,6 +1621,7 @@ const miracles = [
         38.698672619346006
       ]
     ],
+    "endpoint": "/Spain/Alcoy/1568",
     "path": "spain/alcoy.json"
   },
   {
@@ -1553,6 +1637,7 @@ const miracles = [
         38.10432771362119
       ]
     ],
+    "endpoint": "/Spain/Caravaca%20de%20La%20Cruz/1231",
     "path": "spain/carvaca_de_la_cruz.json"
   },
   {
@@ -1570,6 +1655,7 @@ const miracles = [
         41.101666274931915
       ]
     ],
+    "endpoint": "/Spain/Cimballa/1370",
     "path": "spain/cimballa.json"
   },
   {
@@ -1586,6 +1672,7 @@ const miracles = [
         41.1148808431742
       ]
     ],
+    "endpoint": "/Spain/Daroca/1239",
     "path": "spain/daroca.json"
   },
   {
@@ -1603,6 +1690,7 @@ const miracles = [
         41.98318324047948
       ]
     ],
+    "endpoint": "/Spain/Gerona/1297",
     "path": "spain/gerona.json"
   },
   {
@@ -1622,6 +1710,7 @@ const miracles = [
         40.58443048186775
       ]
     ],
+    "endpoint": "/Netherlands-Spain/Gorkum-Escorial/1572",
     "path": "spain/gorkum-escorial.json"
   },
   {
@@ -1638,6 +1727,7 @@ const miracles = [
         39.45152187587227
       ]
     ],
+    "endpoint": "/Spain/Guadalupe/1420",
     "path": "spain/guadalupe.json"
   },
   {
@@ -1654,6 +1744,7 @@ const miracles = [
         41.77159254263068
       ]
     ],
+    "endpoint": "/Spain/Ivorra/1010",
     "path": "spain/ivorra.json"
   },
   {
@@ -1670,6 +1761,7 @@ const miracles = [
         39.545484879940005
       ]
     ],
+    "endpoint": "/Spain/Moncada/1392",
     "path": "spain/moncada.json"
   },
   {
@@ -1683,6 +1775,7 @@ const miracles = [
         39.35823549696924
       ]
     ],
+    "endpoint": "/Spain/Montserrat/1657",
     "path": "spain/montserrat.json"
   },
   {
@@ -1700,6 +1793,7 @@ const miracles = [
         42.707934076122164
       ]
     ],
+    "endpoint": "/Spain/O'Cebreiro/1300",
     "path": "spain/ocebreiro.json"
   },
   {
@@ -1716,6 +1810,7 @@ const miracles = [
         38.62949027392014
       ]
     ],
+    "endpoint": "/Spain/Onil/1824",
     "path": "spain/onil.json"
   },
   {
@@ -1734,6 +1829,7 @@ const miracles = [
         42.54827688216941
       ]
     ],
+    "endpoint": "/Spain/Ponferrada/1533",
     "path": "spain/ponferrada.json"
   },
   {
@@ -1749,6 +1845,7 @@ const miracles = [
         42.23621449558365
       ]
     ],
+    "endpoint": "/Spain/Saint%20John%20of%20the%20Abbesses/1251",
     "path": "spain/saint_john_of_the_abbesses.json"
   },
   {
@@ -1764,6 +1861,7 @@ const miracles = [
         39.361773644502875
       ]
     ],
+    "endpoint": "/Spain/Silla/1907",
     "path": "spain/silla.json"
   },
   {
@@ -1782,6 +1880,7 @@ const miracles = [
         41.647456521398524
       ]
     ],
+    "endpoint": "/Spain/Zaragoza/1427",
     "path": "spain/zaragoza.json"
   },
   {
@@ -1801,6 +1900,7 @@ const miracles = [
         47.15014500788676
       ]
     ],
+    "endpoint": "/Switzerland/Ettiswil/1447",
     "path": "switzerland/ettiswil.json"
   },
   {
@@ -1817,6 +1917,7 @@ const miracles = [
         7.460110518352143
       ]
     ],
+    "endpoint": "/Venezuela/Betania/December%208,%201991",
     "path": "venezuela/betania.json"
   }
 ]

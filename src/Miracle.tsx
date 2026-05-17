@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import {
+  Link,
   useLocation,
   useNavigate,
-  useParams,
 } from 'react-router';
 import {
   Anchor,
@@ -23,7 +23,7 @@ import {
 import {
   DocumentPdf,
   Facebook,
-  Link,
+  Link as LinkIcon,
   LinkPrevious,
   X,
 } from 'grommet-icons';
@@ -39,7 +39,6 @@ const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 export const Miracle = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { country, city, year } = useParams();
   const [miracle, setMiracle] = useState(null);
   const [loading, setLoading] = useState(true);
   // 0 no error, 1: 404 not found, 2: error loading data
@@ -51,9 +50,10 @@ export const Miracle = () => {
       try {
         /**
          * location.state.path will exist as it is received from navigate like onClick from DataTable, MapMarker, or Card
-         * if a user just types in a url like a/b/c we will try to find the path based off the country, city provided
+         * it is recommended to pass location.state.path to avoid the getPath lookup
+         * if a user just types in a url like a/b/c we will try to find the path based off the country, city, year provided
          */
-        const path = location?.state?.path || getPath(country, city, year);
+        const path = location.state?.path || getPath(location.pathname);
         const response = await fetch(`${cdnUrl}/json/${path}`);
         if (response.status === 404) {
           console.error(`Received 404 when fetching miracle ${path}`)
@@ -75,7 +75,7 @@ export const Miracle = () => {
       }
     }
     fetchData();
-  }, [country, city, year, location?.state?.path])
+  }, [location])
 
   if (loading) {
     return (
@@ -138,23 +138,19 @@ export const Miracle = () => {
         )
       }
       /**
-     * expecting a href value set to the path of the filename
+     * expecting a href value set to the UI endpoint
      * will use that to get the miracle details
-     * which can be used to properly set the href and navigate
+     * which will be used to get the miracle details path
      */
       if (domNode.name === 'a') {
-        const path = domNode.attribs.href;
-        const { country, city, year } = getMiracle(path);
-        const endpoint = `/${country}/${city}/${year}`;
+        const endpoint = domNode.attribs.href;
+        const { path } = getMiracle(endpoint);
         return (
           <Anchor
-            href={endpoint}
+            as={Link}
             label={domNode.children[0].data}
-            onClick={(event) => {
-              event?.preventDefault();
-              navigate(endpoint, { state: { path }})
-            }}
-            // cannot use as Link since tixtla and sokolka have same date
+            state={{ path }}
+            to={endpoint}
           />
         )
       }
@@ -185,16 +181,15 @@ export const Miracle = () => {
   if (!isEmpty(miracle.notification)) {
     hasNotification = true;
     miracle.notification.actions.map(action => {
-      const { country, city, year } = getMiracle(action.path);
-      const endpoint = `/${country}/${city}/${year}`;
+      const { endpoint, label, path } = action;
       const modifiedAction = {
-        label: action.label,
+        label,
         href: endpoint,
         onClick: (event) => {
           // Cannot pass react-router Link, state, to here
           // ...due to issue with Grommet
           event?.preventDefault();
-          navigate(endpoint, { state: { path: action.path }})
+          navigate(endpoint, { state: { path }})
         }
       }
       notificationActions = [...notificationActions, modifiedAction]
@@ -227,7 +222,7 @@ export const Miracle = () => {
                   />
                   <Button
                     hoverIndicator
-                    icon={<Link />}
+                    icon={<LinkIcon />}
                     onClick={() => navigator.clipboard.writeText(window.location.href)}
                   />
                   <Button
@@ -283,18 +278,14 @@ export const Miracle = () => {
               <Heading margin='none' level={3}>Resources</Heading>
               <ul style={{ marginTop: 0, marginBottom: 0 }}>
                 {miracle?.resources.map(resource => {
-                  const { country, city, year } = getMiracle(resource.path);
-                  const endpoint = `/${country}/${city}/${year}`;
+                  const { endpoint, path, label } = resource;
                   return (
-                    <li key={resource.path}>
+                    <li key={path}>
                       <Anchor
-                        href={endpoint}
-                        label={resource.label}
-                        onClick={(event) => {
-                          event?.preventDefault();
-                          navigate(endpoint, { state: { path: resource.path }})
-                        }}
-                        // cannot use as Link since tixtla, sokolka have same date
+                        as={Link}
+                        label={label}
+                        to={endpoint}
+                        state={{ path }}
                       />
                     </li>
                   )

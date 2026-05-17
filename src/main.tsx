@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <MiracleList />,
       },
       {
-        path: "/:country/:city/:year",
+        path: "/:country/:city/:year/:part?",
         element: <Miracle />
       },
       {

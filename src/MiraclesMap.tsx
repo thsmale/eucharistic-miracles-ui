@@ -102,6 +102,7 @@ export const MiraclesMap = ({ miracles }) => {
         coordinates,
         city: miracle.city,
         country: miracle.country,
+        endpoint: miracle.endpoint,
         miracles: [miracle]
       };
     }

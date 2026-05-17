@@ -18,10 +18,7 @@ export const MiraclesCards = () => {
       {datum => (
         <Card
           key={datum.path}
-          country={datum.country}
-          city={datum.city}
-          year={datum.year}
-          path={datum.path}
+          miracle={datum}
         />
       )}
     </Cards>
@@ -61,14 +58,15 @@ const Eucharist = () => {
   )
 }
 
-const Card = ({ country, city, year, path, }) => {
+const Card = ({ miracle }) => {
   const navigate = useNavigate();
+  const { country, city, endpoint, path, year } = miracle;
   const padSize = { horizontal: "medium", vertical: "small" };
 
   return (
     <GrommetCard
       elevation='medium'
-      onClick={() => navigate(`${country}/${city}/${year}`, { state: { path: path }})}
+      onClick={() => navigate(`${endpoint}`, { state: { path }})}
     >
       <CardHeader
         direction="column"

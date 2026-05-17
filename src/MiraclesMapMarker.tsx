@@ -17,7 +17,7 @@ import {
   FloatingArrow,
   FloatingPortal, // This is the fix for "Map Version"
 } from "@floating-ui/react";
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const MarkerWithTooltip = ({ miracle, circleRadius }) => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
-  const { coordinates, city, country, miracles } = miracle;
+  const { coordinates, city, country, endpoint, miracles } = miracle;
 
   return (
     <>
@@ -86,7 +86,7 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
                       label='View details'
                       secondary
                       onClick={() => 
-                        navigate(`${country}/${city}/${miracles[0].year}`, {
+                        navigate(`${endpoint}`, {
                           state: { path: miracles[0].path }}
                         )}
                     />
@@ -97,17 +97,13 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
                 <Box pad={{ left: 'medium' }}>
                   <ul style={{ marginTop: 0, marginBottom: 0, marginLeft: 0, paddingLeft: 0 }}>
                     {miracles.map(item  => {
-                      const endpoint = `/${country}/${city}/${item.year}`;
                       return (
                         <li key={item.path}>
                           <Anchor
-                            href={endpoint}
+                            as={Link}
                             label={item.year}
-                            onClick={(event) => {
-                              event?.preventDefault();
-                              navigate(endpoint, { state: { path: item.path }})
-                            }}
-                            // Cannot use as Link since tixtla and sokolka have same date
+                            to={item.endpoint}
+                            state={{ path: item.path }}
                           />
                         </li>
                       )
