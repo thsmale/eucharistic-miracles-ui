@@ -30,6 +30,7 @@ import {
 import parse, { domToReact } from 'html-react-parser';
 import { isEmpty } from 'lodash';
 import { NotFound } from './404';
+import { ErrorOccurred } from './Erorr';
 import { getMiracle, getPath } from './data/miracles';
 
 const cdnUrl = import.meta.env.VITE_API_CDN_URL;
@@ -100,24 +101,12 @@ export const Miracle = () => {
   if (errorType === 1) {
     return <NotFound />
   }
-
   if (miracle === null || errorType !== 0) {
     return (
-      <Page background='background-front' kind='narrow'>
-        <PageContent pad='medium'>
-          <PageHeader
-            title="An error occurred."
-            subtitle="Unable to load the Eucharistic miracle."
-          />
-          <Box flex={false} align='start'>
-            <Button
-              href={window.location.href}
-              label="Refresh page"
-              primary
-            />
-          </Box>
-        </PageContent>
-      </Page>
+      <ErrorOccurred
+        title="An error occurred."
+        subtitle="Unable to load the Eucharistic miracle."
+      />
     );
   }
 
