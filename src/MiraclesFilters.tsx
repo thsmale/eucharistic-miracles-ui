@@ -12,7 +12,16 @@ import {
 import { Close } from 'grommet-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilters } from './redux/filters';
-import { colorMap, miracles, uniqueCountries } from './data/miracles';
+import { colorMap, miracles } from './data/miracles';
+
+/**
+ * One miracle has two countries, Netherlands-Spain
+ * I don't want users to be able to filter by Netherlands-Spain
+ * They can sort either by Spain or Netherlands
+ */
+const countriesSet = new Set(miracles.map(({ country }) => country))
+countriesSet.delete('Netherlands-Spain')
+const uniqueCountries = Array.from(countriesSet);
 
 export const MiraclesFilters = ({ setShowLayer }) => {
   const dispatch = useDispatch();

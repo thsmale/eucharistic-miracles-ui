@@ -69,14 +69,6 @@ const handleSearchFilters = (miracles, searchInput) => {
   return results.map(result => result.item);
 }
 
-/**
- * One miracle has two countries, Netherlands-Spain
- * I don't want users to be able to filter by Netherlands-Spain
- * They can sort either by Spain or Netherlands
- */
-const countriesSet = new Set(miracles.map(({ country }) => country))
-countriesSet.delete('Netherlands-Spain')
-const uniqueCountries = Array.from(countriesSet);
 
 const miracles = [
   {
@@ -1939,5 +1931,4 @@ export {
   handleCountryFilters,
   handleSearchFilters,
   miracles,
-  uniqueCountries,
 }
