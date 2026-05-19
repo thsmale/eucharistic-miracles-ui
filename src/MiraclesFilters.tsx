@@ -12,9 +12,7 @@ import {
 import { Close } from 'grommet-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilters } from './redux/filters';
-import { colorMap, miracles } from './data/miracles';
-
-const uniqueCountries = Array.from(new Set(miracles.map(({ country }) => country)));
+import { colorMap, miracles, uniqueCountries } from './data/miracles';
 
 export const MiraclesFilters = ({ setShowLayer }) => {
   const dispatch = useDispatch();

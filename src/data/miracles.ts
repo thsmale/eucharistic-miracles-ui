@@ -44,18 +44,18 @@ const handleCategoryFilters = (miracles, categories) => {
   if (categories.length === 0) return miracles;
   return miracles.filter(miracle => {
     if (categories.some(category => miracle.categories.includes(category))) {
-      return miracle;
+      return true;
     }
+    return false;
   })
 }
 
 const handleCountryFilters = (miracles, countries) => {
   if (countries.length === 0) return miracles;
-  return miracles.filter((miracle) => {
-    if (countries.includes(miracle.country)) {
-      return miracle;
-    }
-  })
+  return miracles.filter((miracle) => (
+    // Split only applies to one miracle, Netherlands-Spain
+    miracle.country.split('-').some(country => countries.includes(country))
+  ))
 }
 
 const handleSearchFilters = (miracles, searchInput) => {
@@ -68,6 +68,15 @@ const handleSearchFilters = (miracles, searchInput) => {
   const results = fuse.search(searchInput);
   return results.map(result => result.item);
 }
+
+/**
+ * One miracle has two countries, Netherlands-Spain
+ * I don't want users to be able to filter by Netherlands-Spain
+ * They can sort either by Spain or Netherlands
+ */
+const countriesSet = new Set(miracles.map(({ country }) => country))
+countriesSet.delete('Netherlands-Spain')
+const uniqueCountries = Array.from(countriesSet);
 
 const miracles = [
   {
@@ -1930,4 +1939,5 @@ export {
   handleCountryFilters,
   handleSearchFilters,
   miracles,
+  uniqueCountries,
 }
