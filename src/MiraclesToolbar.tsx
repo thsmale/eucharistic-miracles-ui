@@ -83,6 +83,7 @@ export const MiraclesToolbar = ({ setShowLayer }) => {
           onChange={debounceOnChange}
           placeholder="Search miracles"
           defaultValue={searchValue}
+          type="search"
         />
       </Box>
       <Box direction='row'>
