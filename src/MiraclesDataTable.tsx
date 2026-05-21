@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   DataTable,
@@ -7,18 +7,7 @@ import {
 import { useNavigate } from 'react-router';
 import { colorMap } from './data/miracles';
 
-interface SortObject {
-  direction: 'asc' | 'desc',
-  external: boolean,
-  property: string,
-};
-
 export const MiraclesDataTable = () => {
-  const [sort, setSort] = useState<SortObject>({
-    direction: 'asc',
-    external: true,
-    property: 'country',
-  })
   const navigate = useNavigate();
 
   return (
@@ -68,17 +57,8 @@ export const MiraclesDataTable = () => {
         onClickRow={({ datum }) => {
           navigate(`${datum.endpoint}`, { state: { path: datum.path }})
         }}
-        onSort={({ property, direction }) => {
-          const sortObj: SortObject = {
-            direction,
-            external: true,
-            property,
-          }
-          setSort(sortObj);
-        }}
-        sort={sort}
         primaryKey={'path'}
-        sortable={true}
+        sortable={false}
         verticalAlign={{ body : 'top' }}
       />
     </Box>

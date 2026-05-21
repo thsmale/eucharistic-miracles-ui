@@ -14,6 +14,7 @@ import {
   handleCountryFilters,
   handleCategoryFilters,
   handleSearchFilters,
+  handleSort,
   miracles,
 } from './data/miracles';
 import { MiraclesCards } from './MiraclesCards';
@@ -28,14 +29,16 @@ export const MiracleList = () => {
   const selectedCountries = useSelector(state => state.filters.countries); 
   const searchValue = useSelector(state => state.search.value);
   const toggleGroupValue = useSelector(state => state.toggleGroup.value); 
+  const sortValue = useSelector(state => state.sort);
 
   const data = useMemo(() => {
     let filteredMiracles = miracles;
     filteredMiracles = handleCountryFilters(filteredMiracles, selectedCountries);
     filteredMiracles = handleCategoryFilters(filteredMiracles, selectedCategories);
     filteredMiracles = handleSearchFilters(filteredMiracles, searchValue);
+    filteredMiracles = handleSort([...filteredMiracles], sortValue);
     return filteredMiracles;
-  }, [selectedCountries, selectedCategories, searchValue])
+  }, [selectedCountries, selectedCategories, searchValue, sortValue])
 
   return (
     <Box>
@@ -52,10 +55,6 @@ export const MiracleList = () => {
           <Box gap='medium'>
             <Data
               data={data}
-              properties={{
-                country: { label: 'Country' },
-                categories: { label: 'Category' }
-              }}
             >
               <MiraclesToolbar setShowLayer={setShowLayer}/>
               <DataSummary />

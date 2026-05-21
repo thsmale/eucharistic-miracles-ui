@@ -2,7 +2,12 @@ import { useContext } from 'react';
 import {
   Box,
   Button,
+  DropButton,
+  Form,
+  FormField,
+  RadioButtonGroup,
   ResponsiveContext,
+  Select,
   Stack,
   Text,
   TextInput,
@@ -10,6 +15,7 @@ import {
 } from 'grommet';
 import {
   AppsRounded,
+  Descend,
   Filter,
   Map,
   Search,
@@ -18,6 +24,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { clearFilters } from './redux/filters';
 import { setToggleGroup } from './redux/toggle';
+import { setSort } from './redux/sort';
 import { setSearchValue } from './redux/search';
 import { useDeviceSelectors } from 'react-device-detect';
 import { debounce } from 'lodash';
@@ -47,6 +54,7 @@ export const MiraclesToolbar = ({ setShowLayer }) => {
   const selectedCountries = useSelector(state => state.filters.countries);
   const selectedToggleGroup = useSelector(state => state.toggleGroup.value)
   const searchValue = useSelector(state => state.search.value)
+  const sortValue = useSelector(state => state.sort);
   const direction = size === 'small' ? 'column' : 'row';
   // Do not show a tool tip on touch screen, other wise tooltip dangles
   // isMobile is true for mobile or tablet
@@ -79,6 +87,44 @@ export const MiraclesToolbar = ({ setShowLayer }) => {
       </Box>
       <Box direction='row'>
         <Box direction='row' align='center' margin={{ bottom: size === 'small' ? 'large': undefined }}>
+          <DropButton
+            dropContent={
+              <Box pad='small'>
+                <Form
+                  value={sortValue}
+                  onChange={(value) => {
+                    dispatch(setSort(value))
+                  }}
+                >
+                  <FormField
+                    label='Sort by'
+                    name='property'
+                    htmlFor='property'
+                  >
+                    <Select
+                      options={['Country', 'City', 'Year', 'Categories']}
+                      id='property'
+                      name='property'
+                    />
+                  </FormField>
+                  <FormField
+                    label='Sort direction'
+                    name='direction'
+                    htmlFor='direction'
+                  >
+                    <RadioButtonGroup
+                      id='direction'
+                      name='direction'
+                      options={['Ascending', 'Descending']}
+                    />
+                  </FormField>
+                </Form>
+              </Box>
+            }
+            dropProps={{ align: { top: 'bottom', left: 'left' }}}
+            icon={<Descend />}
+            tip="Open sort"
+          />
           <Stack anchor='top-right'>
             <Button
               icon={<Filter />}

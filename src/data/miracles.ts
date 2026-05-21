@@ -69,6 +69,55 @@ const handleSearchFilters = (miracles, searchInput) => {
   return results.map(result => result.item);
 }
 
+const handleSort = (miracles, sort) => {
+  const property = sort.property.toLowerCase();
+  const direction = sort.direction;
+  return miracles.sort((a, b) => {
+    let x = a[property];
+    let y = b[property];
+    /**
+     * For handling categories
+     * Expecting categories to be an array already sorted
+     */
+    if (Array.isArray(x) && Array.isArray(y)) {
+      x = x.join(',');
+      y = y.join(',');
+    }
+    if (property === "year") {
+      x = oddDateConversion[x] || x;
+      y = oddDateConversion[y] || y;
+      x = Number(x);
+      y = Number(y);
+    }
+    if (x < y) {
+      return direction === 'Ascending' ? -1 : 1;
+    }
+    if (x > y) {
+      return direction === 'Ascending' ? 1 : -1;
+    }
+    // property must be equal
+    return 0;
+  });
+}
+
+/**
+ * Most miracles are years except for the following
+ * So we will do a quick conversion so sort by year works properly 
+ * yaya so this is hard coded, will need to be careful adding new miracles
+ */
+const oddDateConversion = {
+  "Third - Fifth Centuries": 300,
+  "Seventh Century": 700,
+  "1222-1465": 122,
+  "May 5, 2001": 2001,
+  "750 A.D": 850,
+  "1273-1280": 1273,
+  "Sixth - Seventh Centuries": 600,
+  "Eleventh Century": 1100,
+  "October 21, 2006": 2006,
+  "October 12, 2008": 2008,
+  "December 8, 1991": 1991,
+}
 
 const miracles = [
   {
@@ -1930,5 +1979,6 @@ export {
   handleCategoryFilters,
   handleCountryFilters,
   handleSearchFilters,
+  handleSort,
   miracles,
 }
