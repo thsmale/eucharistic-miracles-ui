@@ -105,7 +105,7 @@ const handleSort = (miracles, sort) => {
  * So we will do a quick conversion so sort by year works properly 
  * yaya so this is hard coded, will need to be careful adding new miracles
  */
-const oddDateConversion = {
+const oddDateConversion: Record<string, number> = {
   "Third - Fifth Centuries": 300,
   "Seventh Century": 700,
   "1222-1465": 122,
