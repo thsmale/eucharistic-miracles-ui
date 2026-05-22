@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
 
-const colorMap = {
+const colorMap: Record<string, string> = {
   "blood": "#FFB3B3",        // Fresh Rose: More vivid than light-critical, less harsh than red
   "theft": "#AAB8C2",        // Cool Slate: A punchier blue-grey, similar to a saturated light-6
   "doubt": "#E0E0E0",        // Bright Silver: A crisp, confident grey with more depth than light-2
