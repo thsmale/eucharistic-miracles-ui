@@ -6,7 +6,7 @@ import {
 } from 'grommet';
 import { useNavigate } from 'react-router';
 import { isEmpty } from 'lodash';
-import { type Miracle } from './data/types';
+import { type Miracle } from '../data/types';
 
 type Props = {
   miracle: Miracle;

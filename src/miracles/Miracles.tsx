@@ -8,15 +8,15 @@ import {
   PageHeader,
   Paragraph,
 } from 'grommet';
-import { useAppSelector } from './redux/hooks';
-import { Hero } from './Hero';
+import { useAppSelector } from '../redux/hooks';
+import { Hero } from '../Hero';
 import {
   handleCountryFilters,
   handleCategoryFilters,
   handleSearchFilters,
   handleSort,
   miracles,
-} from './data/miracles';
+} from '../data/miracles';
 import { MiraclesCards } from './MiraclesCards';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';

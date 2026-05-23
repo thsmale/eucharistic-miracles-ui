@@ -4,7 +4,7 @@ import {
   Heading,
 } from 'grommet';
 import { Link } from 'react-router';
-import { type Miracle } from './data/types';
+import { type Miracle } from '../data/types';
 
 type Props = {
   miracle: Miracle;

@@ -7,7 +7,7 @@ import {
   Paragraph,
 } from 'grommet';
 import parse from 'html-react-parser';
-import { type Miracle } from './data/types';
+import { type Miracle } from '../data/types';
 
 type Props = {
   miracle: Miracle;

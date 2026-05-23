@@ -4,8 +4,8 @@ import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 import { Provider } from 'react-redux';
 import App from './App.tsx'
-import { MiracleList } from './Miracles.tsx';
-import { Miracle } from './Miracle.tsx';
+import { MiracleList } from './miracles/Miracles.tsx';
+import { Miracle } from './miracle/Miracle.tsx';
 import { NotFound } from './404.tsx';
 import { store } from './redux/store.ts';
 import './index.css'

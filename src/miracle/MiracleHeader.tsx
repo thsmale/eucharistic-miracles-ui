@@ -10,7 +10,7 @@ import {
   Link as LinkIcon,
   X,
 } from 'grommet-icons';
-import { type Miracle } from './data/types';
+import { type Miracle } from '../data/types';
 
 type Props = {
   miracle: Miracle,

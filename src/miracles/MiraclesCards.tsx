@@ -11,7 +11,7 @@ import {
 } from 'grommet';
 import { Location, Calendar } from "grommet-icons";
 import { useNavigate } from 'react-router';
-import { type MiracleMetadata } from './data/types';
+import { type MiracleMetadata } from '../data/types';
 
 export const MiraclesCards = () => {
   return (

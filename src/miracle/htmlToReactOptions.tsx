@@ -11,7 +11,7 @@ import {
   type DOMNode,
   type HTMLReactParserOptions
 } from 'html-react-parser';
-import { getPath } from './data/miracles';
+import { getPath } from '../data/miracles';
 
 const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 

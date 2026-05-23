@@ -26,11 +26,11 @@ import {
   Search,
   Table,
 } from 'grommet-icons';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { clearFilters } from './redux/filters';
-import { setToggleGroup, type allowedToggleValues } from './redux/toggle';
-import { setSort } from './redux/sort';
-import { setSearchValue } from './redux/search';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { clearFilters } from '../redux/filters';
+import { setToggleGroup, type allowedToggleValues } from '../redux/toggle';
+import { setSort } from '../redux/sort';
+import { setSearchValue } from '../redux/search';
 import { useDeviceSelectors } from 'react-device-detect';
 import { debounce } from 'lodash';
 

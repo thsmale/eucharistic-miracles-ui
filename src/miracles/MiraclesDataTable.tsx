@@ -4,7 +4,7 @@ import {
   Text,
 } from 'grommet';
 import { useNavigate } from 'react-router';
-import { colorMap } from './data/miracles';
+import { colorMap } from '../data/miracles';
 
 export const MiraclesDataTable = () => {
   const navigate = useNavigate();

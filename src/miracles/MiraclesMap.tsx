@@ -12,9 +12,9 @@ import {
   Geography,
   ZoomableGroup,
 } from "react-simple-maps"
-import topology from "./world-topo.json"
+import topology from "../world-topo.json"
 import MarkerWithTooltip from './MiraclesMapMarker';
-import { type MiracleMetadata } from "./data/types";
+import { type MiracleMetadata } from "../data/types";
 
 const getSmallScreenRadius = ({ zoom }: Position) => {
   if (zoom < 3) {

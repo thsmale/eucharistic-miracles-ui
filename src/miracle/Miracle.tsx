@@ -8,10 +8,10 @@ import {
   Spinner,
 } from 'grommet';
 import parse from 'html-react-parser';
-import { NotFound } from './404';
-import { ErrorOccurred } from './Erorr';
-import { getPath } from './data/miracles';
-import { type Miracle as MiracleType } from './data/types';
+import { NotFound } from '../404';
+import { ErrorOccurred } from '../Erorr';
+import { getPath } from '../data/miracles';
+import { type Miracle as MiracleType } from '../data/types';
 import { MiracleHeader } from './MiracleHeader';
 import { MiracleNotification } from './MiracleNotification';
 import { MiracleImages } from './MiracleImages';

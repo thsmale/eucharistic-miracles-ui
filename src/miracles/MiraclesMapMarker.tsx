@@ -18,7 +18,7 @@ import {
   FloatingPortal, // This is the fix for "Map Version"
 } from "@floating-ui/react";
 import { Link, useNavigate } from 'react-router';
-import { type MiracleMetadata } from "./data/types";
+import { type MiracleMetadata } from "../data/types";
 
 type MiraclesGroupedByCoordinates = {
   coordinates: [number, number],
