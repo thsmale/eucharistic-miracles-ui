@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import {
   Link,
   useLocation,
@@ -19,6 +19,7 @@ import {
   Paragraph,
   Spinner,
   Text,
+  type AnchorExtendedProps,
 } from 'grommet';
 import {
   DocumentPdf,
@@ -27,11 +28,18 @@ import {
   LinkPrevious,
   X,
 } from 'grommet-icons';
-import parse, { domToReact } from 'html-react-parser';
+import parse, {
+  domToReact,
+  Element,
+  Text as HtmlReactText,
+  type DOMNode,
+  type HTMLReactParserOptions
+} from 'html-react-parser';
 import { isEmpty } from 'lodash';
 import { NotFound } from './404';
 import { ErrorOccurred } from './Erorr';
-import { getMiracle, getPath } from './data/miracles';
+import { getPath } from './data/miracles';
+import { type Miracle as MiracleType } from './data/types';
 
 const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 
@@ -40,7 +48,7 @@ const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 export const Miracle = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [miracle, setMiracle] = useState(null);
+  const [miracle, setMiracle] = useState<MiracleType | null>(null);
   const [loading, setLoading] = useState(true);
   // 0 no error, 1: 404 not found, 2: error loading data
   const [errorType, setErrorType] = useState(0);
@@ -114,33 +122,45 @@ export const Miracle = () => {
    * intro, overview, captions are expected to contain html
    * we will use this to convert some html to Grommet
    */
-  const htmlToReactOptions = {
+  const htmlToReactOptions: HTMLReactParserOptions = {
     replace(domNode) {
-    /**
-     * <p> check is recursive
-     * since it can have a or img child elements
-     */
+      // Mostly for typescript purposes
+      if (!(domNode instanceof Element)) {
+        return;
+      }
+      /**
+       * <p> check is recursive
+       * since it can have a or img child elements
+      */
       if (domNode.name === 'p') {
         return (
           <Paragraph margin='none' fill={true}>
-            {domToReact(domNode.children, htmlToReactOptions)}
+            {domToReact(domNode.children as DOMNode[], htmlToReactOptions)}
           </Paragraph>
         )
       }
       /**
-     * expecting a href value set to the UI endpoint
-     * will use that to get the miracle details
-     * which will be used to get the miracle details path
-     */
-      if (domNode.name === 'a') {
+       * expecting a href value set to the UI endpoint
+       * will use that to get the miracle details
+       * which will be used to get the miracle details path
+      */
+      if (domNode.name === 'a' && domNode.children.length > 0) {
         const endpoint = domNode.attribs.href;
-        const { path } = getMiracle(endpoint);
+        const path = getPath(endpoint);
+        const firstChild = domNode.children[0];
+        if (!(firstChild instanceof HtmlReactText)) {
+          console.warn('Ignoring invalid Anchor')
+          return;
+        }
         return (
           <Anchor
             as={Link}
-            label={domNode.children[0].data}
-            state={{ path }}
-            to={endpoint}
+            label={firstChild.data}
+            // Odd syntax for typescript
+            {...{
+              to: endpoint,
+              state: { path },
+            }}
           />
         )
       }
@@ -157,7 +177,7 @@ export const Miracle = () => {
           />
         )
       }
-    }
+    } 
   }
 
   const tweetContent = [
@@ -166,7 +186,7 @@ export const Miracle = () => {
   ].join('%0A%0A')
 
   // Notifications are to let users know if there is any missing context, like a part 1
-  let notificationActions = [];
+  let notificationActions: AnchorExtendedProps[] = [];
   let hasNotification = false;
   if (!isEmpty(miracle.notification)) {
     hasNotification = true;
@@ -175,7 +195,7 @@ export const Miracle = () => {
       const modifiedAction = {
         label,
         href: endpoint,
-        onClick: (event) => {
+        onClick: (event: MouseEvent<HTMLAnchorElement>) => {
           // Cannot pass react-router Link, state, to here
           // ...due to issue with Grommet
           event?.preventDefault();
@@ -295,8 +315,11 @@ export const Miracle = () => {
                       <Anchor
                         as={Link}
                         label={label}
-                        to={endpoint}
-                        state={{ path }}
+                        // Odd syntax for typescript
+                        {...{
+                          to: endpoint,
+                          state: { path },
+                        }}
                       />
                     </li>
                   )

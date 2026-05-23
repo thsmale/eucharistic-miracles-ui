@@ -8,7 +8,7 @@ import {
   PageHeader,
   Paragraph,
 } from 'grommet';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from './redux/hooks';
 import { Hero } from './Hero';
 import {
   handleCountryFilters,
@@ -25,11 +25,11 @@ import { MiraclesToolbar } from './MiraclesToolbar';
 
 export const MiracleList = () => {
   const [showLayer, setShowLayer] = useState(false);
-  const selectedCategories = useSelector(state => state.filters.categories); 
-  const selectedCountries = useSelector(state => state.filters.countries); 
-  const searchValue = useSelector(state => state.search.value);
-  const toggleGroupValue = useSelector(state => state.toggleGroup.value); 
-  const sortValue = useSelector(state => state.sort);
+  const selectedCategories = useAppSelector(state => state.filters.categories); 
+  const selectedCountries = useAppSelector(state => state.filters.countries); 
+  const searchValue = useAppSelector(state => state.search.value);
+  const toggleGroupValue = useAppSelector(state => state.toggleGroup.value); 
+  const sortValue = useAppSelector(state => state.sort);
 
   const data = useMemo(() => {
     let filteredMiracles = miracles;

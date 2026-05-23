@@ -1,4 +1,9 @@
-import { useContext } from 'react';
+import {
+  useContext,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from 'react';
 import {
   Box,
   Button,
@@ -21,15 +26,21 @@ import {
   Search,
   Table,
 } from 'grommet-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { clearFilters } from './redux/filters';
-import { setToggleGroup } from './redux/toggle';
+import { setToggleGroup, type allowedToggleValues } from './redux/toggle';
 import { setSort } from './redux/sort';
 import { setSearchValue } from './redux/search';
 import { useDeviceSelectors } from 'react-device-detect';
 import { debounce } from 'lodash';
 
-const originalToggleOptions = [
+interface ToggleOption {
+  icon: ReactNode,
+  value:  allowedToggleValues,
+  tip: string,
+}
+
+const originalToggleOptions: ToggleOption[] = [
   {
     icon: <Table a11yTitle='Table view' />,
     value: 'table',
@@ -47,14 +58,18 @@ const originalToggleOptions = [
   },
 ]
 
-export const MiraclesToolbar = ({ setShowLayer }) => {
+type Props = {
+  setShowLayer: Dispatch<SetStateAction<boolean>>
+}
+
+export const MiraclesToolbar = ({ setShowLayer }: Props) => {
   const size = useContext(ResponsiveContext);
-  const dispatch = useDispatch();
-  const selectedCategories = useSelector(state => state.filters.categories); 
-  const selectedCountries = useSelector(state => state.filters.countries);
-  const selectedToggleGroup = useSelector(state => state.toggleGroup.value)
-  const searchValue = useSelector(state => state.search.value)
-  const sortValue = useSelector(state => state.sort);
+  const dispatch = useAppDispatch();
+  const selectedCategories = useAppSelector(state => state.filters.categories); 
+  const selectedCountries = useAppSelector(state => state.filters.countries);
+  const selectedToggleGroup = useAppSelector(state => state.toggleGroup.value)
+  const searchValue = useAppSelector(state => state.search.value)
+  const sortValue = useAppSelector(state => state.sort);
   const direction = size === 'small' ? 'column' : 'row';
   // Do not show a tool tip on touch screen, other wise tooltip dangles
   // isMobile is true for mobile or tablet
@@ -70,7 +85,7 @@ export const MiraclesToolbar = ({ setShowLayer }) => {
     filterTooltip = '';
   }
   // Debounce for a smoother search experience
-  const searchInputOnChange = (event) => {
+  const searchInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(event.target.value));
   }
   const debounceOnChange = debounce(searchInputOnChange, 250);
@@ -152,10 +167,12 @@ export const MiraclesToolbar = ({ setShowLayer }) => {
           )}
         </Box>
         <ToggleGroup
-          onToggle={e => {
-            if (e.value.length) {
-              dispatch(setToggleGroup(e.value))
+          onToggle={({ value }) => {
+            if (value === undefined || Array.isArray(value)) {
+              console.warn('Received invalid type for toggle')
+              return;
             }
+            dispatch(setToggleGroup(value as allowedToggleValues))
           }}
           value={selectedToggleGroup}
           options={toggleOptions}

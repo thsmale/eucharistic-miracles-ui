@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   DataTable,
@@ -34,7 +33,7 @@ export const MiraclesDataTable = () => {
               if (datum.categories.length > 0) {
                 return (
                   <Box direction="row" gap="xsmall">
-                    {datum.categories.map(category => (
+                    {datum.categories.map((category: string) => (
                       <Box
                         background={colorMap[category]}
                         round='medium'

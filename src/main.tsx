@@ -7,7 +7,7 @@ import App from './App.tsx'
 import { MiracleList } from './MiracleList.tsx';
 import { Miracle } from './Miracle.tsx';
 import { NotFound } from './404.tsx';
-import store from './redux/store.ts';
+import { store } from './redux/store.ts';
 import './index.css'
 
 const router = createBrowserRouter([

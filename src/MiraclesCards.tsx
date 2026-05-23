@@ -11,6 +11,7 @@ import {
 } from 'grommet';
 import { Location, Calendar } from "grommet-icons";
 import { useNavigate } from 'react-router';
+import { type MiracleMetadata } from './data/types';
 
 export const MiraclesCards = () => {
   return (
@@ -58,7 +59,11 @@ const Eucharist = () => {
   )
 }
 
-const Card = ({ miracle }) => {
+type Props = {
+  miracle: MiracleMetadata
+}
+
+const Card = ({ miracle }: Props) => {
   const navigate = useNavigate();
   const { country, city, endpoint, path, year } = miracle;
   const padSize = { horizontal: "medium", vertical: "small" };

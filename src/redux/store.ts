@@ -4,7 +4,7 @@ import searchSlice from './search';
 import sortSlice from './sort';
 import toggleGroupSlice from './toggle';
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     filters: filtersSlice,
     search: searchSlice,
@@ -12,3 +12,6 @@ export default configureStore({
     toggleGroup: toggleGroupSlice,
   }
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,4 +1,8 @@
 import Fuse from 'fuse.js';
+import {
+  type MiracleMetadata
+} from './types'
+import { type SortState } from '../redux/sort';
 
 const colorMap: Record<string, string> = {
   "blood": "#FFB3B3",        // Fresh Rose: More vivid than light-critical, less harsh than red
@@ -19,28 +23,17 @@ const colorMap: Record<string, string> = {
 };
 
 /**
- * Used for a tags in json data or for resources
- * Provides the ability to look up a path and get this metadata
- * So that we can set the proper URL
- * @param endpoint
- */
-const getMiracle = (endpoint) => {
-  const miracle = miracles.find(miracle => miracle.endpoint === endpoint);
-  return miracle || {};
-}
-
-/**
  * Returning null here as an indicator that getPath failed
  * versus location.state.path would be undefined 
  * so you can trace to see how the app failed in a 404
  * pretty hacky... should handle this better
  */
-const getPath = (endpoint) => {
+const getPath = (endpoint: string) => {
   const miracle = miracles.find(miracle => miracle.endpoint === endpoint);
   return miracle?.path || null;
 }
 
-const handleCategoryFilters = (miracles, categories) => {
+const handleCategoryFilters = (miracles: MiracleMetadata[], categories: string[]) => {
   if (categories.length === 0) return miracles;
   return miracles.filter(miracle => {
     if (categories.some(category => miracle.categories.includes(category))) {
@@ -50,7 +43,7 @@ const handleCategoryFilters = (miracles, categories) => {
   })
 }
 
-const handleCountryFilters = (miracles, countries) => {
+const handleCountryFilters = (miracles: MiracleMetadata[], countries: string[]) => {
   if (countries.length === 0) return miracles;
   return miracles.filter((miracle) => (
     // Split only applies to one miracle, Netherlands-Spain
@@ -58,7 +51,7 @@ const handleCountryFilters = (miracles, countries) => {
   ))
 }
 
-const handleSearchFilters = (miracles, searchInput) => {
+const handleSearchFilters = (miracles: MiracleMetadata[], searchInput: string) => {
   if (searchInput === '') return miracles;
   const fuse = new Fuse(miracles, {
     ignoreDiacritics: true,
@@ -69,12 +62,12 @@ const handleSearchFilters = (miracles, searchInput) => {
   return results.map(result => result.item);
 }
 
-const handleSort = (miracles, sort) => {
-  const property = sort.property.toLowerCase();
+const handleSort = (miracles: MiracleMetadata[], sort: SortState) => {
+  const property = sort.property.toLowerCase() as "country" | "city" | "year" | "categories"
   const direction = sort.direction;
   return miracles.sort((a, b) => {
-    let x = a[property];
-    let y = b[property];
+    let x: string | string[] | number = a[property];
+    let y: string | string[] | number = b[property];
     /**
      * For handling categories
      * Expecting categories to be an array already sorted
@@ -84,8 +77,8 @@ const handleSort = (miracles, sort) => {
       y = y.join(',');
     }
     if (property === "year") {
-      x = oddDateConversion[x] || x;
-      y = oddDateConversion[y] || y;
+      x = oddDateConversion[x as string] || x;
+      y = oddDateConversion[y as string] || y;
       x = Number(x);
       y = Number(y);
     }
@@ -119,7 +112,7 @@ const oddDateConversion: Record<string, number> = {
   "December 8, 1991": 1991,
 }
 
-const miracles = [
+const miracles: MiracleMetadata[] = [
   {
     "country": "Argentina",
     "city": "Buenos Aires",
@@ -1974,7 +1967,6 @@ const miracles = [
 
 export {
   colorMap,
-  getMiracle,
   getPath,
   handleCategoryFilters,
   handleCountryFilters,

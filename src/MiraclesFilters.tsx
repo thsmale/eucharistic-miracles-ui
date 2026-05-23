@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction
+} from 'react';
 import {
   Box,
   Button,
@@ -10,9 +14,13 @@ import {
   SelectMultiple,
 } from 'grommet';
 import { Close } from 'grommet-icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from './redux/hooks';
 import { setFilters } from './redux/filters';
 import { colorMap, miracles } from './data/miracles';
+
+type Props = {
+  setShowLayer: Dispatch<SetStateAction<boolean>>
+}
 
 /**
  * One miracle has two countries, Netherlands-Spain
@@ -23,11 +31,11 @@ const countriesSet = new Set(miracles.map(({ country }) => country))
 countriesSet.delete('Netherlands-Spain')
 const uniqueCountries = Array.from(countriesSet);
 
-export const MiraclesFilters = ({ setShowLayer }) => {
-  const dispatch = useDispatch();
+export const MiraclesFilters = ({ setShowLayer }: Props) => {
+  const dispatch = useAppDispatch();
   // Use to maintain local state since filters are only applied when submit is pressed
-  const selectedCategories = useSelector(state => state.filters.categories); 
-  const selectedCountries = useSelector(state => state.filters.countries); 
+  const selectedCategories = useAppSelector(state => state.filters.categories); 
+  const selectedCountries = useAppSelector(state => state.filters.countries); 
   const [localFilters, setLocalFilters] = useState({
     categories: selectedCategories,
     countries: selectedCountries,

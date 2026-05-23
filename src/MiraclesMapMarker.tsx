@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Anchor,
   Box,
@@ -18,8 +18,22 @@ import {
   FloatingPortal, // This is the fix for "Map Version"
 } from "@floating-ui/react";
 import { Link, useNavigate } from 'react-router';
+import { type MiracleMetadata } from "./data/types";
 
-const MarkerWithTooltip = ({ miracle, circleRadius }) => {
+type MiraclesGroupedByCoordinates = {
+  coordinates: [number, number],
+  city: string,
+  country: string,
+  endpoint: string,
+  miracles: Omit<MiracleMetadata, 'coordinates'>[],
+}
+
+type Props = {
+  miracle: MiraclesGroupedByCoordinates,
+  circleRadius: number,
+}
+
+const MarkerWithTooltip = ({ miracle, circleRadius }: Props) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);
@@ -102,8 +116,11 @@ const MarkerWithTooltip = ({ miracle, circleRadius }) => {
                           <Anchor
                             as={Link}
                             label={item.year}
-                            to={item.endpoint}
-                            state={{ path: item.path }}
+                            // Odd syntax for typescript
+                            {...{
+                              to: item.endpoint,
+                              state: { path: item.path },
+                            }}
                           />
                         </li>
                       )

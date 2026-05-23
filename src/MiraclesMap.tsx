@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import { useContext, useState } from "react"
 import {
   Box,
   Button,
@@ -14,8 +14,9 @@ import {
 } from "react-simple-maps"
 import topology from "./world-topo.json"
 import MarkerWithTooltip from './MiraclesMapMarker';
+import { type MiracleMetadata } from "./data/types";
 
-const getSmallScreenRadius = ({ zoom }) => {
+const getSmallScreenRadius = ({ zoom }: Position) => {
   if (zoom < 3) {
     return 3;
   }
@@ -34,12 +35,10 @@ const getSmallScreenRadius = ({ zoom }) => {
   if (zoom > 75 && zoom < 250) {
     return .10
   }
-  if (zoom > 250) {
-    return .05
-  }
+  return .05
 }
 
-const getRadius = ({ zoom }) => {
+const getRadius = ({ zoom }: Position) => {
   if (zoom < 3) {
     return 3;
   }
@@ -58,17 +57,36 @@ const getRadius = ({ zoom }) => {
   if (zoom > 35 && zoom < 75) {
     return .10;
   }
-  if (zoom > 75) {
-    return .05;
-  }
+  return .05;
 }
 
+type MiraclesByCoordinates = {
+  coordinates: [number, number],
+  miracle: Omit<MiracleMetadata, 'coordinates'>,
+}
 
-export const MiraclesMap = ({ miracles }) => {
+type MiraclesGroupedByCoordinates = {
+  coordinates: [number, number],
+  city: string,
+  country: string,
+  endpoint: string,
+  miracles: Omit<MiracleMetadata, 'coordinates'>[],
+}
+
+type Position = {
+  coordinates: [number, number],
+  zoom: number,
+}
+
+type Props = {
+  miracles: MiracleMetadata[]
+}
+
+export const MiraclesMap = ({ miracles }: Props) => {
   const size = useContext(ResponsiveContext);
-  const defaultPosition = { coordinates: [0, 0], zoom: 1 };
-  const [position, setPosition] = useState(defaultPosition)
-  const [circleRadius, setCircleRadius] = useState(3);
+  const defaultPosition: Position = { coordinates: [0, 0], zoom: 1 };
+  const [position, setPosition] = useState<Position>(defaultPosition)
+  const [circleRadius, setCircleRadius] = useState<number>(3);
   const minZoom = 1;
   const maxZoom = 500;
   /**
@@ -76,7 +94,7 @@ export const MiraclesMap = ({ miracles }) => {
    * Like Middleburg-Lovanio or Netherlands-Spain
    * Restructuring data to be array with one set of coordinates for each miracle
    */
-  const miraclesByCoordinates = miracles.flatMap(({ coordinates, ...rest }) => 
+  const miraclesByCoordinates: MiraclesByCoordinates[] = miracles.flatMap(({ coordinates, ...rest }) => 
     coordinates.map(coord => ({
       coordinates: coord,
       miracle: { ...rest }
@@ -87,7 +105,7 @@ export const MiraclesMap = ({ miracles }) => {
    * Like 3 part series for Buenos Aires or 2 unique miracles in Rome
    * We will show one marker with references to all the miracles
    */
-  const miraclesGroupedByCoordinates = Object.values(miraclesByCoordinates.reduce((acc, current) => {
+  const miraclesGroupedByCoordinates: MiraclesGroupedByCoordinates[] = Object.values(miraclesByCoordinates.reduce<Record<string, MiraclesGroupedByCoordinates>>((acc, current) => {
     // Used to find duplicate coordinates so they can be grouped
     const {
       coordinates,
