@@ -1,59 +1,32 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import {
-  Link,
-  useLocation,
-  useNavigate,
-} from 'react-router';
-import {
-  Anchor,
   Box,
-  Button,
-  Carousel,
-  Footer,
   Heading,
-  Image,
-  Notification,
   Page,
   PageContent,
-  PageHeader,
-  Paragraph,
   Spinner,
-  Text,
-  type AnchorExtendedProps,
 } from 'grommet';
-import {
-  DocumentPdf,
-  Facebook,
-  Link as LinkIcon,
-  LinkPrevious,
-  X,
-} from 'grommet-icons';
-import parse, {
-  domToReact,
-  Element,
-  Text as HtmlReactText,
-  type DOMNode,
-  type HTMLReactParserOptions
-} from 'html-react-parser';
-import { isEmpty } from 'lodash';
+import parse from 'html-react-parser';
 import { NotFound } from './404';
 import { ErrorOccurred } from './Erorr';
 import { getPath } from './data/miracles';
 import { type Miracle as MiracleType } from './data/types';
+import { MiracleHeader } from './MiracleHeader';
+import { MiracleNotification } from './MiracleNotification';
+import { MiracleImages } from './MiracleImages';
+import { MiracleResources } from './MiracleResources';
+import { MiracleFooter } from './MiracleFooter';
+import { htmlToReactOptions } from './htmlToReactOptions';
 
 const cdnUrl = import.meta.env.VITE_API_CDN_URL;
 
-
-
 export const Miracle = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [miracle, setMiracle] = useState<MiracleType | null>(null);
   const [loading, setLoading] = useState(true);
   // 0 no error, 1: 404 not found, 2: error loading data
   const [errorType, setErrorType] = useState(0);
-  const [showNotification, setShowNotification] = useState(true);
-  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,10 +78,10 @@ export const Miracle = () => {
     )
   }
 
-
   if (errorType === 1) {
     return <NotFound />
   }
+
   if (miracle === null || errorType !== 0) {
     return (
       <ErrorOccurred
@@ -118,145 +91,13 @@ export const Miracle = () => {
     );
   }
 
-  /**
-   * intro, overview, captions are expected to contain html
-   * we will use this to convert some html to Grommet
-   */
-  const htmlToReactOptions: HTMLReactParserOptions = {
-    replace(domNode) {
-      // Mostly for typescript purposes
-      if (!(domNode instanceof Element)) {
-        return;
-      }
-      /**
-       * <p> check is recursive
-       * since it can have a or img child elements
-      */
-      if (domNode.name === 'p') {
-        return (
-          <Paragraph margin='none' fill={true}>
-            {domToReact(domNode.children as DOMNode[], htmlToReactOptions)}
-          </Paragraph>
-        )
-      }
-      /**
-       * expecting a href value set to the UI endpoint
-       * will use that to get the miracle details
-       * which will be used to get the miracle details path
-      */
-      if (domNode.name === 'a' && domNode.children.length > 0) {
-        const endpoint = domNode.attribs.href;
-        const path = getPath(endpoint);
-        const firstChild = domNode.children[0];
-        if (!(firstChild instanceof HtmlReactText)) {
-          console.warn('Ignoring invalid Anchor')
-          return;
-        }
-        return (
-          <Anchor
-            as={Link}
-            label={firstChild.data}
-            // Odd syntax for typescript
-            {...{
-              to: endpoint,
-              state: { path },
-            }}
-          />
-        )
-      }
-      // This is only used for the QR code in Buenos Aires 1996 (part 3)
-      if (domNode.name === 'img') {
-        const attribs = domNode.attribs;
-        const src = attribs.src;
-        const alt = attribs.alt;
-        return (
-          <Image
-            alt={alt}
-            fit="contain"
-            src={`${cdnUrl}/images/${src}`}
-          />
-        )
-      }
-    } 
-  }
-
-  const tweetContent = [
-    `Check out the ${miracle?.title} ${miracle?.city}, ${miracle?.country} ${miracle?.year}.`,
-    window.location.href
-  ].join('%0A%0A')
-
-  // Notifications are to let users know if there is any missing context, like a part 1
-  let notificationActions: AnchorExtendedProps[] = [];
-  let hasNotification = false;
-  if (!isEmpty(miracle.notification)) {
-    hasNotification = true;
-    miracle.notification.actions.map(action => {
-      const { endpoint, label, path } = action;
-      const modifiedAction = {
-        label,
-        href: endpoint,
-        onClick: (event: MouseEvent<HTMLAnchorElement>) => {
-          // Cannot pass react-router Link, state, to here
-          // ...due to issue with Grommet
-          event?.preventDefault();
-          navigate(endpoint, { state: { path }})
-        }
-      }
-      notificationActions = [...notificationActions, modifiedAction]
-    })
-  }
-
   return (
     <Box>
       <Page background='background-front' kind='narrow' pad={{ bottom: 'xlarge' }}>
         <PageContent gap='medium'>
-          <PageHeader
-            title={`${miracle?.title} ${miracle?.city}`}
-            subtitle={(
-              <Box gap='small'>
-                <Text>
-                  {miracle?.country} {miracle.year}
-                </Text>
-                <Box direction='row' gap='xsmall'>
-                  <Button
-                    hoverIndicator
-                    icon={<X />}
-                    href={`https://twitter.com/intent/tweet?text=${tweetContent}`}
-                    target="_blank"
-                  />
-                  <Button
-                    hoverIndicator
-                    icon={<Facebook />}
-                    href={`http://www.facebook.com/sharer.php?u=${window.location.href}`}
-                    target="_blank"
-                  />
-                  <Button
-                    hoverIndicator
-                    icon={<LinkIcon />}
-                    onClick={() => navigator.clipboard.writeText(window.location.href)}
-                  />
-                  <Button
-                    hoverIndicator
-                    icon={<DocumentPdf />}
-                    href={miracle.pdfLink}
-                    target="_blank"
-                  />
-                </Box>
-              </Box>
-            )}
-          />
+          <MiracleHeader miracle={miracle} />
           <Box>
-            {hasNotification && showNotification && (
-              <Box margin={{ bottom: 'medium' }}>
-                <Notification
-                  status="info"
-                  title={miracle.notification.title}
-                  message={miracle.notification.message}
-                  actions={notificationActions}
-                  onClose={() => setShowNotification(false)}
-                />
-              </Box>
-            )}
+            <MiracleNotification miracle={miracle} />
             <Heading margin='none' level={3}>Introduction</Heading>
             {parse(miracle?.intro, htmlToReactOptions)}
           </Box>
@@ -264,85 +105,11 @@ export const Miracle = () => {
             <Heading margin='none' level={3}>Overview</Heading>
             {parse(miracle?.overview, htmlToReactOptions)}
           </Box>
-          {miracle?.images.length > 0 && (
-            <Box>
-              <Heading margin='none' level={3}>Images</Heading>
-              <Box>
-                <Carousel
-                  activeChild={activeImage}
-                  controls="arrows"
-                  height='medium'
-                  onChild={setActiveImage}
-                  width='medium'
-                >
-                  {miracle.images.map(img => (
-                    <Box
-                      key={img.path}
-                      width="medium"
-                      height="medium"
-                      background='background-front'
-                      overflow="hidden"
-                    >
-                      <Image
-                        className="blur-bg"
-                        fallback="/picture-failed-to-load.svg"
-                        fit="cover"
-                        src={`${cdnUrl}/images/${img.path}`}
-                      />
-                      <Image
-                        className="image-bg"
-                        fallback="/picture-failed-to-load.svg"
-                        fit="cover"
-                        src={`${cdnUrl}/images/${img.path}`}
-                      />
-                    </Box>
-                  ))}
-                </Carousel>
-                <Box width='medium'>
-                  <Paragraph fill>{parse(miracle.images[activeImage].caption)}</Paragraph>
-                </Box>
-              </Box>
-            </Box>
-          )}
-          {miracle?.resources.length > 0 && (
-            <Box>
-              <Heading margin='none' level={3}>Resources</Heading>
-              <ul style={{ marginTop: 0, marginBottom: 0 }}>
-                {miracle?.resources.map(resource => {
-                  const { endpoint, path, label } = resource;
-                  return (
-                    <li key={path}>
-                      <Anchor
-                        as={Link}
-                        label={label}
-                        // Odd syntax for typescript
-                        {...{
-                          to: endpoint,
-                          state: { path },
-                        }}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
-            </Box>
-          )}
+          <MiracleImages miracle={miracle} />
+          <MiracleResources miracle={miracle} />
         </PageContent>
       </Page>
-      <Box gap='medium'>
-        <Footer pad={{ left: 'medium' }}>
-          <Button
-            color='transparent'
-            hoverIndicator={true}
-            icon={<LinkPrevious />}
-            label="Go to miracle list"
-            onClick={() => navigate('/')}
-          />
-        </Footer>
-        <Footer border={{ side: 'top' }} pad='medium'>
-          <Text size='small'>{miracle.copyright}</Text>
-        </Footer>
-      </Box>
+      <MiracleFooter miracle={miracle}/>
     </Box>
   )
 }
