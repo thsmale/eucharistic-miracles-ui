@@ -1,8 +1,13 @@
-import { useRef, useState } from "react";
+import {
+  useContext,
+  useRef,
+  useState
+} from "react";
 import {
   Anchor,
   Box,
   Button,
+  ResponsiveContext,
   Text,
 } from 'grommet';
 import { Location, Calendar } from "grommet-icons";
@@ -34,9 +39,11 @@ type Props = {
 }
 
 const MarkerWithTooltip = ({ miracle, circleRadius }: Props) => {
+  const size = useContext(ResponsiveContext);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);
+  const multiMiraclesPad = size === 'small' ? 'large' : 'medium'
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
@@ -108,7 +115,7 @@ const MarkerWithTooltip = ({ miracle, circleRadius }: Props) => {
                 </Box>
               )}
               {miracles.length > 1 && (
-                <Box pad={{ left: 'medium' }}>
+                <Box pad={{ left: multiMiraclesPad }}>
                   <ul style={{ marginTop: 0, marginBottom: 0, marginLeft: 0, paddingLeft: 0 }}>
                     {miracles.map(item  => {
                       return (
