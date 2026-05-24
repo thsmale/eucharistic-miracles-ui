@@ -24,7 +24,7 @@ const theme = {
   },
   heading: {
     font: {
-      family: 'Lora, sans-serif'
+      family: 'Lora, serif'
     }
   },  
   list: {
