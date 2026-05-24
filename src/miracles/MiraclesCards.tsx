@@ -15,7 +15,7 @@ import { type MiracleMetadata } from '../data/types';
 
 export const MiraclesCards = () => {
   return (
-    <Cards size='medium' margin={{ bottom: 'medium' }}>
+    <Cards size='medium' margin={{ bottom: 'medium' }} step={200}>
       {datum => (
         <Card
           key={datum.path}

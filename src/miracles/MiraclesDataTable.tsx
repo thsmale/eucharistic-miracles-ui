@@ -58,6 +58,7 @@ export const MiraclesDataTable = () => {
         }}
         primaryKey={'path'}
         sortable={false}
+        step={200}
         verticalAlign={{ body : 'top' }}
       />
     </Box>

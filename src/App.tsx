@@ -31,7 +31,16 @@ function App() {
       <ErrorBoundary>
         <Outlet />
       </ErrorBoundary>
-      <ScrollRestoration />
+      <ScrollRestoration
+        getKey={(location) => {
+          // For home page, return to previous position
+          if (location.pathname === '/') {
+            return location.pathname;
+          }
+          // All other pages, i.e miracles, scroll to top
+          return location.key;
+        }}
+      />
     </Grommet>
   )
 }
