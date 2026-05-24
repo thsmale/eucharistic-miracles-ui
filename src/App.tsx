@@ -6,6 +6,11 @@ import { AppHeader } from './Header';
 import { ErrorBoundary } from './ErrorBoundary';
 
 const theme = {
+  global: {
+    font: {
+      family: '"EB Garamound", serif',
+    },
+  },
   card: {
     hover: {
       container: {
@@ -17,6 +22,11 @@ const theme = {
       extend: `transition: all 0.2s ease-in-out;`,
     },
   },
+  heading: {
+    font: {
+      family: 'Lora, sans-serif'
+    }
+  },  
   list: {
     item: {
       border: false,
