@@ -58,17 +58,19 @@ export const About = () => {
                 target="_blank"
               />
               . The original website also contains more information than this replica such as stories about the following:
-              <ul>
-                <li>
-                  Saints, Mystics and the Eucharist
-                </li>
-                <li>
-                  Our Lady and the Eucharist
-                </li>
-                <li>
-                  Miraculous Communions
-                </li>
-              </ul>
+            </Paragraph>
+            <ul>
+              <li>
+                Saints, Mystics and the Eucharist
+              </li>
+              <li>
+                Our Lady and the Eucharist
+              </li>
+              <li>
+                Miraculous Communions
+              </li>
+            </ul>
+            <Paragraph margin='none' fill>
               The purpose of this website is to provide a more modern user interface to discover the many documented Eucharistic miracles. The text and images of these Eucharistic miracles is identical to that of the original.
             </Paragraph>
           </Box>
