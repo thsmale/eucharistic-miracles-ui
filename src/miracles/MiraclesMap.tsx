@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import {
   Box,
   Button,
@@ -12,6 +12,12 @@ import {
   Geography,
   ZoomableGroup,
 } from "react-simple-maps"
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import {
+  resetPosition,
+  setCircleRadius,
+  setPosition
+} from '../redux/map';
 import topology from "../world-topo.json"
 import MarkerWithTooltip from './MiraclesMapMarker';
 import { type MiracleMetadata } from "../data/types";
@@ -84,9 +90,10 @@ type Props = {
 
 export const MiraclesMap = ({ miracles }: Props) => {
   const size = useContext(ResponsiveContext);
-  const defaultPosition: Position = { coordinates: [0, 0], zoom: 1 };
-  const [position, setPosition] = useState<Position>(defaultPosition)
-  const [circleRadius, setCircleRadius] = useState<number>(3);
+  const dispatch = useAppDispatch();
+  const circleRadius = useAppSelector(state => state.map.circleRadius);
+  const posCoordinates = useAppSelector(state => state.map.coordinates);
+  const posZoom = useAppSelector(state => state.map.zoom);
   const minZoom = 1;
   const maxZoom = 500;
   /**
@@ -129,13 +136,19 @@ export const MiraclesMap = ({ miracles }: Props) => {
   }, {}));
 
   const handleZoomIn = () => {
-    if (position.zoom >= maxZoom) return;
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 2 }))
+    if (posZoom >= maxZoom) return;
+    dispatch(setPosition({
+      coordinates: posCoordinates,
+      zoom: posZoom * 2,
+    }));
   }
 
   const handleZoomOut = () => {
-    if (position.zoom <= minZoom) return;
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom / 2 }))
+    if (posZoom <= minZoom) return;
+    dispatch(setPosition({
+      coordinates: posCoordinates,
+      zoom: posZoom / 2,
+    }));
   }
 
   return (
@@ -155,14 +168,14 @@ export const MiraclesMap = ({ miracles }: Props) => {
             projectionConfig={{ scale: 200 }}
           >
             <ZoomableGroup
-              zoom={position.zoom}
-              center={position.coordinates}
+              zoom={posZoom}
+              center={posCoordinates}
               minZoom={minZoom}
               maxZoom={maxZoom}
               onMoveEnd={(position) => { 
                 const radius = size === 'small' ? getSmallScreenRadius(position) : getRadius(position);
-                setCircleRadius(radius)
-                setPosition(position)
+                dispatch(setCircleRadius(radius));
+                dispatch(setPosition(position));
               }}
             >
               <Geographies geography={topology}>
@@ -206,8 +219,8 @@ export const MiraclesMap = ({ miracles }: Props) => {
           <Button
             label="Reset"
             onClick={() => {
-              setPosition(defaultPosition)
-              setCircleRadius(3);
+              dispatch(resetPosition());
+              dispatch(setCircleRadius(3));
             }} 
           />
         </Box>
