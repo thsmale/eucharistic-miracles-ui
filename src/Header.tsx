@@ -1,18 +1,24 @@
-import { useNavigate } from 'react-router';
 import {
   Box,
   Button,
   Header,
   Text,
 } from 'grommet';
+import { useNavigate } from 'react-router';
+import { CircleInformation } from 'grommet-icons';
+import { useDeviceSelectors } from 'react-device-detect';
 
 export const AppHeader = () => {
   const navigate = useNavigate();
+  const [selectors] = useDeviceSelectors(window.navigator.userAgent);
+  const { isMobile } = selectors;
+  let informationTooltip = 'About';
+  if (isMobile) informationTooltip = '';
 
   return (
     <Header
       fill='horizontal'
-      pad={{ horizontal: 'medium', vertical: 'medium' }}
+      pad={{ horizontal: 'medium', vertical: 'small' }}
       border={{ side: 'bottom' }}
       background='background-back'
     >
@@ -44,6 +50,19 @@ export const AppHeader = () => {
           </Box>
         </Box>
       </Button>
+      <Button
+        icon={<CircleInformation />}
+        onClick={() => navigate('/About')}
+        tip={informationTooltip === '' ? '' : {
+          content: informationTooltip,
+          // Need to display to left, otherwise Hero gets in way
+          dropProps: {
+            align: {
+              right: 'left',
+            }
+          }
+        }}
+      />
     </Header>
   )
 }

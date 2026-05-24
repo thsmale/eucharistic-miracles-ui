@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App.tsx'
 import { MiracleList } from './miracles/Miracles.tsx';
 import { Miracle } from './miracle/Miracle.tsx';
+import { About } from './About.tsx';
 import { NotFound } from './404.tsx';
 import { store } from './redux/store.ts';
 import './index.css'
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/:country/:city/:year/:part?",
         element: <Miracle />
+      },
+      {
+        path: "/About",
+        element: <About />
       },
       {
         path: "*",
