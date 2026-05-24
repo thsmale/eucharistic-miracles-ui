@@ -85,10 +85,12 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
   let numFilters = 0;
   if (selectedCategories.length > 0) numFilters += 1;
   if (selectedCountries.length > 0) numFilters += 1;
+  let sortTooltip = 'Open sort';
   let filterTooltip = numFilters > 0 ? `Open filters, ${numFilters} filters applied` : 'Open filters';
   if (isMobile) {
     toggleOptions = toggleOptions.map(option => ({ ...option, tip: '' }))
     filterTooltip = '';
+    sortTooltip = '';
   }
   // Debounce for a smoother search experience
   const searchInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,7 +147,7 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
             }
             dropProps={{ align: { top: 'bottom', left: 'left' }}}
             icon={<Descend />}
-            tip="Open sort"
+            tip={sortTooltip}
           />
           <Stack anchor='top-right'>
             <Button
