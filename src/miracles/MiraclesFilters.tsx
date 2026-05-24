@@ -16,7 +16,8 @@ import {
 import { Close } from 'grommet-icons';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { setFilters } from '../redux/filters';
-import { colorMap, miracles } from '../data/miracles';
+import { miracles } from '../data/miraclesMetadata';
+import { colorMap } from '../data/utils';
 
 type Props = {
   setShowLayer: Dispatch<SetStateAction<boolean>>

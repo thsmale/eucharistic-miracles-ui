@@ -10,13 +10,13 @@ import {
 } from 'grommet';
 import { useAppSelector } from '../redux/hooks';
 import { Hero } from '../Hero';
+import { miracles} from '../data/miraclesMetadata';
 import {
   handleCountryFilters,
   handleCategoryFilters,
   handleSearchFilters,
   handleSort,
-  miracles,
-} from '../data/miracles';
+} from '../data/utils';
 import { MiraclesAccordion } from './MiraclesAccordion'
 import { MiraclesCards } from './MiraclesCards';
 import { MiraclesDataTable } from './MiraclesDataTable';

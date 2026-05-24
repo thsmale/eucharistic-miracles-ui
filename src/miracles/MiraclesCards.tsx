@@ -11,11 +11,16 @@ import {
 } from 'grommet';
 import { Location, Calendar } from "grommet-icons";
 import { useNavigate } from 'react-router';
+import { miraclesMetadataLength } from '../data/utils';
 import { type MiracleMetadata } from '../data/types';
 
 export const MiraclesCards = () => {
   return (
-    <Cards size='medium' margin={{ bottom: 'medium' }} step={200}>
+    <Cards
+      margin={{ bottom: 'medium' }}
+      size='medium'
+      step={miraclesMetadataLength}
+    >
       {datum => (
         <Card
           key={datum.path}

@@ -4,7 +4,7 @@ import {
   Text,
 } from 'grommet';
 import { useNavigate } from 'react-router';
-import { colorMap } from '../data/miracles';
+import { colorMap, miraclesMetadataLength } from '../data/utils';
 
 export const MiraclesDataTable = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ export const MiraclesDataTable = () => {
         }}
         primaryKey={'path'}
         sortable={false}
-        step={200}
+        step={miraclesMetadataLength}
         verticalAlign={{ body : 'top' }}
       />
     </Box>

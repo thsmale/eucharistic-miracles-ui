@@ -9,7 +9,7 @@ import {
 import { useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setIndexes, setCountries } from '../redux/accordion';
-import { handleGroupSort } from '../data/miracles';
+import { handleGroupSort } from '../data/utils';
 import {
   type MiracleMetadata,
   type MiracleMetadataGroupByCountry,
