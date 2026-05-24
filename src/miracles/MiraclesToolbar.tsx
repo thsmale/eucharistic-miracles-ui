@@ -117,7 +117,7 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
         />
       </Box>
       <Box direction='row'>
-        <Box direction='row' align='center' margin={{ bottom: size === 'small' ? 'large': undefined }}>
+        <Box direction='row' align='center'>
           <DropButton
             dropContent={
               <Box pad='small'>
@@ -181,6 +181,8 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
             </Box>
           )}
         </Box>
+      </Box>
+      <Box margin={{ bottom: size === 'small' ? 'large': undefined }}>
         <ToggleGroup
           onToggle={({ value }) => {
             if (value === undefined || Array.isArray(value)) {
