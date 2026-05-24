@@ -1,5 +1,6 @@
 import {
   useContext,
+  useEffect,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
@@ -97,6 +98,12 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
     dispatch(setSearchValue(event.target.value));
   }
   const debounceOnChange = debounce(searchInputOnChange, 250);
+
+  useEffect(() => {
+    // Display Accordion view by default for mobile device
+    if (isMobile)
+      dispatch(setToggleGroup('accordion'))
+  }, [isMobile, dispatch])
 
   return (
     <Box direction={direction} gap={direction === 'column' ? 'medium' : undefined}>
