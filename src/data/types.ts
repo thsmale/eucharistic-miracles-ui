@@ -1,3 +1,4 @@
+// Types for MiracleMetadata
 type MiracleMetadata = {
   country: string;
   city: string;
@@ -8,6 +9,11 @@ type MiracleMetadata = {
   path: string;
 }
 
+type MiracleMetadataGroupByCountry = {
+  [country: string]: MiracleMetadata[];
+}
+
+// Types for complete Miracle data object
 type MiracleImage = {
   caption: string;
   path: string;
@@ -51,5 +57,6 @@ type Miracle = {
 
 export type {
   MiracleMetadata,
+  MiracleMetadataGroupByCountry,
   Miracle,
 }

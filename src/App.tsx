@@ -17,6 +17,11 @@ const theme = {
       extend: `transition: all 0.2s ease-in-out;`,
     },
   },
+  list: {
+    item: {
+      border: false,
+    }
+  }
 };
 
 function App() {

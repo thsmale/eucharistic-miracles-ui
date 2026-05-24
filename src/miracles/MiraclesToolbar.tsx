@@ -25,6 +25,7 @@ import {
   Map,
   Search,
   Table,
+  UnorderedList,
 } from 'grommet-icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearFilters } from '../redux/filters';
@@ -55,6 +56,11 @@ const originalToggleOptions: ToggleOption[] = [
     icon: <AppsRounded a11yTitle='Card view' />,
     value: 'card',
     tip: 'Card',
+  },
+  {
+    icon: <UnorderedList a11yTitle='Accordion view' />,
+    value: 'accordion',
+    tip: 'Accordion',
   },
 ]
 

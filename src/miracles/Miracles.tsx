@@ -17,6 +17,7 @@ import {
   handleSort,
   miracles,
 } from '../data/miracles';
+import { MiraclesAccordion } from './MiraclesAccordion'
 import { MiraclesCards } from './MiraclesCards';
 import { MiraclesDataTable } from './MiraclesDataTable';
 import { MiraclesFilters } from './MiraclesFilters';
@@ -61,6 +62,7 @@ export const MiracleList = () => {
               { toggleGroupValue === 'table' && <MiraclesDataTable /> }
               { toggleGroupValue === 'map' && <MiraclesMap miracles={data}/> }
               { toggleGroupValue === 'card' && <MiraclesCards /> }
+              { toggleGroupValue === 'accordion' && <MiraclesAccordion miracles={data}/> }
             </Data>
             {showLayer && (
               <MiraclesFilters setShowLayer={setShowLayer}/>

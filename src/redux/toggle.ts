@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-type allowedToggleValues = 'table' | 'map' | 'card';
+type allowedToggleValues = 'table' | 'map' | 'card' | 'accordion';
 
 interface ToggleState {
   value: allowedToggleValues,

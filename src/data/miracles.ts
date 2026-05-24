@@ -1,6 +1,7 @@
 import Fuse from 'fuse.js';
 import {
-  type MiracleMetadata
+  type MiracleMetadata,
+  type MiracleMetadataGroupByCountry,
 } from './types'
 import { type SortState } from '../redux/sort';
 
@@ -91,6 +92,25 @@ const handleSort = (miracles: MiracleMetadata[], sort: SortState) => {
     // property must be equal
     return 0;
   });
+}
+
+/**
+ * If sort by country, then sort those by asc/desc
+ * Otherwise, countries will be sorted by asc
+ * Then each AccordionPanel will be sorted by city, year, categories by asc/desc
+ * Currently, assuming only used by MiraclesAccordion
+ */
+const handleGroupSort = (miracles: MiracleMetadataGroupByCountry, sort: SortState) => {
+  const property = sort.property.toLowerCase() as "country" | "city" | "year" | "categories"
+  if (property === 'country') {
+    // Assuming sort by country was already done in Miracles
+    return miracles;
+  }
+  Object.keys(miracles).forEach(country => {
+    miracles[country] = handleSort(miracles[country], sort);
+  });
+  const sortedData = Object.fromEntries(Object.entries(miracles).sort());
+  return sortedData;
 }
 
 /**
@@ -1972,5 +1992,6 @@ export {
   handleCountryFilters,
   handleSearchFilters,
   handleSort,
+  handleGroupSort,
   miracles,
 }
