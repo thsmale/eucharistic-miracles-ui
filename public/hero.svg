@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <pattern id="catholic-tessellation-subtle" width="100" height="100" patternUnits="userSpaceOnUse">
+      
+      <rect width="100" height="100" fill="#e3e0cc"/>
+      
+      <g fill="none" stroke="#ccc9b6" stroke-width="0.3">
+        <circle cx="50" cy="50" r="48"/>
+        <circle cx="0" cy="0" r="48"/>
+        <circle cx="100" cy="0" r="48"/>
+        <circle cx="0" cy="100" r="48"/>
+        <circle cx="100" cy="100" r="48"/>
+      </g>
+
+      <g stroke="#b5b2a1" stroke-width="0.6" fill="none">
+        <path d="M50 30 L50 70 M30 50 L70 50"/>
+        <path d="M47 30 L53 30 M47 70 L53 70 M30 47 L30 53 M70 47 L70 53"/>
+      </g>
+
+      <g stroke="#ccc9b6" stroke-width="0.4" fill="none">
+        <path d="M0 10 L0 0 L10 0"/>
+        <path d="M90 0 L100 0 L100 10"/>
+        <path d="M0 90 L0 100 L10 100"/>
+        <path d="M100 90 L100 100 L90 100"/>
+      </g>
+
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#catholic-tessellation-subtle)"/>
+</svg>
+
