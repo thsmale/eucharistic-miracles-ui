@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   Box,
   Button,
@@ -6,12 +7,11 @@ import {
 } from 'grommet';
 import { useNavigate } from 'react-router';
 import { CircleInformation } from 'grommet-icons';
-import { useDeviceSelectors } from 'react-device-detect';
+import { DeviceContext } from './data/utils';
 
 export const AppHeader = () => {
+  const isMobile = useContext(DeviceContext);
   const navigate = useNavigate();
-  const [selectors] = useDeviceSelectors(window.navigator.userAgent);
-  const { isMobile } = selectors;
   let informationTooltip = 'About';
   if (isMobile) informationTooltip = '';
 

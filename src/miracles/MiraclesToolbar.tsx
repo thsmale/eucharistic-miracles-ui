@@ -1,6 +1,5 @@
 import {
   useContext,
-  useEffect,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
@@ -28,13 +27,13 @@ import {
   Table,
   UnorderedList,
 } from 'grommet-icons';
+import { debounce } from 'lodash';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearFilters } from '../redux/filters';
 import { setToggleGroup, type allowedToggleValues } from '../redux/toggle';
 import { setSort } from '../redux/sort';
 import { setSearchValue } from '../redux/search';
-import { useDeviceSelectors } from 'react-device-detect';
-import { debounce } from 'lodash';
+import { DeviceContext } from '../data/utils';
 
 interface ToggleOption {
   icon: ReactNode,
@@ -71,6 +70,7 @@ type Props = {
 
 export const MiraclesToolbar = ({ setShowLayer }: Props) => {
   const size = useContext(ResponsiveContext);
+  const isMobile = useContext(DeviceContext);
   const dispatch = useAppDispatch();
   const selectedCategories = useAppSelector(state => state.filters.categories); 
   const selectedCountries = useAppSelector(state => state.filters.countries);
@@ -80,8 +80,6 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
   const direction = size === 'small' ? 'column' : 'row';
   // Do not show a tool tip on touch screen, other wise tooltip dangles
   // isMobile is true for mobile or tablet
-  const [selectors] = useDeviceSelectors(window.navigator.userAgent);
-  const { isMobile } = selectors;
   let toggleOptions = originalToggleOptions;
   let numFilters = 0;
   if (selectedCategories.length > 0) numFilters += 1;
@@ -98,12 +96,6 @@ export const MiraclesToolbar = ({ setShowLayer }: Props) => {
     dispatch(setSearchValue(event.target.value));
   }
   const debounceOnChange = debounce(searchInputOnChange, 250);
-
-  useEffect(() => {
-    // Display Accordion view by default for mobile device
-    if (isMobile)
-      dispatch(setToggleGroup('accordion'))
-  }, [isMobile, dispatch])
 
   return (
     <Box direction={direction} gap={direction === 'column' ? 'medium' : undefined}>

@@ -2,6 +2,7 @@
  * A collection of functions used through out the app
  * Utility functions for anything to do with data
  */
+import { createContext } from 'react';
 import Fuse from 'fuse.js';
 import { miracles } from './miraclesMetadata';
 import {
@@ -9,6 +10,8 @@ import {
   type MiracleMetadataGroupByCountry,
 } from './types'
 import { type SortState } from '../redux/sort';
+
+const DeviceContext = createContext<boolean>(false)
 
 const colorMap: Record<string, string> = {
   "blood": "#FFB3B3",        // Fresh Rose: More vivid than light-critical, less harsh than red
@@ -140,6 +143,7 @@ const oddDateConversion: Record<string, number> = {
 }
 
 export {
+  DeviceContext,
   colorMap,
   getPath,
   handleCategoryFilters,
