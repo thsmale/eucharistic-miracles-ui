@@ -41,17 +41,20 @@ const theme = {
   page: {
     narrow: {
       width: {
-        min: '336px'
+        min: '336px',
+        max: 'large'
       }
     },
     wide: {
       width: {
-        min: '336px'
+        min: '336px',
+        max: 'xxlarge'
       }
     },
-    fill: {
+    full: {
       width: {
-        min: '336px'
+        min: '336px',
+        max: '100%'
       }
     },
   }
