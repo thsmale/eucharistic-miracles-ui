@@ -44,7 +44,7 @@ export const MiracleList = () => {
   return (
     <Box>
       <Hero />
-      <Page background='background-front' pad={{ bottom: 'xlarge' }} flex='grow'>
+      <Page background='background-front' pad={{ bottom: 'xlarge' }} kind='wide'>
         <PageContent gap='xlarge'>
           <PageHeader
             title="Miracles List"

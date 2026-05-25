@@ -17,12 +17,12 @@ export const ErrorOccurred = ({ title="", subtitle="" }: Props) => {
 
   return (
     <Page background='background-front' kind='narrow'>
-      <PageContent pad='medium'>
+      <PageContent>
         <PageHeader
           title={displayTitle}
           subtitle={displaySubtitle}
         />
-        <Box flex={false} align='start'>
+        <Box flex={false} align='start' pad={{ bottom: 'medium' }}>
           <Button
             href={window.location.href}
             label="Refresh page"
