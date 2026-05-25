@@ -53,7 +53,7 @@ function App() {
 
   return (
     <Grommet
-      full='min'
+      full
       theme={theme}
       options={{
         box: {
