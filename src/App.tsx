@@ -69,15 +69,7 @@ function App() {
   }, [isMobile, dispatch])
 
   return (
-    <Grommet
-      full='min'
-      theme={theme}
-      options={{
-        box: {
-          cssGap: true,
-        },
-      }}
-    >
+    <Grommet full='min' theme={theme}>
       <ErrorBoundary>
         <DeviceContext.Provider value={isMobile}>
           <AppHeader />
