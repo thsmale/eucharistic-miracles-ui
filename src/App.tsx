@@ -3,6 +3,7 @@ import {
   useState,
 } from 'react';
 import {
+  Box,
   Grommet,
 } from 'grommet';
 import { Outlet, ScrollRestoration } from 'react-router';
@@ -60,23 +61,33 @@ function App() {
   }, [selectors, dispatch])
 
   return (
-    <Grommet full='min' theme={theme}>
-      <ErrorBoundary>
-        <DeviceContext.Provider value={isMobile}>
-          <AppHeader />
-          <Outlet />
-        </DeviceContext.Provider>
-      </ErrorBoundary>
-      <ScrollRestoration
-        getKey={(location) => {
-          // For home page, return to previous position
-          if (location.pathname === '/') {
-            return location.pathname;
-          }
-          // All other pages, i.e miracles, scroll to top
-          return location.key;
-        }}
-      />
+    <Grommet
+      full='min'
+      theme={theme}
+      options={{
+        box: {
+          cssGap: true,
+        },
+      }}
+    >
+      <Box overflow="auto">
+        <ErrorBoundary>
+          <DeviceContext.Provider value={isMobile}>
+            <AppHeader />
+            <Outlet />
+          </DeviceContext.Provider>
+        </ErrorBoundary>
+        <ScrollRestoration
+          getKey={(location) => {
+            // For home page, return to previous position
+            if (location.pathname === '/') {
+              return location.pathname;
+            }
+            // All other pages, i.e miracles, scroll to top
+            return location.key;
+          }}
+        />
+      </Box>
     </Grommet>
   )
 }
