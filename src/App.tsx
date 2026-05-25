@@ -37,6 +37,23 @@ const theme = {
     item: {
       border: false,
     }
+  },
+  page: {
+    narrow: {
+      width: {
+        min: '336px'
+      }
+    },
+    wide: {
+      width: {
+        min: '336px'
+      }
+    },
+    fill: {
+      width: {
+        min: '336px'
+      }
+    },
   }
 };
 

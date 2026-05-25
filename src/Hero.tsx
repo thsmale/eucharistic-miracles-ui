@@ -8,7 +8,8 @@ import {
 
 export const Hero = () => {
   return (
-    <Page flex='grow'
+    <Page
+      kind='full'
       background={{
         image: `url("/hero.svg")`,
         size: 'cover',
