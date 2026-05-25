@@ -1,8 +1,5 @@
 import { useEffect } from 'react';
-import {
-  Box,
-  Grommet,
-} from 'grommet';
+import { Grommet } from 'grommet';
 import { Outlet, ScrollRestoration } from 'react-router';
 import { useDeviceSelectors } from 'react-device-detect';
 import { DeviceContext } from './data/utils';
@@ -73,7 +70,7 @@ function App() {
 
   return (
     <Grommet
-      full
+      full='min'
       theme={theme}
       options={{
         box: {
@@ -81,24 +78,22 @@ function App() {
         },
       }}
     >
-      <Box overflow="auto">
-        <ErrorBoundary>
-          <DeviceContext.Provider value={isMobile}>
-            <AppHeader />
-            <Outlet />
-          </DeviceContext.Provider>
-        </ErrorBoundary>
-        <ScrollRestoration
-          getKey={(location) => {
-            // For home page, return to previous position
-            if (location.pathname === '/') {
-              return location.pathname;
-            }
-            // All other pages, i.e miracles, scroll to top
-            return location.key;
-          }}
-        />
-      </Box>
+      <ErrorBoundary>
+        <DeviceContext.Provider value={isMobile}>
+          <AppHeader />
+          <Outlet />
+        </DeviceContext.Provider>
+      </ErrorBoundary>
+      <ScrollRestoration
+        getKey={(location) => {
+          // For home page, return to previous position
+          if (location.pathname === '/') {
+            return location.pathname;
+          }
+          // All other pages, i.e miracles, scroll to top
+          return location.key;
+        }}
+      />
     </Grommet>
   )
 }
