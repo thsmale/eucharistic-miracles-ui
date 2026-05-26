@@ -25,12 +25,6 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "mtls_certificates": [
-    {
-      "binding": "MY_CERT",
-      "certificate_id": "52faa7f3-36df-42b9-8219-d340e3ff9882"
-    }
-  ],
   "secrets": {
     "required": ["CDN_URL", "AUTH_SECRET"],
   }
