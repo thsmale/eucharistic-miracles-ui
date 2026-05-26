@@ -8,7 +8,6 @@ export default {
     const { pathname }= new URL(request.url);
     if (pathname.startsWith("/json/") || pathname.startsWith("/images/")) {
       try {
-        return new Response(`${pathname}, ${environment.CDN_URL}`, { status: 200 });
         const url = new URL(pathname, environment.CDN_URL);
         const response = await environment.MY_CERT.fetch(url)
         
