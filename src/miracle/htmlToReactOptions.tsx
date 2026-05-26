@@ -13,8 +13,6 @@ import {
 } from 'html-react-parser';
 import { getPath } from '../data/utils';
 
-const cdnUrl = import.meta.env.VITE_API_CDN_URL;
-
 /**
  * this will convert html from the backend into React code
  * intro, overview, captions are expected to contain html
@@ -71,7 +69,7 @@ export const htmlToReactOptions: HTMLReactParserOptions = {
         <Image
           alt={alt}
           fit="contain"
-          src={`${cdnUrl}/images/${src}`}
+          src={`/images/${src}`}
         />
       )
     }

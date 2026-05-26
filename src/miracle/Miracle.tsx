@@ -19,8 +19,6 @@ import { MiracleResources } from './MiracleResources';
 import { MiracleFooter } from './MiracleFooter';
 import { htmlToReactOptions } from './htmlToReactOptions';
 
-const cdnUrl = import.meta.env.VITE_API_CDN_URL;
-
 export const Miracle = () => {
   const location = useLocation();
   const [miracle, setMiracle] = useState<MiracleType | null>(null);
@@ -37,7 +35,7 @@ export const Miracle = () => {
          * if a user just types in a url like a/b/c we will try to find the path based off the country, city, year provided
          */
         const path = location.state?.path || getPath(location.pathname);
-        const response = await fetch(`${cdnUrl}/json/${path}`);
+        const response = await fetch(`/json/${path}`);
         if (response.status === 404) {
           console.error(`Received 404 when fetching miracle ${path}`)
           setErrorType(1);
