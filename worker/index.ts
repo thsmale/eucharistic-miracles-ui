@@ -7,6 +7,7 @@ export default {
     const url = new URL(request.url);
     console.log({ url });
     if (url.pathname.startsWith("/json/") || url.pathname.startsWith("/images/")) {
+      return new Response(JSON.stringify({ 'hello': 'world' }), { status: 404 });
       return await environment.MY_CERT.fetch(url)
     }
     return new Response(null, { status: 404 });
