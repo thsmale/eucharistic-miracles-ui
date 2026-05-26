@@ -32,6 +32,6 @@
     }
   ],
   "secrets": {
-    "required": ["CDN_URL"],
+    "required": ["CDN_URL", "AUTH_SECRET"],
   }
 }

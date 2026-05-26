@@ -1,6 +1,7 @@
 interface Env {
   MY_CERT: Fetcher;
   CDN_URL: string,
+  AUTH_SECRET: string,
 }
 
 export default {
@@ -9,7 +10,9 @@ export default {
     if (pathname.startsWith("/json/") || pathname.startsWith("/images/")) {
       try {
         const url = new URL(pathname, environment.CDN_URL);
-        const response = await environment.MY_CERT.fetch(url)
+        const response = await fetch(url, {
+          headers: { 'x-auth': environment.AUTH_SECRET }
+        });
         
         if (!response.ok) {
           return new Response(`Worker failed with ${response.status}`, { status: 503 });
