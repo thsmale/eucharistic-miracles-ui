@@ -4,7 +4,11 @@
   "main": "worker/index.ts",
   "compatibility_date": "2026-05-25",
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "logs": {
+      "invocation_logs": true,
+    }
   },
   "assets": {
     "directory": "./dist/",
