@@ -9,12 +9,12 @@ import {
 export const Hero = () => {
   return (
     <Page
-      kind='full'
       background={{
         image: `url("/hero.svg")`,
         size: 'cover',
         opacity: .75,
       }}
+      flex="grow"
     >
       <PageContent>
         <Box height={{ 'min': 'medium' }} justify='center'>
