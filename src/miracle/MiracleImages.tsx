@@ -13,8 +13,6 @@ type Props = {
   miracle: Miracle;
 }
 
-const cdnUrl = import.meta.env.VITE_API_CDN_URL;
-
 export const MiracleImages = ({ miracle }: Props) => {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -45,13 +43,13 @@ export const MiracleImages = ({ miracle }: Props) => {
                 className="blur-bg"
                 fallback="/picture-failed-to-load.svg"
                 fit="cover"
-                src={`${cdnUrl}/images/${img.path}`}
+                src={`/images/${img.path}`}
               />
               <Image
                 className="image-bg"
                 fallback="/picture-failed-to-load.svg"
                 fit="cover"
-                src={`${cdnUrl}/images/${img.path}`}
+                src={`/images/${img.path}`}
               />
             </Box>
           ))}

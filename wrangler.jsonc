@@ -1,14 +1,31 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eucharistic-miracles-ui",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-05-25",
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "logs": {
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    }
   },
   "assets": {
-    "not_found_handling": "single-page-application"
+    "directory": "./dist/",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/json/*",
+      "/images/*",
+    ]
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "secrets": {
+    "required": ["CDN_URL", "AUTH_SECRET"],
+  }
 }
