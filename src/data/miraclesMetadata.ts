@@ -531,7 +531,7 @@ const miracles: MiracleMetadata[] = [
         51.78630834478586
       ]
     ],
-    "endpoint": "/Germany/Kranenburg,%20District%20of%20Kleve/1280",
+    "endpoint": "/Germany/Kranenburg%2C%20District%20of%20Kleve/1280",
     "path": "germany/kranenburg_district_of_kleve.json"
   },
   {
@@ -732,7 +732,7 @@ const miracles: MiracleMetadata[] = [
         8.9813915337447
       ]
     ],
-    "endpoint": "/India/Archdiocese%20of%20Trivandrum/May%205,%202001",
+    "endpoint": "/India/Archdiocese%20of%20Trivandrum/May%205%2C%202001",
     "path": "india/chirattakonam.json"
   },
   {
@@ -1320,7 +1320,7 @@ const miracles: MiracleMetadata[] = [
         17.56772407180631
       ]
     ],
-    "endpoint": "/Mexico/Tixtla/October%2021,%202006/part1",
+    "endpoint": "/Mexico/Tixtla/October%2021%2C%202006/part1",
     "path": "mexico/tixtla_1.json"
   },
   {
@@ -1338,7 +1338,7 @@ const miracles: MiracleMetadata[] = [
         17.56772407180631
       ]
     ],
-    "endpoint": "/Mexico/Tixtla/October%2021,%202006/part2",
+    "endpoint": "/Mexico/Tixtla/October%2021%2C%202006/part2",
     "path": "mexico/tixtla_2.json"
   },
   {
@@ -1440,7 +1440,7 @@ const miracles: MiracleMetadata[] = [
         53.40595947770447
       ]
     ],
-    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part1",
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012%2C%202008/part1",
     "path": "poland/sokółka_1.json"
   },
   {
@@ -1458,7 +1458,7 @@ const miracles: MiracleMetadata[] = [
         53.40595947770447
       ]
     ],
-    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part2",
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012%2C%202008/part2",
     "path": "poland/sokółka_2.json"
   },
   {
@@ -1475,7 +1475,7 @@ const miracles: MiracleMetadata[] = [
         53.40595947770447
       ]
     ],
-    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012,%202008/part3",
+    "endpoint": "/Poland/Sok%C3%B3%C5%82ka/October%2012%2C%202008/part3",
     "path": "poland/sokółka_3.json"
   },
   {
@@ -1856,7 +1856,7 @@ const miracles: MiracleMetadata[] = [
         7.460110518352143
       ]
     ],
-    "endpoint": "/Venezuela/Betania/December%208,%201991",
+    "endpoint": "/Venezuela/Betania/December%208%2C%201991",
     "path": "venezuela/betania.json"
   }
 ]
